@@ -23,6 +23,11 @@ case "$choice" in
             rm .vimrc;
         fi
         ln -s $DIR/.vimrc .vimrc;
+        if [ -d .vim ];
+        then
+            rm -rf .vim;
+        fi
+        ln -s $DIR/.vim .vim;
         
         echo "Linking Git...";
         if [ -f .gitconfig ];
