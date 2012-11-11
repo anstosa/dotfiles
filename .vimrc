@@ -1,28 +1,39 @@
-syntax enable
+syntax on
+filetype on
+filetype plugin on  
+set number
+
 set background=dark
 colorscheme solarized
-filetype on
-filetype plugin on
-set number
-set ts=4
-set nowrap
-set softtabstop=4
-set expandtab
-set shiftwidth=4
-set autoindent
-set smartindent
-set pastetoggle=<F2>
-" search
-set ignorecase
-set smartcase
-set incsearch
+
+" leader
+let mapleader = ","
+let g:mapleader = ","
+
+" tabs
+map <leader>tn :tabnew<cr>
+map <leader>to :tabonly<cr>
+map <leader>tc :tabclose<cr>
+map <leader>tm :tabmove 
+map <leader>t<leader> :tabnext 
 
 " backup
 set backup
 set backupdir=$HOME/.vim/backups
 set directory=$HOME/.vim/swaps
 
-" tabs
-map <C-o> :tabnext<CR>
-map <C-i> :tabprevious<CR>
-map t :tabnew
+" indenting
+set tabstop=4
+set softtabstop=4
+set expandtab
+set shiftwidth=4
+set autoindent
+set smartindent
+
+" search
+set ignorecase
+set smartcase
+set incsearch
+
+" plugins
+set runtimepath^=~/.vim/bundle/ctrlp.vim

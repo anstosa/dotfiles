@@ -2,3 +2,16 @@
 *.swp
 *~
 .netrwhist
+
+# Python
+*.pyc
+
+# Java
+*.jar
+*.zip
+*.war
+target/
+
+# Eclipse
+.project
+.classpath

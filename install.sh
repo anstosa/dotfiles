@@ -10,12 +10,12 @@ case "$choice" in
         echo "Moving to Home directory...";
         cd ~;
         
-        echo "Linking bash...";
-        if [ -f .bashrc ];
+        echo "Linking zsh...";
+        if [ -f .zshrc ];
         then
-            rm .bashrc;
+            rm .zshrc;
         fi
-        ln -s $DIR/.bashrc .bashrc;
+        ln -s $DIR/.zshrc .zshrc;
         
         echo "Linking vim...";
         if [ -f .vimrc ];
@@ -23,6 +23,11 @@ case "$choice" in
             rm .vimrc;
         fi
         ln -s $DIR/.vimrc .vimrc;
+        if [ -d .vim ];
+        then
+            rm -rf .vim;
+        fi
+        ln -s $DIR/.vim .vim;
         
         echo "Linking Git...";
         if [ -f .gitconfig ];
@@ -39,7 +44,7 @@ case "$choice" in
         ln -s $DIR/.tmux.conf .tmux.conf;
         
         echo "Hotswapping bash...";
-        source .bashrc;
+        source .zshrc;
         
         echo "Done! Exiting."
     ;;
