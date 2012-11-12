@@ -45,9 +45,6 @@ alias tmux='tmux -2'
 alias patched='cp ~/.custom/tmux-powerline/config.sh.patched ~/.custom/tmux-powerline/config.sh'
 alias unpatched='cp ~/.custom/tmux-powerline/config.sh.unpatched ~/.custom/tmux-powerline/config.sh'
 
-# Update Forum
-alias uf='sudo cp ~/forum/htdocs/const/* /usr/local/lib/python2.7/dist-packages/askbot/const/; sudo cp ~/forum/htdocs/models/* /usr/local/lib/python2.7/dist-packages/askbot/models/; sudo cp ~/forum/htdocs/views/* /usr/local/lib/python2.7/dist-packages/askbot/views/; echo "Forum source updated. Server restart my be necessary."'
-
 # Prompt
 PS1="\[$Black$On_White\]\W \$\[$Color_Off\] "
 PS1="$PS1"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#I_#P") "$PWD")'
