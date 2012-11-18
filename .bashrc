@@ -48,3 +48,6 @@ alias unpatched='cp ~/.custom/tmux-powerline/config.sh.unpatched ~/.custom/tmux-
 # Prompt
 PS1="\[$Black$On_White\]\W \$\[$Color_Off\] "
 PS1="$PS1"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#I_#P") "$PWD")'
+
+# Source local
+source ~/.bashrc_local
