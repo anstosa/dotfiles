@@ -1,7 +1,8 @@
 {
-	"auto_upgrade_last_run": 1353438760,
+	"auto_upgrade_last_run": 1353448739,
 	"installed_packages":
 	[
+		"BracketHighlighter",
 		"Format SQL",
 		"Package Control",
 		"PhpDoc",
