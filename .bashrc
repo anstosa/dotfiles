@@ -39,6 +39,7 @@ alias gc='git commit'
 alias gd='git diff'
 alias go='git checkout '
 alias gh='git hist '
+alias gad='git ls-files --deleted | xargs git rm'
 
 # TMUX
 alias tmux='tmux -2'
