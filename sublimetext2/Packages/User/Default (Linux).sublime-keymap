@@ -1,0 +1,8 @@
+[
+	{ "keys": ["super+k", "super+s"], "command": "format_sql" },
+
+	{ "keys": ["ctrl+tab"], "command": "next_view" },
+	{ "keys": ["ctrl+shift+tab"], "command": "prev_view" },
+	{ "keys": ["ctrl+pagedown"], "command": "next_view_in_stack" },
+	{ "keys": ["ctrl+pageup"], "command": "prev_view_in_stack" }
+]

@@ -1,0 +1,10 @@
+{
+	"auto_upgrade_last_run": 1351483983,
+	"installed_packages":
+	[
+		"Format SQL",
+		"Package Control",
+		"Pretty JSON",
+		"SublimeLinter"
+	]
+}
