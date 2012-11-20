@@ -48,3 +48,6 @@ alias gpp="git push"
 # Updating
 alias -r update="sudo pacman -Syu"
 alias pacman="sudo pacman"
+
+# Source local
+source ~/.zshrc_local
