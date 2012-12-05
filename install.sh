@@ -54,14 +54,10 @@ case "$choice" in
             exit 1
         fi
 
-        rm -r "$SUBLIME_FOLDER/Installed Packages"
         rm -r "$SUBLIME_FOLDER/Packages"
-        rm -r "$SUBLIME_FOLDER/Pristine Packages"
 
         echo "Creating symbolic links to dropbox folders"
-        ln -s "$DIR/sublimetext2/Pristine Packages" "$SUBLIME_FOLDER"
-        ln -s "$DIR/sublimetext2/Packages" "$SUBLIME_FOLDER"
-        ln -s "$DIR/sublimetext2/Installed Packages" "$SUBLIME_FOLDER"
+        ln -s "$DIR/sublimetext2/Packages" "$SUBLIME_FOLDER/Packages"
         
         echo "Hotswapping bash...";
         source .zshrc;
