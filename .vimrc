@@ -7,6 +7,10 @@ filetype on
 filetype plugin on
 set nowrap
 
+" Column max
+set textwidth=80
+set colorcolumn=+1
+
 " Keybindings
 set pastetoggle=<F2>
 let mapleader = ","
