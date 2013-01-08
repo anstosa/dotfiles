@@ -20,9 +20,6 @@ precmd () {
     PROMPT="$PS1"`[ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#I_#P") "$PWD"`
 }
 
-# SSH
-alias aws="ssh -i ~/.ssh/capstone.pem ec2-user@ec2-174-129-49-253.compute-1.amazonaws.com"
-
 # Navigation
 alias -r c="clear & ls -lha"
 alias -r ..="cd .."
