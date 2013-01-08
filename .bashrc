@@ -1,5 +1,15 @@
 # ~/.bashrc
 
+# History
+HISTSIZE=1000
+HISTFILESIZE=2000
+HISTCONTROL=ignoredups:ignorespace
+shopt -s histappend
+
+# check the window size after each command and, if necessary,
+# update the values of LINES and COLUMNS.
+shopt -s checkwinsize
+
 # Reset
 Color_Off='\e[0m'       # Text Reset
 
@@ -25,9 +35,10 @@ On_White='\e[47m'       # White
 
 alias :q='exit'
 alias ls='ls -a --color=auto'
-alias ll='ls -l'
+alias ll='ls -alF'
 alias up='cd ../'
 alias clear='clear;ls;'
+alias grep='grep --color=auto'
 
 # Git
 alias gs='git status '
