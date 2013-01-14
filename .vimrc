@@ -1,6 +1,4 @@
 " Colors & Display
-" set background=dark
-" colorscheme solarized
 syntax enable
 set number
 filetype on
