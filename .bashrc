@@ -34,7 +34,8 @@ On_Cyan='\e[46m'        # Cyan
 On_White='\e[47m'       # White
 
 alias :q='exit'
-alias ls='ls -a --color=auto'
+alias ls='ls --color=auto'
+alias la='ls -a'
 alias ll='ls -alF'
 alias up='cd ../'
 alias clear='clear;ls;'
@@ -59,6 +60,9 @@ alias unpatched='cp ~/.custom/tmux-powerline/config.sh.unpatched ~/.custom/tmux-
 # Prompt
 PS1="\[$Black$On_White\]\W \$\[$Color_Off\] "
 PS1="$PS1"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#I_#P") "$PWD")'
+
+# Source scripts
+source ~/.custom/cdhist.sh
 
 # Source local
 source ~/.bashrc_local
