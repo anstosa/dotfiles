@@ -25,6 +25,7 @@ alias -r c="clear & ls -lha"
 alias -r ..="cd .."
 alias ls="ls --color=auto"
 alias la="ls -lha"
+alias clear="clear & ls"
 
 # Applications
 alias mongod="mongod -f /etc/mongodb.conf"
