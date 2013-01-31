@@ -61,6 +61,11 @@ alias unpatched='cp ~/.custom/tmux-powerline/config.sh.unpatched ~/.custom/tmux-
 PS1="\[$Black$On_White\]\W \$\[$Color_Off\] "
 PS1="$PS1"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#I_#P") "$PWD")'
 
+# Start TMUX
+if which tmux 2>&1 >/dev/null; then
+    test -z "$TMUX" && (tmux attach || tmux new-session)
+fi
+
 # Source scripts
 source ~/.custom/cdhist.sh
 
