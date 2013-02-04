@@ -28,6 +28,8 @@ case "$choice" in
             rm -rf .vim;
         fi
         ln -s $DIR/.vim .vim;
+        mkdir ~/.vim/swaps
+        mkdir ~/.vim/backups
         
         echo "Linking Git...";
         if [ -f .gitconfig ];
@@ -43,22 +45,6 @@ case "$choice" in
         fi
         ln -s $DIR/.tmux.conf .tmux.conf;
 
-        echo "Linking Sublime Text 2..."
-        # Location of sublime settings on this computer
-        if [ `uname` = "Darwin" ];then
-            SUBLIME_FOLDER="$HOME/Library/Application Support/Sublime Text 2"
-        elif [ `uname` = "Linux" ];then
-            SUBLIME_FOLDER="$HOME/.config/sublime-text-2"
-        else
-            echo "Unknown operating system"
-            exit 1
-        fi
-
-        rm -r "$SUBLIME_FOLDER/Packages"
-
-        echo "Creating symbolic links to dropbox folders"
-        ln -s "$DIR/sublimetext2/Packages" "$SUBLIME_FOLDER/Packages"
-        
         echo "Hotswapping bash...";
         source .zshrc;
         
