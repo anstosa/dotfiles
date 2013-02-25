@@ -44,6 +44,7 @@ alias grep='grep --color=auto'
 # Git
 alias gs='git status '
 alias ga='git add '
+alias gaa='git add -A'
 alias gb='git branch '
 alias gc='git commit'
 alias gd='git diff'
@@ -51,6 +52,8 @@ alias go='git checkout '
 alias gh='git hist '
 alias gl='git log '
 alias gad='git ls-files --deleted | xargs git rm'
+alias gp='git pull '
+alias gpp='git push '
 
 # TMUX
 alias tmux='tmux -2'
