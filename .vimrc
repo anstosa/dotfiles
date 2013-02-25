@@ -5,8 +5,10 @@ filetype on
 filetype plugin on
 set nowrap
 
-" Column max
-set colorcolumn=80
+" Column max if supported
+if v:version >= 730
+    set colorcolumn=80
+endif
 
 " Keybindings
 set pastetoggle=<F2>
