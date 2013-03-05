@@ -1,20 +1,23 @@
 syntax on
 filetype on
-filetype plugin on  
+filetype plugin on
 set number
 
 set background=dark
-colorscheme solarized
 
 " leader
 let mapleader = ","
 let g:mapleader = ","
 
+" some shortcuts
+:nmap \n :setlocal number!<CR>
+:nmap \p :set paste!<CR>
+
 " tabs
 map <leader>tn :tabnew<cr>
 map <leader>to :tabonly<cr>
 map <leader>tc :tabclose<cr>
-map <leader>tm :tabmove 
+map <leader>tm :tabmove
 map <leader>tt :tabnext<cr>
 
 " backup
@@ -34,6 +37,3 @@ set smartindent
 set ignorecase
 set smartcase
 set incsearch
-
-" plugins
-set runtimepath^=~/.vim/bundle/ctrlp.vim

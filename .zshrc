@@ -28,7 +28,6 @@ alias la="ls -lha"
 alias clear="clear & ls"
 
 # Applications
-alias mongod="mongod -f /etc/mongodb.conf"
 alias tmux="tmux -2"
 
 # Computer control
@@ -43,12 +42,9 @@ alias gc="git commit -m "
 alias gs="git status"
 alias gpp="git push"
 
-# Source local
-source ~/.zshrc_local
-
 # Functions
 
 # (f)ind by (n)ame
-# usage: fn foo 
+# usage: fn foo
 # to find all files containing 'foo' in the name
 function fn() { ls **/*$1* }

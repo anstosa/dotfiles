@@ -1,8 +1,8 @@
 [user]
-	name = Tony Grosinger
-	email = tony@grosinger.net
+    name = Tony Grosinger
+    email = tony@grosinger.net
 [color]
-	ui = auto
+    ui = auto
 [alias]
   co = checkout
   ci = commit
@@ -12,4 +12,4 @@
   type = cat-file -t
   dump = cat-file -p
 [push]
-	default = simple
+    default = simple

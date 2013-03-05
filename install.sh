@@ -16,6 +16,8 @@ case "$choice" in
             rm .zshrc;
         fi
         ln -s $DIR/.zshrc .zshrc;
+
+	touch $DIR/.zshrc_local
         
         echo "Linking vim...";
         if [ -f .vimrc ];
@@ -44,8 +46,13 @@ case "$choice" in
             rm .tmux.conf;
         fi
         ln -s $DIR/.tmux.conf .tmux.conf;
+	if [ -d .tmux-powerline ];
+        then
+            rm -rf .tmux-powerline;
+        fi
+        ln -s $DIR/.tmux-powerline .tmux-powerline;
 
-        echo "Hotswapping bash...";
+        echo "Hotswapping zshrc...";
         source .zshrc;
         
         echo "Done! Exiting."

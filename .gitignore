@@ -15,3 +15,6 @@ target/
 # Eclipse
 .project
 .classpath
+
+# Pycharm
+.idea/
