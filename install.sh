@@ -17,8 +17,6 @@ case "$choice" in
         fi
         ln -s $DIR/.zshrc .zshrc;
 
-	touch $DIR/.zshrc_local
-        
         echo "Linking vim...";
         if [ -f .vimrc ];
         then
