@@ -49,6 +49,12 @@ alias gc="git commit -m "
 alias gs="git status"
 alias gpp="git push"
 
+# Autoenv
+if [ -d ~/.autoenv ];
+then
+    source ~/.autoenv/activate.sh
+fi
+
 # Functions
 
 # (f)ind by (n)ame
