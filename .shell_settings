@@ -31,4 +31,10 @@ fi
 # (f)ind by (n)ame
 # usage: fn foo
 # to find all files containing 'foo' in the name
-function fn() { ls **/*$1* }
+function fn() { 
+	if [ $# -eq 2 ]; then
+		sudo find $1 -name $2
+	elif [ $# -eq 1 ]; then
+		find `pwd` -name $1
+	fi
+}
