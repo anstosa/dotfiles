@@ -1,7 +1,10 @@
 # Navigation
+if [[ ! "$OSTYPE" == darwin* ]];
+then 
+    alias ls="ls --color=auto"
+fi
 alias c="clear & ls"
 alias ..="cd .."
-alias ls="ls --color=auto"
 alias la="ls -lha"
 
 # Applications
