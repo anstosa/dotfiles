@@ -27,37 +27,4 @@ precmd () {
     PROMPT="$PS1"`[ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#I_#P") "$PWD"`
 }
 
-# Navigation
-alias -r c="clear & ls -lha"
-alias -r ..="cd .."
-alias ls="ls --color=auto"
-alias la="ls -lha"
-alias clear="clear & ls"
-
-# Applications
-alias tmux="tmux -2"
-
-# Computer control
-alias -r reboot="echo That would be bad..."
-alias -r shutdown="echo Don't do that"
-
-# Git
-alias gp="git pull"
-alias ga="git add "
-alias gl="git log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short"
-alias gc="git commit -m "
-alias gs="git status"
-alias gpp="git push"
-
-# Autoenv
-if [ -d ~/.autoenv ];
-then
-    source ~/.autoenv/activate.sh
-fi
-
-# Functions
-
-# (f)ind by (n)ame
-# usage: fn foo
-# to find all files containing 'foo' in the name
-function fn() { ls **/*$1* }
+source ~/.shell_settings

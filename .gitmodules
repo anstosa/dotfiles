@@ -1,0 +1,3 @@
+[submodule ".autoenv"]
+	path = .autoenv
+	url = git://github.com/kennethreitz/autoenv.git

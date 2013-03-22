@@ -1,59 +1,59 @@
 #!/bin/bash
 
-DIR="$( cd "$( dirname "$0" )" && pwd )"
+# Initialize any submodules
+git submodule init
+git submodule update
 
 echo "This will create symlinks and destroy any conflicting configs already in place.";
 read -p "Continue? [y/N] " choice
 
+# Helper function to remove old file and link the new one
+DIR="$( cd "$( dirname "$0" )" && pwd )"
+function linkFile() {
+    if [ -f $1 ]; then
+        rm $1;
+    elif [ -d $1 ]; then
+        rm -rf $1
+    fi
+    ln -s $DIR/$1 $1;
+}
+
+function createDirectory() {
+    if [ -d $1 ]; then
+        rm -rf $1
+    fi
+    
+    mkdir $1
+}
+
+# Perform the logic
 case "$choice" in 
   Y|y|yes )
         echo "Moving to Home directory...";
         cd ~;
         
-        echo "Linking zsh...";
-        if [ -f .zshrc ];
-        then
-            rm .zshrc;
-        fi
-        ln -s $DIR/.zshrc .zshrc;
+        echo "Linking shell configs...";
+        linkFile .zshrc
+        linkFile .bashrc
+        linkFile .shell_settings
 
         echo "Linking vim...";
-        if [ -f .vimrc ];
-        then
-            rm .vimrc;
-        fi
-        ln -s $DIR/.vimrc .vimrc;
-        if [ -d .vim ];
-        then
-            rm -rf .vim;
-        fi
-        ln -s $DIR/.vim .vim;
-        mkdir ~/.vim/swaps
-        mkdir ~/.vim/backups
+        linkFile .vimrc
+        createDirectory ~/.vim
+        createDirectory ~/.vim/swaps
+        createDirectory ~/.vim/backups
         
         echo "Linking Git...";
-        if [ -f .gitconfig ];
-        then
-            rm .gitconfig;
-        fi
-        ln -s $DIR/.gitconfig .gitconfig;
+        linkFile .gitconfig
         
         echo "Linking tmux...";
-        if [ -f .tmux.conf ];
-        then
-            rm .tmux.conf;
-        fi
-        ln -s $DIR/.tmux.conf .tmux.conf;
-	if [ -d .tmux-powerline ];
-        then
-            rm -rf .tmux-powerline;
-        fi
-        ln -s $DIR/.tmux-powerline .tmux-powerline;
+        linkFile .tmux.conf
+        linkFile .tmux-powerline
 
-        echo "Hotswapping zshrc...";
-        source .zshrc;
+        echo "Linking autoenv..."
+        linkFile .autoenv
         
-        echo "Done! Exiting."
+        echo "Done! Restart your shell to see changes"
     ;;
   * ) echo "Aborted!";;
 esac
