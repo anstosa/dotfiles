@@ -55,6 +55,9 @@ case "$choice" in
         echo "Linking autoenv..."
         linkFile .autoenv
 
+        echo "Linking inputrc..."
+        linkFile .inputrc
+
         echo "Installing jq (you might have to enter your password)..."
         chmod +x $DIR/jq
         sudo ln -s $DIR/jq /usr/bin/jq
