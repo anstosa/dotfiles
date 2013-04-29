@@ -51,6 +51,8 @@ alias gc='git commit'
 alias gd='git diff'
 alias go='git checkout '
 alias gh='git hist '
+alias gi='git update-index --assume-unchanged '
+alias gni='git update-index --no-assume-unchanged '
 alias gl='git log '
 alias gad='git ls-files --deleted | xargs git rm'
 alias gp='git pull '
@@ -58,16 +60,27 @@ alias gpp='git push '
 
 # TMUX
 alias tmux='tmux -2'
+alias ta='tmux attach -d -t'
+alias tn='unset TMUX; tmux; tmux source ~/.tmux.conf.nested'
 alias patched='cp ~/.custom/tmux-powerline/config.sh.patched ~/.custom/tmux-powerline/config.sh'
 alias unpatched='cp ~/.custom/tmux-powerline/config.sh.unpatched ~/.custom/tmux-powerline/config.sh'
+case ${TERM} in
+    screen*)
+        function title { TMUX_PANE_TITLE="$*"; }
+        function update_title { printf "\033]2;%s\033\\" "${1:-$TMUX_PANE_TITLE}"; }
+        TMUX_PANE_TITLE=$(ps -o comm $$ | tail -1)
+        PROMPT_COMMAND=${PROMPT_COMMAND:+$PROMPT_COMMAND; }'update_title'   
+        trap 'update_title "$BASH_COMMAND"' DEBUG
+        ;;
+esac
 
 # Prompt
 PS1="\[$Black$On_White\]\W \$\[$Color_Off\] "
 PS1="$PS1"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#I_#P") "$PWD")'
 
 # Start TMUX
-if which tmux 2>&1 >/dev/null; then
-    test -z "$TMUX" && (tmux attach || tmux new-session)
+if [[ ! $TERM =~ screen ]]; then
+    tmux new-session
 fi
 
 # Source scripts

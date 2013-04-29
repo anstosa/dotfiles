@@ -5,45 +5,38 @@ DIR="$( cd "$( dirname "$0" )" && pwd )"
 echo "This will create symlinks and destroy any conflicting configs already in place.";
 read -p "Continue? [y/N] " choice
 
+function makeLink() {
+    if [ -f $1 ]; then
+        rm $1;
+    elif [ -d $1 ]; then
+        rm -rf $1
+    fi
+    ln -s $DIR/$1 $1;
+}
+
 case "$choice" in 
   Y|y|yes )
         echo "Moving to Home directory...";
         cd ~;
         
         echo "Linking bash...";
-        if [ -f .bashrc ];
-        then
-            rm .bashrc;
-        fi
-        ln -s $DIR/.bashrc .bashrc;
+        makeLink .bashrc;
         
         echo "Linking vim...";
-        if [ -f .vimrc ];
-        then
-            rm .vimrc;
-        fi
-        ln -s $DIR/.vimrc .vimrc;
-        if [ -d .vim ];
-        then
-            rm -rf .vim;
-        fi
-        ln -s $DIR/.vim .vim;
+        makeLink .vimrc
+        makeLink .vim
         
         echo "Linking Git...";
-        if [ -f .gitconfig ];
-        then
-            rm .gitconfig;
-        fi
-        ln -s $DIR/.gitconfig .gitconfig;
+        makeLink .gitconfig
         
         echo "Linking tmux...";
-        if [ -f .tmux.conf ];
-        then
-            rm .tmux.conf;
-        fi
-        ln -s $DIR/.tmux.conf .tmux.conf;
+        makeLink .tmux.conf
+        makeLink .tmux.conf.nested
+
+        echo "Linking inputrc..."
+        makeLink .inputrc
         
-        echo "Hotswapping bash...";
+        echo "Hotswapping bash config...";
         source .bashrc;
         
         echo "Done! Exiting."

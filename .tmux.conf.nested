@@ -1,0 +1,4 @@
+set status-justify "left"
+set status-left " "
+set status-right ""
+set status-bg colour237
