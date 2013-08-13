@@ -10,24 +10,17 @@ alias la="ls -lha"
 # Applications
 alias tmux="tmux -2"
 
+# Maven
+alias mvnc="mvn clean"
+alias mvnp="mvn clean package"
+alias mvni="mvn clean install"
+alias mvna="mvn assembly:assembly"
+alias mvnd="mvn clean dependency:copy-dependencies"
+
 # Computer information & control
 alias df="df -h"
 alias reboot="echo That would be bad..."
 alias shutdown="echo Don't do that"
-
-# Git
-alias gp="git pull"
-alias ga="git add "
-alias gl="git log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short"
-alias gc="git commit -m "
-alias gs="git status"
-alias gpp="git push"
-
-# Autoenv
-if [ -d ~/.autoenv ];
-then
-    source ~/.autoenv/activate.sh
-fi
 
 # Functions
 
