@@ -35,9 +35,7 @@ case "$choice" in
         cd ~;
         
         echo "Linking shell configs...";
-        linkFile .zshrc
         linkFile .bashrc
-        linkFile .shell_settings
 
         echo "Linking vim...";
         linkFile .vimrc
