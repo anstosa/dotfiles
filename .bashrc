@@ -1,3 +1,6 @@
+# Prompt
+PS1="\n[ \w ]--[\$(ls -1 | wc -l | sed 's: ::g') files]\n\h\$ "
+
 # Navigation
 if [[ ! "$OSTYPE" == darwin* ]];
 then 
@@ -40,3 +43,4 @@ function fn() {
 		find `pwd` -name $1
 	fi
 }
+
