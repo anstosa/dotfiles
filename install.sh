@@ -1,27 +1,22 @@
 #!/bin/bash
 
-# Initialize any submodules
-git submodule init
-git submodule update
+# Make sure git is installed. Exit if it isn't
+if which git; then
+    echo "Please install git before continuing"
+    exit 1
+fi
 
-DIR="$( cd "$( dirname "$0" )" && pwd )"
-OS="$(lsb_release -si)"
+REPO_DIR="$( cd "$( dirname "$0" )" && pwd )"
 
-# Helper function to remove old file and link the new one
+# Remove a file if it exists then create a symlink to the one contained in ${REPO_DIR}
 function linkFile() {
-    if [ -f $1 ]; then
-        rm $1;
-    elif [ -d $1 ]; then
-        rm -rf $1
-    fi
-    ln -s $DIR/$1 $1;
+    if [ -e $1 ]; then rm -rf $1; fi
+    ln -s ${REPO_DIR}/$1 $1;
 }
 
+# Create a directory named by first parameter. Delete directory first if it already exists.
 function createDirectory() {
-    if [ -d $1 ]; then
-        rm -rf $1
-    fi
-    
+    if [ -d $1 ]; then rm -rf $1; fi
     mkdir $1
 }
 
@@ -33,6 +28,13 @@ case "$choice" in
   Y|y|yes )
         echo "Moving to Home directory...";
         cd ~;
+
+        echo "Adding id_rsa.pub to authorized keys if necessary"
+        if [ ! -e ".ssh/authorized_keys" ] ; then
+            cp ${REPO_DIR}/.ssh/id_rsa.pub .ssh/authorized_keys
+        elif ! grep -q `cat ${REPO_DIR}/.ssh/id_rsa.pub` ".ssh/authorized_keys"; then
+            cat ${REPO_DIR}/.ssh/id_rsa.pub >> .ssh/authorized_keys
+        fi
         
         echo "Linking shell configs...";
         linkFile .bashrc
@@ -48,7 +50,6 @@ case "$choice" in
         
         echo "Linking tmux...";
         linkFile .tmux.conf
-        linkFile .tmux-powerline
 
         echo "Linking inputrc..."
         linkFile .inputrc
