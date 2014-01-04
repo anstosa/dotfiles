@@ -84,6 +84,18 @@ function performSetup() {
 if [ -f install.sh ]; then
     echo "Running in Mode 1: Already cloned repository"
     REPO_DIR="$( cd "$( dirname "$0" )" && pwd )"
+
+    echo "This will create symlinks and destroy any conflicting configs already in place.";
+    read -p "Continue? [y/N] " choice
+
+    # Perform the logic
+    case "$choice" in 
+        Y|y|yes )
+            performSetup ${HOME}
+            echo "Done! Restart your shell to see changes"
+        ;;
+        * ) echo "Aborted!";;
+    esac
 else
     echo "Running in Mode 2: Direct from Curl"
 
@@ -95,23 +107,15 @@ else
     fi
 
     # Clone the repository into current location using readonly url.
-    echo "Cloning dotfiles repository to ~/.dotfiles"
-    git clone https://github.com/tgrosinger/dotfiles.git ~/.dotfiles
-    REPO_DIR="~/.dotfiles"
+    echo "Cloning dotfiles repository to ${HOME}/.dotfiles"
+    if [ -d ${HOME}/.dotfiles ]; then
+        pushd ${HOME}/.dotfiles
+        git pull
+        popd
+    else
+        git clone https://github.com/tgrosinger/dotfiles.git ${HOME}/.dotfiles
+    fi
+    REPO_DIR="${HOME}/.dotfiles"
+    performSetup ${HOME}
+    echo "Done! Restart your shell to see changes"
 fi
-
-################################################################################
-# Main Operation
-################################################################################
-
-echo "This will create symlinks and destroy any conflicting configs already in place.";
-read -p "Continue? [y/N] " choice
-
-# Perform the logic
-case "$choice" in 
-    Y|y|yes )
-        performSetup ${HOME}
-        echo "Done! Restart your shell to see changes"
-    ;;
-    * ) echo "Aborted!";;
-esac
