@@ -49,7 +49,10 @@ function performSetup() {
     pushd ${home};
 
     echo "Adding id_rsa.pub to authorized keys if necessary"
-    if [ ! -e ".ssh/authorized_keys" ] ; then
+    if [ ! -d .ssh ]; then
+        mkdir .ssh
+    fi
+    if [ ! -e ".ssh/authorized_keys" ]; then
         cp ${REPO_DIR}/.ssh/id_rsa.pub .ssh/authorized_keys
     elif ! grep -q `cat ${REPO_DIR}/.ssh/id_rsa.pub` ".ssh/authorized_keys"; then
         cat ${REPO_DIR}/.ssh/id_rsa.pub >> .ssh/authorized_keys
