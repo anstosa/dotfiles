@@ -45,8 +45,8 @@ function performSetup() {
     fi
     home=${1}
 
-    echo "Moving to Home directory...";
-    pushd ${home};
+    echo "Moving to Home directory..."
+    pushd ${home} > /dev/null
 
     echo "Adding id_rsa.pub to authorized keys if necessary"
     if [ ! -d .ssh ]; then
@@ -54,29 +54,29 @@ function performSetup() {
     fi
     if [ ! -e ".ssh/authorized_keys" ]; then
         cp ${REPO_DIR}/.ssh/id_rsa.pub .ssh/authorized_keys
-    elif ! grep -q `cat ${REPO_DIR}/.ssh/id_rsa.pub` ".ssh/authorized_keys"; then
+    elif ! grep -f ${REPO_DIR}/.ssh/id_rsa.pub .ssh/authorized_keys; then
         cat ${REPO_DIR}/.ssh/id_rsa.pub >> .ssh/authorized_keys
     fi
     
-    echo "Linking shell configs...";
+    echo "Linking shell configs..."
     linkFile ".bashrc"
 
-    echo "Linking vim...";
+    echo "Linking vim..."
     linkFile ".vimrc"
     createDirectory ".vim"
     createDirectory ".vim/swaps"
     createDirectory ".vim/backups"
     
-    echo "Linking Git...";
+    echo "Linking Git..."
     linkFile ".gitconfig"
     
-    echo "Linking tmux...";
+    echo "Linking tmux..."
     linkFile ".tmux.conf"
 
     echo "Linking inputrc..."
     linkFile ".inputrc"
 
-    popd
+    popd > /dev/null
 }
 
 ################################################################################
@@ -110,12 +110,13 @@ else
     fi
 
     # Clone the repository into current location using readonly url.
-    echo "Cloning dotfiles repository to ${HOME}/.dotfiles"
     if [ -d ${HOME}/.dotfiles ]; then
-        pushd ${HOME}/.dotfiles
-        git pull
-        popd
+        echo "Updating dotfiles repository in ${HOME}/.dotfiles"
+        pushd ${HOME}/.dotfiles > /dev/null
+        git pull > /dev/null
+        popd > /dev/null
     else
+        echo "Cloning dotfiles repository to ${HOME}/.dotfiles"
         git clone https://github.com/tgrosinger/dotfiles.git ${HOME}/.dotfiles
     fi
     REPO_DIR="${HOME}/.dotfiles"
