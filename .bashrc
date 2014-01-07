@@ -13,6 +13,7 @@ alias rmr="rm -r"
 
 # Applications
 alias tmux="tmux -2"
+alias grep="grep --color=auto"
 
 # Maven
 alias mvnc="mvn clean"
