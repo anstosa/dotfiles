@@ -23,7 +23,7 @@
 DOTFILES_DIR="${HOME}/.dotfiles"
 GIT_REPO_BASE="https://github.com/tgrosinger/dotfiles"
 GIT_REPO="${GIT_REPO_BASE}.git"
-REPO_ZIP="${GIT_REPO_BASE}/archive/master.zip"
+REPO_TAR="${GIT_REPO_BASE}/archive/master.tar.gz"
 
 ################################################################################
 # Define functions
@@ -137,9 +137,8 @@ else
             rm -rf ${DOTFILES_DIR}
         fi
 
-        wget -O /tmp/dotfiles.zip ${REPO_ZIP}
-        unzip /tmp/dotfiles.zip -q -d ${DOTFILES_DIR}
-        rm /tmp/dotfiles.zip
+        mkdir ${DOTFILES_DIR}
+        curl -L ${REPO_TAR} | tar zx --strip 1 --directory ${DOTFILES_DIR}
     fi
     
     REPO_DIR="${DOTFILES_DIR}"
