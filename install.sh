@@ -137,7 +137,7 @@ else
             rm -rf ${DOTFILES_DIR}
         fi
 
-        wget -q -O /tmp/dotfiles.zip ${REPO_ZIP}
+        wget -O /tmp/dotfiles.zip ${REPO_ZIP}
         unzip /tmp/dotfiles.zip -q -d ${DOTFILES_DIR}
         rm /tmp/dotfiles.zip
     fi
