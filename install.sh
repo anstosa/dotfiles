@@ -15,10 +15,15 @@
 #
 #Change History:
 #  Date        Author         Description
-#  ----------  -------------- ------------------------------------
+#  ----------  -------------- ----------------------------------------------
+#  2014-01-13  agrosinger     Added support for using the ZIP instead of git
 #  2014-01-04  agrosinger     Updated to two mode operation
 ################################################################################
-  
+
+DOTFILES_DIR="${HOME}/.dotfiles"
+GIT_REPO_BASE="https://github.com/tgrosinger/dotfiles"
+GIT_REPO="${GIT_REPO_BASE}.git"
+REPO_ZIP="${GIT_REPO_BASE}/archive/master.zip"
 
 ################################################################################
 # Define functions
@@ -103,23 +108,41 @@ else
     echo "Running in Mode 2: Direct from Curl"
 
     # Make sure git is installed. Exit if it isn't.
-    if ! which git; then
-        echo "Please install git before continuing."
-        echo "Alternatively, download the files and run manually from https://github.com/tgrosinger/dotfiles/archive/master.zip"
-        exit 1
-    fi
-
-    # Clone the repository into current location using readonly url.
-    if [ -d ${HOME}/.dotfiles ]; then
-        echo "Updating dotfiles repository in ${HOME}/.dotfiles"
-        pushd ${HOME}/.dotfiles > /dev/null
-        git pull > /dev/null
-        popd > /dev/null
+    if which git; then
+        # Git is installed, clone the repository using read-only url
+        if [ -d ${DOTFILES_DIR} ]; then
+            
+            if [ -d ${DOTFILES_DIR}/.git ]; then
+                echo "Updating dotfiles repository in ${DOTFILES_DIR}"
+                pushd ${DOTFILES_DIR} > /dev/null
+                git pull > /dev/null
+                popd > /dev/null
+            else
+                echo "Cloning dotfiles repository to ${DOTFILES_DIR}"
+                rm -rf ${DOTFILES_DIR}
+                git clone ${GIT_REPO} ${DOTFILES_DIR}
+            fi
+        else
+            echo "Cloning dotfiles repository to ${DOTFILES_DIR}"
+            git clone ${GIT_REPO} ${DOTFILES_DIR}
+        fi
     else
-        echo "Cloning dotfiles repository to ${HOME}/.dotfiles"
-        git clone https://github.com/tgrosinger/dotfiles.git ${HOME}/.dotfiles
+        # Git is not installed, download the zip and extract
+        if ! which wget || ! which unzip; then
+            echo "You must have either git or wget and unzip installed. Please install one before continuing."
+            exit 1
+        fi
+
+        if [ -d ${DOTFILES_DIR} ]; then
+            rm -rf ${DOTFILES_DIR}
+        fi
+
+        wget -q -O /tmp/dotfiles.zip ${REPO_ZIP}
+        unzip /tmp/dotfiles.zip -q -d ${DOTFILES_DIR}
+        rm /tmp/dotfiles.zip
     fi
-    REPO_DIR="${HOME}/.dotfiles"
+    
+    REPO_DIR="${DOTFILES_DIR}"
     performSetup ${HOME}
     echo "Done! Restart your shell to see changes"
 fi
