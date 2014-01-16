@@ -128,8 +128,8 @@ else
         fi
     else
         # Git is not installed, download the zip and extract
-        if ! which wget || ! which unzip; then
-            echo "You must have either git or wget and unzip installed. Please install one before continuing."
+        if ! which wget; then
+            echo "You must have either git or wget installed. Please install one before continuing."
             exit 1
         fi
 
