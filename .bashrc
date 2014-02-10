@@ -7,9 +7,10 @@ then
     alias ls="ls --color=auto"
 fi
 alias c="clear"
-alias ..="cd .."
+alias ..="cd ..;"
 alias la="ls -lha"
 alias rmr="rm -r"
+alias please="sudo !!"
 
 # Applications
 alias tmux="tmux -2"
