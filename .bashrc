@@ -33,6 +33,12 @@ alias df="df -h"
 alias reboot="echo That would be bad..."
 alias shutdown="echo Don't do that"
 
+# Ruby
+if [[ -f ~/.rvm/scripts/rvm ]];
+then
+    source ~/.rvm/scripts/rvm
+fi
+
 # Functions
 
 # (f)ind by (n)ame
@@ -46,3 +52,5 @@ function fn() {
 	fi
 }
 
+
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
