@@ -6,11 +6,11 @@
 #Description:
 # This script can be run in two modes depending on the file structure of the
 # current working directory or the arguments passed to it.
-# 
+#
 # Mode 1: From within a cloned repository or downloaded snapshot with all files
 #         already present and ready to be symlinked
 #
-# Mode 2: Standalone or through Curl in which case all required files will be 
+# Mode 2: Standalone or through Curl in which case all required files will be
 #         downloaded automatically to `~/.dotfiles` before creating symlinks.
 #
 #Change History:
@@ -18,6 +18,7 @@
 #  ----------  -------------- ----------------------------------------------
 #  2014-01-13  agrosinger     Added support for using the ZIP instead of git
 #  2014-01-04  agrosinger     Updated to two mode operation
+#  2013-04-06  agrosinger     Adding Clojure profiles.clj
 ################################################################################
 
 DOTFILES_DIR="${HOME}/.dotfiles"
@@ -41,10 +42,10 @@ function createDirectory() {
     mkdir $1
 }
 
-# Perform the actual work of copying files and creating symlinks. 
+# Perform the actual work of copying files and creating symlinks.
 # Requires a home directory argument.
 function performSetup() {
-    if [ ${#} != 1 ]; then 
+    if [ ${#} != 1 ]; then
         echo "Must pass home directory to ${FUNCNAME}"
         exit 1
     fi
@@ -80,6 +81,10 @@ function performSetup() {
 
     echo "Linking inputrc..."
     linkFile ".inputrc"
+    
+    echo "Linking lein..."
+    createDirectory ".lein"
+    linkFile "profiles.clj"
 
     popd > /dev/null
 }
@@ -97,7 +102,7 @@ if [ -f install.sh ]; then
     read -p "Continue? [y/N] " choice
 
     # Perform the logic
-    case "$choice" in 
+    case "$choice" in
         Y|y|yes )
             performSetup ${HOME}
             echo "Done! Restart your shell to see changes"
