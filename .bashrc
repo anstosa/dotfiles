@@ -1,4 +1,5 @@
 # ~/.bashrc
+PATH=$HOME/.local/bin:$PATH
 
 # History
 HISTSIZE=1000
@@ -35,6 +36,8 @@ On_White='\e[47m'       # White
 
 alias :q='exit'
 alias ls='ls --color=auto'
+alias l='ls'
+alias sl='ls'
 alias la='ls -a'
 alias ll='ls -alF'
 alias up='cd ../'
@@ -44,7 +47,7 @@ alias grep='grep --color=auto'
 # Git
 alias gs='git status '
 alias ga='git add '
-alias gaa='git add -A'
+alias gaa='git add -A .'
 alias gai='git add -p'
 alias gb='git branch '
 alias gc='git commit'
@@ -62,29 +65,16 @@ alias gpp='git push '
 alias tmux='tmux -2'
 alias ta='tmux attach -d -t'
 alias tn='unset TMUX; tmux; tmux source ~/.tmux.conf.nested'
-alias patched='cp ~/.custom/tmux-powerline/config.sh.patched ~/.custom/tmux-powerline/config.sh'
-alias unpatched='cp ~/.custom/tmux-powerline/config.sh.unpatched ~/.custom/tmux-powerline/config.sh'
-case ${TERM} in
-    screen*)
-        function title { TMUX_PANE_TITLE="$*"; }
-        function update_title { printf "\033]2;%s\033\\" "${1:-$TMUX_PANE_TITLE}"; }
-        TMUX_PANE_TITLE=$(ps -o comm $$ | tail -1)
-        PROMPT_COMMAND=${PROMPT_COMMAND:+$PROMPT_COMMAND; }'update_title'   
-        trap 'update_title "$BASH_COMMAND"' DEBUG
-        ;;
-esac
+. ~/powerline/bindings/bash/powerline.sh
 
 # Prompt
 PS1="\[$Black$On_White\]\W \$\[$Color_Off\] "
 PS1="$PS1"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#I_#P") "$PWD")'
-
-# Start TMUX
-if [[ ! $TERM =~ screen ]]; then
-    tmux new-session
-fi
 
 # Source scripts
 source ~/.custom/cdhist.sh
 
 # Source local
 source ~/.bashrc_local
+
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting

@@ -1,6 +1,6 @@
 [user]
 	name = Ansel Santosa
-	email = ansel@anselsantosa.com
+	email = ansel@extrahop.com
 [color]
 	ui = auto
 [alias]
@@ -11,3 +11,10 @@
   hist = log --pretty=format:\"%C(yellow)%h %C(blue)%ad %C(red)%d %C(reset)%s%d %C(green)[%an]\" --decorate --graph --date=short
   type = cat-file -t
   dump = cat-file -p
+[core]
+	autocrlf = false
+	eol = lf
+[push]
+	default = simple
+[branch]
+	autosetuprebase = always
