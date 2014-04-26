@@ -84,7 +84,7 @@ function performSetup() {
     
     echo "Linking lein..."
     createDirectory ".lein"
-    linkFile "profiles.clj"
+    ln -s ${REPO_DIR}/profiles.clj .lein/profiles.clj;
 
     popd > /dev/null
 }
