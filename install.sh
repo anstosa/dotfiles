@@ -16,6 +16,7 @@
 #Change History:
 #  Date        Author         Description
 #  ----------  -------------- ----------------------------------------------
+#  2014-05-28  agrosinger     Adding local bin directory
 #  2014-01-13  agrosinger     Added support for using the ZIP instead of git
 #  2014-01-04  agrosinger     Updated to two mode operation
 #  2013-04-06  agrosinger     Adding Clojure profiles.clj
@@ -54,6 +55,11 @@ function performSetup() {
     echo "Moving to Home directory..."
     pushd ${home} > /dev/null
 
+    if [ ! -d bin ]; then
+        echo "Creating a bin directory..."
+        mkdir bin
+    fi
+
     echo "Adding id_rsa.pub to authorized keys if necessary"
     if [ ! -d .ssh ]; then
         mkdir .ssh
@@ -85,6 +91,9 @@ function performSetup() {
     echo "Linking lein..."
     createDirectory ".lein"
     ln -s ${REPO_DIR}/profiles.clj .lein/profiles.clj;
+
+    echo "Linking Maven Illuminate..."
+    ln -s ${REPO_DIR}/maven-illuminate.sh bin/maven-illuminate.sh
 
     popd > /dev/null
 }

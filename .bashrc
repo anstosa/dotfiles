@@ -16,12 +16,29 @@ alias please="sudo !!"
 alias tmux="tmux -2"
 alias grep="grep --color=auto"
 
+# Adding applications to path
+if [[ -d /opt/maven/bin ]];
+then
+    export PATH=$PATH:/opt/maven/bin
+fi
+
+if [[ -d /opt/meld/bin ]];
+then
+    export PATH=$PATH:/opt/meld/bin
+fi
+
+if [[ -d ${HOME}/bin ]];
+then
+    export PATH=$PATH:${HOME}/bin
+fi
+
 # Maven
-alias mvnc="mvn clean"
-alias mvnp="mvn clean package"
-alias mvni="mvn clean install"
-alias mvna="mvn clean assembly:assembly"
-alias mvnd="mvn clean dependency:copy-dependencies"
+source ~/bin/maven-illuminate.sh
+alias mvnc="mvn-c clean"
+alias mvnp="mvn-c clean package"
+alias mvni="mvn-c clean install"
+alias mvna="mvn-c clean assembly:assembly"
+alias mvnd="mvn-c clean dependency:copy-dependencies"
 
 # Tar
 alias tar-gz="tar xzvf"

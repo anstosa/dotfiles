@@ -1,6 +1,6 @@
 [user]
-    name = Tony Grosinger
-    email = tony@grosinger.net
+	name = Tony Grosinger
+	email = tony@grosinger.net
 [color]
     ui = auto
 [alias]
@@ -13,3 +13,5 @@
   dump = cat-file -p
 [push]
 	default = simple
+[core]
+	editor = vim
