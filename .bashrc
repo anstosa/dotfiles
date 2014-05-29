@@ -61,7 +61,29 @@ function fn() {
 		sudo find $1 -name $2
 	elif [ $# -eq 1 ]; then
 		find `pwd` -name $1
+    else
+        echo "(f)ind by (n)ame"
+        echo "usage: fn [name]"
+        echo "Where name is the file name to search for"
 	fi
+}
+
+# (f)ind by (b)ody
+# usage: fb foo
+# to find all files containing 'foo' in the body.
+#
+# usage: fb foo txt
+# to find all files ending in '.txt' containing 'foo' in the body.
+function fb() {
+    if [ $# -eq 2 ]; then
+        grep -r --include="*.$2" $1
+    elif [ $# -eq 1 ]; then
+        grep -r "$1"
+    else
+        echo "(f)ind by (b)ody"
+        echo "usage: fb [query] [extension]"
+        echo "Where query is the string to search for and extension is optional restriction on what files to search"
+    fi
 }
 
 # Backup and Move TiddlyWiki Download
