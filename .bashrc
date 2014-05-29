@@ -17,19 +17,14 @@ alias tmux="tmux -2"
 alias grep="grep --color=auto"
 
 # Adding applications to path
-if [[ -d /opt/maven/bin ]];
-then
-    export PATH=$PATH:/opt/maven/bin
-fi
-
-if [[ -d /opt/meld/bin ]];
-then
-    export PATH=$PATH:/opt/meld/bin
-fi
-
 if [[ -d ${HOME}/bin ]];
 then
     export PATH=$PATH:${HOME}/bin
+fi
+
+if [[ -d ${HOME}/.rvm ]];
+then
+    PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 fi
 
 # Maven
@@ -69,5 +64,15 @@ function fn() {
 	fi
 }
 
+# Backup and Move TiddlyWiki Download
+# usage: wiki-move
+function wiki-move() {
+    if [[ -f ${HOME}/Dropbox/wiki.htm ]] && [[ -f ${HOME}/Downloads/wiki.htm ]];
+    then
+        echo "Backing up existing wiki and moving new one."
+        mv ${HOME}/Dropbox/wiki.htm ${HOME}/Dropbox/wiki.htm.old
+        mv ${HOME}/Downloads/wiki.htm ${HOME}/Dropbox/wiki.htm
+        echo "Successfully replaced"
+    fi
+}
 
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
