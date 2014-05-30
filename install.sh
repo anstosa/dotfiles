@@ -95,6 +95,10 @@ function performSetup() {
     echo "Linking Maven Illuminate..."
     ln -s ${REPO_DIR}/maven-illuminate.sh bin/maven-illuminate.sh
 
+    echo "Linking emacs"
+    createDirectory ".emacs.d"
+    ln -s ${REPO_DIR}/init.el .emacs.d/init.el
+
     popd > /dev/null
 }
 
