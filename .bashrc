@@ -22,13 +22,9 @@ then
     export PATH=$PATH:${HOME}/bin
 fi
 
-if [[ -d ${HOME}/.rvm ]];
-then
-    PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
-fi
 
 # Maven
-source ~/bin/maven-illuminate.sh
+source ${HOME}/bin/maven-illuminate.sh
 alias mvnc="mvn-c clean"
 alias mvnp="mvn-c clean package"
 alias mvni="mvn-c clean install"
@@ -42,13 +38,18 @@ alias tar-xz="tar Jxvf"
 
 # Computer information & control
 alias df="df -h"
-alias reboot="echo That would be bad..."
-alias shutdown="echo Don't do that"
 
 # Ruby
-if [[ -f ~/.rvm/scripts/rvm ]];
+if [[ -d ${HOME}/.rvm ]];
 then
-    source ~/.rvm/scripts/rvm
+    PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+    source ${HOME}/.rvm/scripts/rvm
+fi
+
+# Add a local un-tracked bash-rc if present
+if [[ -f ${HOME}/.bashrc_local ]];
+then
+    source ${HOME}/.bashrc_local
 fi
 
 # Functions
