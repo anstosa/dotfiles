@@ -10,7 +10,6 @@ alias c="clear"
 alias ..="cd ..;"
 alias la="ls -lha"
 alias rmr="rm -r"
-alias please="sudo !!"
 
 # Applications
 alias tmux="tmux -2"
