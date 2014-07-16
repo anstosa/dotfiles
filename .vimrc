@@ -65,10 +65,16 @@ au FileType gitcommit au! BufEnter COMMIT_EDITMSG call setpos('.', [0, 1, 1, 0])
 
 set background=dark
 set cursorline                  " Highlight the current line
+set showmatch                   " Show matching brackets/parenthesis
+set hlsearch                    " Highlight search terms
+
 highlight clear SignColumn      " SignColumn should match background
 highlight clear LineNr          " Current line number row will have same background color in relative mode
 let g:CSApprox_hook_post = ['hi clear SignColumn']
 highlight clear CursorLineNr    " Remove highlight color from current line number
+
+set list                        " Highlight white-space characters
+set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " but only the ones we don't want
 
 if filereadable(expand("~/.vim/bundle/vim-colors-solarized/colors/solarized.vim"))
     let g:solarized_termtrans=1
@@ -77,6 +83,8 @@ if filereadable(expand("~/.vim/bundle/vim-colors-solarized/colors/solarized.vim"
     color solarized
 endif
 
+" Command line
+set wildmenu                    " Show a menu rather than auto-completing
 
 " leader
 let mapleader = ","
