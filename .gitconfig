@@ -8,10 +8,16 @@
   c = commit
   s = status
   b = branch
-  pp = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+  pp = log --color --graph --pretty=format:'%Cred%h%Creset %Cgreen(%cr) %Creset\t%s %C(bold blue)<%an> %C(yellow)%d%Creset' --abbrev-commit
+  cr = difftool --dir-diff
   type = cat-file -t
   dump = cat-file -p
 [push]
 	default = simple
 [core]
 	editor = vim
+	pager = less -F -R -X -x1,5
+[diff]
+    tool = meld
+[branch]
+    autosetuprebase = always
