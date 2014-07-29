@@ -1,3 +1,7 @@
 "\e[A": history-search-backward
 "\e[B": history-search-forward
 set show-all-if-ambiguous on
+
+# Enable Vim keybindings
+set editing-mode vi
+set keymap vi-command
