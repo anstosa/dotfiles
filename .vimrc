@@ -22,7 +22,6 @@ NeoBundle 'tpope/vim-repeat'
 NeoBundle 'tacahiroy/ctrlp-funky'
 NeoBundle 'terryma/vim-multiple-cursors'
 NeoBundle 'Lokaltog/vim-easymotion'
-NeoBundle 'nathanaelkane/vim-indent-guides'
 NeoBundle 'osyo-manga/vim-over'
 NeoBundle 'reedes/vim-litecorrect'
 NeoBundle 'reedes/vim-wordy'
@@ -34,6 +33,7 @@ NeoBundle 'Valloric/YouCompleteMe'
 NeoBundle 'sirver/ultisnips'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'airblade/vim-gitgutter'
+NeoBundle 'Raimondi/delimitMate'
 
 " Color Scheme
 NeoBundle 'altercation/vim-colors-solarized'
@@ -81,6 +81,7 @@ au FileType go nmap <Leader>gd <Plug>(go-def-tab)
 NeoBundle 'klen/python-mode'
 au FileType python let g:pymode_doc_bind = "<Leader>gb"
 au FileType python let g:pymode_rope_goto_definition_bind = "<Leader>gd"
+au FileType python let g:pymode_folding = 0
 
 " Ctrl+P
 NeoBundle 'kien/ctrlp.vim'
