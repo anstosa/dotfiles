@@ -14,7 +14,12 @@
 [core]
 	autocrlf = false
 	eol = lf
+	pager = less -F -R -X -x1,5
 [push]
 	default = simple
 [branch]
 	autosetuprebase = always
+[diff]
+	tool = meld
+[commit]
+	template = /home/ansel/.custom/.gitmessage.txt

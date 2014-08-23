@@ -1,4 +1,6 @@
+# Git
+.gitmessage.txt
+
 # Vim
-*.swp
+.vim/*
 *~
-.netrwhist

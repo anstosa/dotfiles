@@ -34,15 +34,11 @@ On_Purple='\e[45m'      # Purple
 On_Cyan='\e[46m'        # Cyan
 On_White='\e[47m'       # White
 
-alias :q='exit'
 alias ls='ls --color=auto'
-alias l='ls'
-alias sl='ls'
-alias la='ls -a'
 alias ll='ls -alF'
 alias up='cd ../'
-alias clear='clear;ls;'
 alias grep='grep --color=auto'
+alias haste="HASTE_SERVER=http://exsidian:7777 haste"
 
 # Git
 alias gs='git status '
