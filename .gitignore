@@ -3,4 +3,5 @@
 
 # Vim
 .vim/*
+!.vim/bundle
 *~

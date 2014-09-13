@@ -57,6 +57,7 @@ set scrolljump=5
 set scrolloff=3
 nmap <silent> <leader>d :bp\|bd #<CR>
 cmap w!! w !sudo tee % >/dev/null
+nmap cp :let @+ = expand("%:p")<CR>
 
 
 " Tabs =========================================================================
@@ -148,6 +149,14 @@ NeoBundle 'scrooloose/nerdcommenter'
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'vim-scripts/SearchComplete'
 NeoBundle 'Raimondi/delimitMate'
+
+" vim tmux navigator -----------------------------------------------------------
+NeoBundle 'christoomey/vim-tmux-navigator'
+nnoremap <silent> <C-Left> :TmuxNavigateLeft<cr>
+nnoremap <silent> <C-Down> :TmuxNavigateDown<cr>
+nnoremap <silent> <C-Up> :TmuxNavigateUp<cr>
+nnoremap <silent> <C-Right> :TmuxNavigateRight<cr>
+nnoremap <silent> <C-~> :TmuxNavigatePrevious<cr>
 
 " vim Fugitive -----------------------------------------------------------------
 NeoBundle 'tpope/vim-fugitive'
