@@ -12,6 +12,7 @@ alias rmr="rm -r"
 # Applications
 alias tmux="tmux -2"
 alias grep="grep --color=auto"
+alias extract="tar xvf"
 
 # Adding applications to path
 if [[ -d ${HOME}/bin ]];
@@ -26,11 +27,6 @@ alias mvnp="mvn-c clean package"
 alias mvni="mvn-c clean install"
 alias mvna="mvn-c clean assembly:assembly"
 alias mvnd="mvn-c clean dependency:copy-dependencies"
-
-# Tar
-alias tar-gz="tar xzvf"
-alias tar-bz="tar xjvf"
-alias tar-xz="tar Jxvf"
 
 # Computer information & control
 alias df="df -h"
