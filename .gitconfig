@@ -22,4 +22,4 @@
 [diff]
 	tool = meld
 [commit]
-	template = /home/ansel/.custom/.gitmessage.txt
+	template = /home/ansel/.ansel/.gitmessage.txt

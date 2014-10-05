@@ -1,0 +1,17 @@
+{
+    "name": "Solarized dark",
+    "groups": {
+        "background":          { "fg": "solarized:base3", "bg": "solarized:base02", "attr": [] },
+        "background:divider":  { "fg": "gray5", "bg": "gray0", "attr": [] },
+        "prompt":              { "fg": "solarized:base3", "bg": "solarized:green", "attr": [] },
+        "branch":              { "fg": "solarized:blue", "bg": "solarized:base02", "attr": ["bold"] },
+        "branch_dirty":        { "fg": "solarized:orange", "bg": "solarized:base02", "attr": [] },
+        "branch_clean":        { "fg": "solarized:blue", "bg": "gray2", "attr": [] },
+        "cwd":                 { "fg": "solarized:base2", "bg": "solarized:base01", "attr": [] },
+        "cwd:current_folder":  { "fg": "solarized:base3", "bg": "solarized:base01", "attr": ["bold"] },
+        "cwd:divider":         { "fg": "solarized:base2", "bg": "solarized:base01", "attr": [] },
+        "system_load_gradient":{ "fg": "green_yellow_orange_red", "bg": "solarized:base03", "attr": [] },
+        "time":                { "fg": "solarized:base3", "bg": "solarized:base03", "attr": [] },
+        "time:divider":        { "fg": "solarized:base01", "bg": "solarized:base03", "attr": [] }
+    }
+}

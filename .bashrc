@@ -49,7 +49,7 @@ alias gpp='git push '
 alias tmux='tmux -2'
 alias ta='tmux attach -d -t'
 . /home/ansel/.local/lib/python2.7/site-packages/powerline/bindings/bash/powerline.sh
-source ~/.custom/tmuxinator/tmuxinator.bash
+source ~/.ansel/tmuxinator.bash
 
 # Editor
 export EDITOR='vim'
@@ -59,7 +59,7 @@ PS1="\[$Black$On_White\]\W \$\[$Color_Off\] "
 PS1="$PS1"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#I_#P") "$PWD")'
 
 # Source scripts
-source ~/.custom/cdhist.sh
+source ~/.ansel/cdhist.sh
 
 # Source local
 source ~/.bashrc_local
