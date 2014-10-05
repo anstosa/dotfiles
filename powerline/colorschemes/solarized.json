@@ -4,6 +4,7 @@
         "background":          { "fg": "solarized:base3", "bg": "solarized:base02", "attr": [] },
         "background:divider":  { "fg": "gray5", "bg": "gray0", "attr": [] },
         "prompt":              { "fg": "solarized:base3", "bg": "solarized:green", "attr": [] },
+        "hostname":            { "fg": "black", "bg": "gray10", "attr": ["bold"] },
         "branch":              { "fg": "solarized:blue", "bg": "solarized:base02", "attr": ["bold"] },
         "branch_dirty":        { "fg": "solarized:orange", "bg": "solarized:base02", "attr": [] },
         "branch_clean":        { "fg": "solarized:blue", "bg": "gray2", "attr": [] },
