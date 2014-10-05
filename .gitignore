@@ -2,6 +2,7 @@
 .gitmessage.txt
 
 # Vim
-.vim/*
-!.vim/bundle
+.vim/bundle
+.vim/doc
+.vim/syntax
 *~

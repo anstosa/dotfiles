@@ -3,11 +3,12 @@ set shortmess+=filmnrxoOtT          " Abbrev. of messages (avoids 'hit enter')
 set hidden                          " Allow buffer switching without saving
 set showmatch
 set winminheight=0
+set timeoutlen=50
 
 
 " Appearance ===================================================================
 filetype plugin indent on
-set t_Co=256
+set t_Co=16
 syntax enable
 set number
 set nowrap
@@ -168,7 +169,6 @@ nnoremap <silent> <leader>gl :Glog<CR>
 
 " Solarized --------------------------------------------------------------------
 NeoBundle 'altercation/vim-colors-solarized'
-let g:solarized_termcolors=256
 let g:solarized_termtrans=1
 let g:solarized_contrast="normal"
 let g:solarized_visibility="normal"
@@ -190,6 +190,7 @@ let g:ctrlp_extensions = ['funky']
 nnoremap <Leader>fu :CtrlPFunky<Cr>
 nnoremap U <c-r>
 noremap <c-r> :CtrlPFunky<Cr>
+noremap <c-u> :CtrlPBuffer<Cr>
 
 " NERDTree ---------------------------------------------------------------------
 NeoBundle 'scrooloose/nerdtree'
@@ -211,6 +212,8 @@ NeoBundle 'bling/vim-airline'
 set showmode
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#left_sep = ' '
+let g:airline#extensions#tabline#left_alt_sep = '|'
 if has('statusline')
     set laststatus=2
     set statusline=%<%f\                     " Filename

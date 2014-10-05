@@ -11,28 +11,14 @@ shopt -s histappend
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 
-# Reset
 Color_Off='\e[0m'       # Text Reset
-
-# Regular Colors
 Black='\e[0;30m'        # Black
-Red='\e[0;31m'          # Red
-Green='\e[0;32m'        # Green
-Yellow='\e[0;33m'       # Yellow
-Blue='\e[0;34m'         # Blue
-Purple='\e[0;35m'       # Purple
-Cyan='\e[0;36m'         # Cyan
 White='\e[0;37m'        # White
-
-# Background
 On_Black='\e[40m'       # Black
-On_Red='\e[41m'         # Red
-On_Green='\e[42m'       # Green
-On_Yellow='\e[43m'      # Yellow
-On_Blue='\e[44m'        # Blue
-On_Purple='\e[45m'      # Purple
-On_Cyan='\e[46m'        # Cyan
 On_White='\e[47m'       # White
+
+# prevent Ctrl-S from being a little bitch
+stty -ixon
 
 alias ls='ls --color=auto'
 alias ll='ls -alF'
@@ -48,6 +34,8 @@ alias gai='git add -p'
 alias gb='git branch '
 alias gc='git commit'
 alias gd='git diff'
+alias gdh="git diff | haste | sed -e 's/$/.diff/' | xclip -selection c"
+alias gsh="git show | haste | sed -e 's/$/.diff/' | xclip -selection c"
 alias go='git checkout '
 alias gh='git hist '
 alias gi='git update-index --assume-unchanged '
@@ -60,8 +48,11 @@ alias gpp='git push '
 # TMUX
 alias tmux='tmux -2'
 alias ta='tmux attach -d -t'
-alias tn='unset TMUX; tmux; tmux source ~/.tmux.conf.nested'
-. ~/powerline/bindings/bash/powerline.sh
+. /home/ansel/.local/lib/python2.7/site-packages/powerline/bindings/bash/powerline.sh
+source ~/.custom/tmuxinator/tmuxinator.bash
+
+# Editor
+export EDITOR='vim'
 
 # Prompt
 PS1="\[$Black$On_White\]\W \$\[$Color_Off\] "
