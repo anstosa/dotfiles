@@ -31,7 +31,6 @@ case "$choice" in
         
         echo "Linking tmux...";
         makeLink .tmux.conf
-        makeLink .tmux.conf.nested
 
         echo "Linking inputrc..."
         makeLink .inputrc
