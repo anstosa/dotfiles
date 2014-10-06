@@ -50,6 +50,9 @@ alias tmux='tmux -2'
 alias ta='tmux attach -d -t'
 . /home/ansel/.local/lib/python2.7/site-packages/powerline/bindings/bash/powerline.sh
 source ~/.ansel/tmuxinator.bash
+if which tmux >/dev/null 2>&1; then
+    test -z "$TMUX" && (tmux attach || tmux new-session)
+fi
 
 # Editor
 export EDITOR='vim'
