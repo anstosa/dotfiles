@@ -8,8 +8,6 @@ set timeoutlen=50
 
 " Appearance ===================================================================
 filetype plugin indent on
-set t_Co=16
-syntax enable
 set number
 set nowrap
 set cursorline
@@ -172,8 +170,10 @@ NeoBundle 'altercation/vim-colors-solarized'
 let g:solarized_termtrans=1
 let g:solarized_contrast="normal"
 let g:solarized_visibility="normal"
+set t_Co=16
+syntax enable
 set background=dark
-color solarized
+colorscheme solarized
 
 " Ctrlp ------------------------------------------------------------------------
 NeoBundle 'kien/ctrlp.vim'
