@@ -45,6 +45,9 @@ alias gad='git ls-files --deleted | xargs git rm'
 alias gp='git pull '
 alias gpp='git push '
 
+# Work
+alias extrahop='/home/ansel/.ansel/extrahop.sh'
+
 # TMUX
 alias tmux='tmux -2'
 alias ta='tmux attach -d -t'
