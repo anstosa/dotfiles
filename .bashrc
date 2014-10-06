@@ -49,12 +49,17 @@ alias gpp='git push '
 alias extrahop='/home/ansel/.ansel/extrahop.sh'
 
 # TMUX
-alias tmux='tmux -2'
+alias tmux='TERM=screen-256color-bce tmux -2'
 alias ta='tmux attach -d -t'
 . /home/ansel/.local/lib/python2.7/site-packages/powerline/bindings/bash/powerline.sh
 source ~/.ansel/tmuxinator.bash
-if which tmux >/dev/null 2>&1; then
-    test -z "$TMUX" && (tmux attach || tmux new-session)
+if [[ -z "$TMUX" ]] ;then
+    ID="`tmux ls | grep -vm1 attached | cut -d: -f1`" # get the id of a deattached session
+    if [[ -z "$ID" ]] ;then # if not available create a new one
+        tmux new-session
+    else
+        tmux attach-session -t "$ID" # if available attach to it
+    fi
 fi
 
 # Editor
