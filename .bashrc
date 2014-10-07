@@ -64,6 +64,7 @@ fi
 
 # Editor
 export EDITOR='vim'
+if [ -e /usr/bin/vimx ]; then alias vim='/usr/bin/vimx'; fi
 
 # Prompt
 PS1="\[$Black$On_White\]\W \$\[$Color_Off\] "
