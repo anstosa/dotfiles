@@ -12,6 +12,9 @@ set nowrap
 set cursorline
 highlight CursorLine cterm=none ctermbg=8
 au BufNewFile,BufRead *.mxml set filetype=javascript
+set list
+set listchars=tab:›\ ,trail:•,extends:#,nbsp:.
+
 
 " Max Columns ==================================================================
 set fo-=t
@@ -82,8 +85,8 @@ set splitbelow
 
 
 " Whitespace ===================================================================
-autocmd BufNewFile,BufRead * :highlight BadForm ctermbg=darkred guibg=darkred
-autocmd BufNewFile,BufRead * :match BadForm /\s\+$\|\t/
+autocmd BufNewFile,BufRead * :highlight BadForm ctermbg=11 guibg=11 ctermfg=8 guifg=8
+autocmd BufNewFile,BufRead * :match BadForm /\s\+$/
 set tabstop=4
 set softtabstop=4
 set expandtab
