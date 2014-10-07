@@ -3,7 +3,6 @@ set shortmess+=filmnrxoOtT          " Abbrev. of messages (avoids 'hit enter')
 set hidden                          " Allow buffer switching without saving
 set showmatch
 set winminheight=0
-set timeoutlen=50
 
 
 " Appearance ===================================================================
