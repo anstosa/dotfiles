@@ -138,15 +138,21 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 
 " Bundles ----------------------------------------------------------------------
 NeoBundle 'jelera/vim-javascript-syntax'
-NeoBundle 'Lokaltog/vim-easymotion'
 NeoBundle 'mattn/emmet-vim'
 NeoBundle 'osyo-manga/vim-over'
-NeoBundle 'Shougo/neosnippet.vim'
-NeoBundle 'Shougo/neosnippet-snippets'
 NeoBundle 'scrooloose/nerdcommenter'
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'vim-scripts/SearchComplete'
 NeoBundle 'Raimondi/delimitMate'
+
+" EasyMotion ------- -----------------------------------------------------------
+NeoBundle 'Lokaltog/vim-easymotion'
+let g:EasyMotion_smartcase = 1
+nmap s <Plug>(easymotion-s2)
+map <Leader>l <Plug>(easymotion-lineforward)
+map <Leader>j <Plug>(easymotion-j)
+map <Leader>k <Plug>(easymotion-k)
+map <Leader>h <Plug>(easymotion-linebackward)
 
 " vim tmux navigator -----------------------------------------------------------
 NeoBundle 'christoomey/vim-tmux-navigator'
