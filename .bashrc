@@ -1,5 +1,6 @@
 # ~/.bashrc
 PATH=$HOME/.local/bin:$PATH
+export LANG=en_US.UTF-8
 
 # History
 HISTSIZE=1000
@@ -49,7 +50,7 @@ alias gpp='git push '
 alias extrahop='/home/ansel/.ansel/extrahop.sh'
 
 # TMUX
-alias tmux='TERM=screen-256color-bce tmux -2'
+alias tmux='TERM=screen-256color-bce tmux -2 -u'
 alias ta='tmux attach -d -t'
 . /home/ansel/.local/lib/python2.7/site-packages/powerline/bindings/bash/powerline.sh
 source ~/.ansel/tmuxinator.bash
