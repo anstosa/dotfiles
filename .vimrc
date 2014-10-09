@@ -220,8 +220,6 @@ NeoBundle 'bling/vim-airline'
 set showmode
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#left_sep = ' '
-let g:airline#extensions#tabline#left_alt_sep = '|'
 if has('statusline')
     set laststatus=2
     set statusline=%<%f\                     " Filename
