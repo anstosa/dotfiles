@@ -59,7 +59,7 @@ if [[ -z "$TMUX" ]] ;then
     if [[ -z "$ID" ]] ;then # if not available create a new one
         tmux new-session
     else
-        tmux attach-session -t "$ID" # if available attach to it
+        tmux attach-session -d -t "$ID" # if available attach to it
     fi
 fi
 
