@@ -85,7 +85,7 @@ set splitbelow
 
 
 " Whitespace ===================================================================
-autocmd BufNewFile,BufRead * :highlight BadForm ctermbg=11 guibg=11 ctermfg=8 guifg=8
+autocmd BufNewFile,BufRead * :highlight BadForm ctermbg=11 ctermfg=8
 autocmd BufNewFile,BufRead * :match BadForm /\s\+$/
 set tabstop=4
 set softtabstop=4
