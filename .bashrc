@@ -52,6 +52,9 @@ alias extrahop='/home/ansel/.ansel/extrahop.sh'
 # TMUX
 alias tmux='TERM=screen-256color-bce tmux -2 -u'
 alias ta='tmux attach -d -t'
+powerline-daemon -q
+POWERLINE_BASH_CONTINUATION=1
+POWERLINE_BASH_SELECT=1
 . /home/ansel/.local/lib/python2.7/site-packages/powerline/bindings/bash/powerline.sh
 source ~/.ansel/tmuxinator.bash
 if [[ -z "$TMUX" ]] ;then
