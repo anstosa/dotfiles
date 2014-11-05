@@ -12,6 +12,7 @@ set nowrap
 set cursorline
 highlight CursorLine cterm=none ctermbg=8
 au BufNewFile,BufRead *.mxml set filetype=javascript
+au BufNewFile,BufRead *.as set filetype=javascript
 set list
 set listchars=tab:›\ ,trail:•,extends:#,nbsp:.
 
