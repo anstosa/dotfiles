@@ -183,6 +183,7 @@ set t_Co=16
 syntax enable
 set background=dark
 colorscheme solarized
+highlight IncSearch ctermbg=5 ctermfg=8 cterm=none
 
 " Ctrlp ------------------------------------------------------------------------
 NeoBundle 'kien/ctrlp.vim'
