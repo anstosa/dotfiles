@@ -146,7 +146,6 @@ NeoBundle 'mattn/emmet-vim'
 NeoBundle 'osyo-manga/vim-over'
 NeoBundle 'scrooloose/nerdcommenter'
 NeoBundle 'tpope/vim-surround'
-NeoBundle 'vim-scripts/SearchComplete'
 NeoBundle 'Raimondi/delimitMate'
 
 " EasyMotion ------- -----------------------------------------------------------
