@@ -147,6 +147,7 @@ NeoBundle 'osyo-manga/vim-over'
 NeoBundle 'scrooloose/nerdcommenter'
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'Raimondi/delimitMate'
+NeoBundle 'scrooloose/syntastic'
 
 " EasyMotion ------- -----------------------------------------------------------
 NeoBundle 'Lokaltog/vim-easymotion'
