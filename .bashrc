@@ -25,7 +25,6 @@ alias ls='ls --color=auto'
 alias ll='ls -alF'
 alias up='cd ../'
 alias grep='grep --color=auto'
-alias haste="HASTE_SERVER=http://exsidian:7777 haste"
 
 # Git
 alias gs='git status '
