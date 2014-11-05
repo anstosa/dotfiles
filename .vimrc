@@ -132,8 +132,8 @@ map <leader>fc /\v^[<\|=>]{7}( .*\|$)<CR>
 
 " NeoBundle ====================================================================
 if has('vim_starting')
-  set nocompatible
-  set runtimepath+=/home/ansel/.vim/bundle/neobundle.vim/
+    set nocompatible
+    set runtimepath+=/home/ansel/.vim/bundle/neobundle.vim/
 endif
 call neobundle#begin(expand('/home/ansel/.vim/bundle'))
 
