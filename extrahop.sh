@@ -1,6 +1,6 @@
 #!/bin/bash
 
-CWD=$(pwd)
+DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
 if [ $1 == "start" ] ; then
 	echo "Starting VPN"
@@ -18,7 +18,7 @@ if [ $1 == "start" ] ; then
 
 	if [[ $rc -eq 0 ]] ; then
 		echo "Swapping resolv.conf"
-        sudo ln -fs ${CWD}/extrahop.resolv.conf /etc/resolv.conf
+        sudo ln -fs ${DIR}/extrahop.resolv.conf /etc/resolv.conf
 	fi
 else
 	echo "Killing VPN"
