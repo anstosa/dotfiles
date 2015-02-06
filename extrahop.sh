@@ -4,7 +4,7 @@ DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
 if [ $1 == "start" ] ; then
 	echo "Starting VPN"
-	cd /etc/openvpn 
+	cd /etc/openvpn
 	sudo openvpn --config extrahop.conf &
 	((count = 100))
 	while [[ $count -ne 0 ]] ; do
