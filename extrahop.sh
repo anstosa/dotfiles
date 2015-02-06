@@ -17,13 +17,13 @@ if [ $1 == "start" ] ; then
 	done
 
 	if [[ $rc -eq 0 ]] ; then
-		echo "Swapping resolv.conf"
+		echo "Setting up DNS"
         sudo ln -fs ${DIR}/extrahop.resolv.conf /etc/resolv.conf
 	fi
 else
-	echo "Killing VPN"
-	sudo killall -9 openvpn
-	echo "Replacing resolv.conf"
+	echo "Stopping VPN"
+	sudo killall -15 openvpn
+	echo "Resetting DNS"
 	sudo ln -fs /run/resolvconf/resolv.conf /etc/resolv.conf
 fi
 
