@@ -1,5 +1,6 @@
 # ~/.bashrc
 PATH=$HOME/.local/bin:$PATH
+export LANG=en_US.UTF-8
 
 # History
 HISTSIZE=1000
@@ -24,7 +25,6 @@ alias ls='ls --color=auto'
 alias ll='ls -alF'
 alias up='cd ../'
 alias grep='grep --color=auto'
-alias haste="HASTE_SERVER=http://exsidian:7777 haste"
 
 # Git
 alias gs='git status '
@@ -49,8 +49,11 @@ alias gpp='git push '
 alias extrahop='/home/ansel/.ansel/extrahop.sh'
 
 # TMUX
-alias tmux='TERM=screen-256color-bce tmux -2'
+alias tmux='TERM=screen-256color-bce tmux -2 -u'
 alias ta='tmux attach -d -t'
+powerline-daemon -q
+POWERLINE_BASH_CONTINUATION=1
+POWERLINE_BASH_SELECT=1
 . /home/ansel/.local/lib/python2.7/site-packages/powerline/bindings/bash/powerline.sh
 source ~/.ansel/tmuxinator.bash
 if [[ -z "$TMUX" ]] ;then
@@ -58,7 +61,7 @@ if [[ -z "$TMUX" ]] ;then
     if [[ -z "$ID" ]] ;then # if not available create a new one
         tmux new-session
     else
-        tmux attach-session -t "$ID" # if available attach to it
+        tmux attach-session -d -t "$ID" # if available attach to it
     fi
 fi
 

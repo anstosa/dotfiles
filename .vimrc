@@ -12,6 +12,7 @@ set nowrap
 set cursorline
 highlight CursorLine cterm=none ctermbg=8
 au BufNewFile,BufRead *.mxml set filetype=javascript
+au BufNewFile,BufRead *.as set filetype=javascript
 set list
 set listchars=tab:›\ ,trail:•,extends:#,nbsp:.
 
@@ -131,8 +132,8 @@ map <leader>fc /\v^[<\|=>]{7}( .*\|$)<CR>
 
 " NeoBundle ====================================================================
 if has('vim_starting')
-  set nocompatible
-  set runtimepath+=/home/ansel/.vim/bundle/neobundle.vim/
+    set nocompatible
+    set runtimepath+=/home/ansel/.vim/bundle/neobundle.vim/
 endif
 call neobundle#begin(expand('/home/ansel/.vim/bundle'))
 
@@ -145,9 +146,9 @@ NeoBundle 'mattn/emmet-vim'
 NeoBundle 'osyo-manga/vim-over'
 NeoBundle 'scrooloose/nerdcommenter'
 NeoBundle 'tpope/vim-surround'
-NeoBundle 'vim-scripts/SearchComplete'
 NeoBundle 'Raimondi/delimitMate'
 NeoBundle 'digitaltoad/vim-jade'
+NeoBundle 'scrooloose/syntastic'
 
 " EasyMotion ------- -----------------------------------------------------------
 NeoBundle 'Lokaltog/vim-easymotion'
@@ -183,6 +184,7 @@ set t_Co=16
 syntax enable
 set background=dark
 colorscheme solarized
+highlight IncSearch ctermbg=5 ctermfg=8 cterm=none
 
 " Ctrlp ------------------------------------------------------------------------
 NeoBundle 'kien/ctrlp.vim'
@@ -221,8 +223,6 @@ NeoBundle 'bling/vim-airline'
 set showmode
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#left_sep = ' '
-let g:airline#extensions#tabline#left_alt_sep = '|'
 if has('statusline')
     set laststatus=2
     set statusline=%<%f\                     " Filename
