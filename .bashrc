@@ -54,7 +54,7 @@ alias ta='tmux attach -d -t'
 powerline-daemon -q
 POWERLINE_BASH_CONTINUATION=1
 POWERLINE_BASH_SELECT=1
-. /home/ansel/.local/lib/python2.7/site-packages/powerline/bindings/bash/powerline.sh
+. /usr/local/lib/python2.7/dist-packages/powerline/bindings/bash/powerline.sh
 source ~/.ansel/tmuxinator.bash
 if [[ -z "$TMUX" ]] ;then
     ID="`tmux ls | grep -vm1 attached | cut -d: -f1`" # get the id of a deattached session
