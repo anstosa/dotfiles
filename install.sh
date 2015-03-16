@@ -29,6 +29,7 @@ case "$choice" in
 
         echo "Linking i3"
         makeLink .i3
+        makeLink .i3status.conf
 
         echo "Linking inputrc..."
         makeLink .inputrc
