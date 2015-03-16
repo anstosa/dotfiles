@@ -29,21 +29,14 @@ alias grep='grep --color=auto'
 # Git
 alias gs='git status '
 alias ga='git add '
-alias gaa='git add -A .'
-alias gai='git add -p'
-alias gb='git branch '
 alias gc='git commit'
+alias gaa='git add -A .'
 alias gd='git diff'
 alias gdh="git diff | haste | sed -e 's/$/.diff/' | xclip -selection c"
 alias gsh="git show | haste | sed -e 's/$/.diff/' | xclip -selection c"
-alias go='git checkout '
 alias gh='git hist '
-alias gi='git update-index --assume-unchanged '
-alias gni='git update-index --no-assume-unchanged '
 alias gl='git log '
 alias gad='git ls-files --deleted | xargs git rm'
-alias gp='git pull '
-alias gpp='git push '
 
 # Work
 alias extrahop='/home/ansel/.ansel/extrahop.sh'
