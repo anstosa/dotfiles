@@ -27,6 +27,7 @@ highlight ColorColumn ctermbg=8
 set iskeyword-=.                    " '.' is an end of word designator
 set iskeyword-=#                    " '#' is an end of word designator
 set iskeyword-=-                    " '-' is an end of word designator
+set iskeyword-=_                    " '-' is an end of word designator
 set virtualedit=onemore             " Allow for cursor beyond last character
 " Restore cursor to file position in previous editing session
 function! ResCur()
