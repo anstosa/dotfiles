@@ -3,6 +3,7 @@ set shortmess+=filmnrxoOtT          " Abbrev. of messages (avoids 'hit enter')
 set hidden                          " Allow buffer switching without saving
 set showmatch
 set winminheight=0
+set spell
 
 
 " Appearance ===================================================================
@@ -129,6 +130,41 @@ autocmd BufEnter * if bufname("") !~ "^\[A-Za-z0-9\]*://" | lcd %:p:h | endif
 " set it to the first line when editing a git commit message
 au FileType gitcommit au! BufEnter COMMIT_EDITMSG call setpos('.', [0, 1, 1, 0])
 map <leader>fc /\v^[<\|=>]{7}( .*\|$)<CR>
+
+
+" Wipeout ======================================================================
+function! Wipeout()
+    " list of *all* buffer numbers
+    let l:buffers = range(1, bufnr('$'))
+
+    " what tab page are we in?
+    let l:currentTab = tabpagenr()
+    try
+        " go through all tab pages
+        let l:tab = 0
+        while l:tab < tabpagenr('$')
+            let l:tab += 1
+
+            " go through all windows
+            let l:win = 0
+            while l:win < winnr('$')
+                let l:win += 1
+                " whatever buffer is in this window in this tab, remove it from
+                " l:buffers list
+                let l:thisbuf = winbufnr(l:win)
+                call remove(l:buffers, index(l:buffers, l:thisbuf))
+            endwhile
+        endwhile
+
+        " if there are any buffers left, delete them
+        if len(l:buffers)
+            execute 'bwipeout' join(l:buffers)
+        endif
+    finally
+        " go back to our original tab page
+        execute 'tabnext' l:currentTab
+    endtry
+endfunction
 
 
 " NeoBundle ====================================================================
