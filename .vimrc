@@ -187,7 +187,7 @@ NeoBundle 'Raimondi/delimitMate'
 NeoBundle 'digitaltoad/vim-jade'
 NeoBundle 'scrooloose/syntastic'
 
-" EasyMotion ------- -----------------------------------------------------------
+" EasyMotion -------------------------------------------------------------------
 NeoBundle 'Lokaltog/vim-easymotion'
 let g:EasyMotion_smartcase = 1
 nmap s <Plug>(easymotion-s2)
@@ -211,6 +211,8 @@ nnoremap <silent> <leader>gd :Gdiff<CR>
 nnoremap <silent> <leader>gc :Gcommit<CR>
 nnoremap <silent> <leader>gb :Gblame<CR>
 nnoremap <silent> <leader>gl :Glog<CR>
+NeoBundle 'idanarye/vim-merginal'
+map <C-g> :MerginalToggle<CR>
 
 " Solarized --------------------------------------------------------------------
 NeoBundle 'altercation/vim-colors-solarized'
