@@ -1,13 +1,169 @@
+" NeoBundle ====================================================================
+if has('vim_starting')
+    set nocompatible
+    filetype off
+    set runtimepath+=/home/ansel/.vim/bundle/neobundle.vim/
+endif
+call neobundle#begin(expand('/home/ansel/.vim/bundle'))
+
+" Let NeoBundle manage NeoBundle
+NeoBundleFetch 'Shougo/neobundle.vim'
+
+" vim Go -----------------------------------------------------------------------
+NeoBundle 'fatih/vim-go'
+let g:go_fmt_command = "goimports"
+
+" Bundles ----------------------------------------------------------------------
+NeoBundle 'jelera/vim-javascript-syntax'
+NeoBundle 'mattn/emmet-vim'
+NeoBundle 'osyo-manga/vim-over'
+NeoBundle 'scrooloose/nerdcommenter'
+NeoBundle 'tpope/vim-surround'
+NeoBundle 'Raimondi/delimitMate'
+NeoBundle 'digitaltoad/vim-jade'
+NeoBundle 'scrooloose/syntastic'
+
+" EasyMotion -------------------------------------------------------------------
+NeoBundle 'Lokaltog/vim-easymotion'
+let g:EasyMotion_smartcase = 1
+nmap s <Plug>(easymotion-s2)
+map <Leader>l <Plug>(easymotion-lineforward)
+map <Leader>j <Plug>(easymotion-j)
+map <Leader>k <Plug>(easymotion-k)
+map <Leader>h <Plug>(easymotion-linebackward)
+
+" vim tmux navigator -----------------------------------------------------------
+NeoBundle 'christoomey/vim-tmux-navigator'
+nnoremap <silent> <C-Left> :TmuxNavigateLeft<cr>
+nnoremap <silent> <C-Down> :TmuxNavigateDown<cr>
+nnoremap <silent> <C-Up> :TmuxNavigateUp<cr>
+nnoremap <silent> <C-Right> :TmuxNavigateRight<cr>
+nnoremap <silent> <C-~> :TmuxNavigatePrevious<cr>
+
+" vim Fugitive -----------------------------------------------------------------
+NeoBundle 'tpope/vim-fugitive'
+nnoremap <silent> <leader>gs :Gstatus<CR>
+nnoremap <silent> <leader>gd :Gdiff<CR>
+nnoremap <silent> <leader>gc :Gcommit<CR>
+nnoremap <silent> <leader>gb :Gblame<CR>
+nnoremap <silent> <leader>gl :Glog<CR>
+NeoBundle 'idanarye/vim-merginal'
+map <C-g> :MerginalToggle<CR>
+
+" Solarized --------------------------------------------------------------------
+NeoBundle 'altercation/vim-colors-solarized'
+let g:solarized_termtrans=1
+let g:solarized_contrast="normal"
+let g:solarized_visibility="normal"
+set t_Co=16
+set background=dark
+colorscheme solarized
+highlight IncSearch ctermbg=5 ctermfg=8 cterm=none
+
+" Ctrlp ------------------------------------------------------------------------
+NeoBundle 'kien/ctrlp.vim'
+NeoBundle 'tacahiroy/ctrlp-funky'
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_user_command = {
+    \ 'types': {
+    \ 1: ['.git', 'cd %s && git ls-files . --cached --exclude-standard --others'],
+        \ },
+    \ 'fallback': 'find %s -type f'
+    \ }
+set runtimepath^=~/.vim/bundle/ctrlp.vim
+let g:ctrlp_extensions = ['funky']
+nnoremap <Leader>fu :CtrlPFunky<Cr>
+nnoremap U <c-r>
+noremap <c-r> :CtrlPFunky<Cr>
+noremap <c-u> :CtrlPBuffer<Cr>
+
+" NERDTree ---------------------------------------------------------------------
+NeoBundle 'scrooloose/nerdtree'
+NeoBundle 'jistr/vim-nerdtree-tabs'
+"autocmd vimenter * NERDTree
+map <C-e> <plug>NERDTreeTabsToggle<CR>
+map <leader>e :NERDTreeFind<CR>
+nmap <leader>nt :NERDTreeFind<CR>
+let NERDTreeShowBookmarks=1
+let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr', 'node_modules']
+let NERDTreeChDirMode=0
+let NERDTreeMouseMode=2
+let NERDTreeShowHidden=1
+let NERDTreeKeepTreeInNewTab=1
+let g:nerdtree_tabs_open_on_gui_startup=0
+
+" Airline ----------------------------------------------------------------------
+NeoBundle 'bling/vim-airline'
+set showmode
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
+if has('statusline')
+    set laststatus=2
+    set statusline=%<%f\                     " Filename
+    set statusline+=%w%h%m%r                 " Options
+    set statusline+=%{fugitive#statusline()} " Git Hotness
+    set statusline+=\ [%{&ff}/%Y]            " Filetype
+    set statusline+=\ [%{getcwd()}]          " Current dir
+    set statusline+=%=%-14.(%l,%c%V%)\ %p%%  " Right aligned file nav info
+endif
+
+" GitGutter --------------------------------------------------------------------
+NeoBundle 'airblade/vim-gitgutter'
+highlight clear SignColumn
+let g:CSApprox_hook_post = ['hi clear SignColumn']
+
+" NeoComplete ------------------------------------------------------------------
+if has('lua')
+    NeoBundle 'Shougo/neocomplete.vim'
+    let g:acp_enableAtStartup = 0
+    let g:neocomplete#enable_at_startup = 1
+    let g:neocomplete#enable_smart_case = 1
+    let g:neocomplete#sources#syntax#min_keyword_length = 3
+    let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+    let g:neocomplete#sources#dictionary#dictionaries = {
+        \ 'default' : '',
+        \ 'vimshell' : $HOME.'/.vimshell_hist',
+        \ 'scheme' : $HOME.'/.gosh_completions'
+            \ }
+    if !exists('g:neocomplete#keyword_patterns')
+        let g:neocomplete#keyword_patterns = {}
+    endif
+    let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+    inoremap <expr><C-g>   neocomplete#undo_completion()
+    inoremap <expr><C-l>   neocomplete#complete_common_string()
+    inoremap <expr><TAB>   pumvisible() ? "\<C-n>" : "\<TAB>"
+    inoremap <expr><C-h>   neocomplete#smart_close_popup()."\<C-h>"
+    inoremap <expr><BS>    neocomplete#smart_close_popup()."\<C-h>"
+    inoremap <expr><C-y>   neocomplete#close_popup()
+    inoremap <expr><C-e>   neocomplete#cancel_popup()
+    inoremap <expr><Left>  neocomplete#close_popup() . "\<Left>"
+    inoremap <expr><Right> neocomplete#close_popup() . "\<Right>"
+    inoremap <expr><Up>    neocomplete#close_popup() . "\<Up>"
+    inoremap <expr><Down>  neocomplete#close_popup() . "\<Down>"
+    autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+    autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+    autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+    autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+    autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+    let g:neocomplete#sources#omni#input_patterns = {}
+endif
+
+call neobundle#end()
+filetype plugin indent on
+NeoBundleCheck
+
+
+" Appearance ===================================================================
 scriptencoding utf-8
 set shortmess+=filmnrxoOtT          " Abbrev. of messages (avoids 'hit enter')
 set hidden                          " Allow buffer switching without saving
 set showmatch
 set winminheight=0
 set spell
+syntax on
 
 
 " Appearance ===================================================================
-filetype plugin indent on
 set number
 set nowrap
 set cursorline
@@ -165,154 +321,3 @@ function! Wipeout()
         execute 'tabnext' l:currentTab
     endtry
 endfunction
-
-
-" NeoBundle ====================================================================
-if has('vim_starting')
-    set nocompatible
-    set runtimepath+=/home/ansel/.vim/bundle/neobundle.vim/
-endif
-call neobundle#begin(expand('/home/ansel/.vim/bundle'))
-
-" Let NeoBundle manage NeoBundle
-NeoBundleFetch 'Shougo/neobundle.vim'
-
-" Bundles ----------------------------------------------------------------------
-NeoBundle 'jelera/vim-javascript-syntax'
-NeoBundle 'mattn/emmet-vim'
-NeoBundle 'osyo-manga/vim-over'
-NeoBundle 'scrooloose/nerdcommenter'
-NeoBundle 'tpope/vim-surround'
-NeoBundle 'Raimondi/delimitMate'
-NeoBundle 'digitaltoad/vim-jade'
-NeoBundle 'scrooloose/syntastic'
-
-" EasyMotion -------------------------------------------------------------------
-NeoBundle 'Lokaltog/vim-easymotion'
-let g:EasyMotion_smartcase = 1
-nmap s <Plug>(easymotion-s2)
-map <Leader>l <Plug>(easymotion-lineforward)
-map <Leader>j <Plug>(easymotion-j)
-map <Leader>k <Plug>(easymotion-k)
-map <Leader>h <Plug>(easymotion-linebackward)
-
-" vim tmux navigator -----------------------------------------------------------
-NeoBundle 'christoomey/vim-tmux-navigator'
-nnoremap <silent> <C-Left> :TmuxNavigateLeft<cr>
-nnoremap <silent> <C-Down> :TmuxNavigateDown<cr>
-nnoremap <silent> <C-Up> :TmuxNavigateUp<cr>
-nnoremap <silent> <C-Right> :TmuxNavigateRight<cr>
-nnoremap <silent> <C-~> :TmuxNavigatePrevious<cr>
-
-" vim Fugitive -----------------------------------------------------------------
-NeoBundle 'tpope/vim-fugitive'
-nnoremap <silent> <leader>gs :Gstatus<CR>
-nnoremap <silent> <leader>gd :Gdiff<CR>
-nnoremap <silent> <leader>gc :Gcommit<CR>
-nnoremap <silent> <leader>gb :Gblame<CR>
-nnoremap <silent> <leader>gl :Glog<CR>
-NeoBundle 'idanarye/vim-merginal'
-map <C-g> :MerginalToggle<CR>
-
-" Solarized --------------------------------------------------------------------
-NeoBundle 'altercation/vim-colors-solarized'
-let g:solarized_termtrans=1
-let g:solarized_contrast="normal"
-let g:solarized_visibility="normal"
-set t_Co=16
-syntax enable
-set background=dark
-colorscheme solarized
-highlight IncSearch ctermbg=5 ctermfg=8 cterm=none
-
-" Ctrlp ------------------------------------------------------------------------
-NeoBundle 'kien/ctrlp.vim'
-NeoBundle 'tacahiroy/ctrlp-funky'
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_user_command = {
-    \ 'types': {
-    \ 1: ['.git', 'cd %s && git ls-files . --cached --exclude-standard --others'],
-        \ },
-    \ 'fallback': 'find %s -type f'
-    \ }
-set runtimepath^=~/.vim/bundle/ctrlp.vim
-let g:ctrlp_extensions = ['funky']
-nnoremap <Leader>fu :CtrlPFunky<Cr>
-nnoremap U <c-r>
-noremap <c-r> :CtrlPFunky<Cr>
-noremap <c-u> :CtrlPBuffer<Cr>
-
-" NERDTree ---------------------------------------------------------------------
-NeoBundle 'scrooloose/nerdtree'
-NeoBundle 'jistr/vim-nerdtree-tabs'
-"autocmd vimenter * NERDTree
-map <C-e> <plug>NERDTreeTabsToggle<CR>
-map <leader>e :NERDTreeFind<CR>
-nmap <leader>nt :NERDTreeFind<CR>
-let NERDTreeShowBookmarks=1
-let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr', 'node_modules']
-let NERDTreeChDirMode=0
-let NERDTreeMouseMode=2
-let NERDTreeShowHidden=1
-let NERDTreeKeepTreeInNewTab=1
-let g:nerdtree_tabs_open_on_gui_startup=0
-
-" Airline ----------------------------------------------------------------------
-NeoBundle 'bling/vim-airline'
-set showmode
-let g:airline_powerline_fonts = 1
-let g:airline#extensions#tabline#enabled = 1
-if has('statusline')
-    set laststatus=2
-    set statusline=%<%f\                     " Filename
-    set statusline+=%w%h%m%r                 " Options
-    set statusline+=%{fugitive#statusline()} " Git Hotness
-    set statusline+=\ [%{&ff}/%Y]            " Filetype
-    set statusline+=\ [%{getcwd()}]          " Current dir
-    set statusline+=%=%-14.(%l,%c%V%)\ %p%%  " Right aligned file nav info
-endif
-
-" GitGutter --------------------------------------------------------------------
-NeoBundle 'airblade/vim-gitgutter'
-highlight clear SignColumn
-let g:CSApprox_hook_post = ['hi clear SignColumn']
-
-" NeoComplete ------------------------------------------------------------------
-if has('lua')
-    NeoBundle 'Shougo/neocomplete.vim'
-    let g:acp_enableAtStartup = 0
-    let g:neocomplete#enable_at_startup = 1
-    let g:neocomplete#enable_smart_case = 1
-    let g:neocomplete#sources#syntax#min_keyword_length = 3
-    let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
-    let g:neocomplete#sources#dictionary#dictionaries = {
-        \ 'default' : '',
-        \ 'vimshell' : $HOME.'/.vimshell_hist',
-        \ 'scheme' : $HOME.'/.gosh_completions'
-            \ }
-    if !exists('g:neocomplete#keyword_patterns')
-        let g:neocomplete#keyword_patterns = {}
-    endif
-    let g:neocomplete#keyword_patterns['default'] = '\h\w*'
-    inoremap <expr><C-g>   neocomplete#undo_completion()
-    inoremap <expr><C-l>   neocomplete#complete_common_string()
-    inoremap <expr><TAB>   pumvisible() ? "\<C-n>" : "\<TAB>"
-    inoremap <expr><C-h>   neocomplete#smart_close_popup()."\<C-h>"
-    inoremap <expr><BS>    neocomplete#smart_close_popup()."\<C-h>"
-    inoremap <expr><C-y>   neocomplete#close_popup()
-    inoremap <expr><C-e>   neocomplete#cancel_popup()
-    inoremap <expr><Left>  neocomplete#close_popup() . "\<Left>"
-    inoremap <expr><Right> neocomplete#close_popup() . "\<Right>"
-    inoremap <expr><Up>    neocomplete#close_popup() . "\<Up>"
-    inoremap <expr><Down>  neocomplete#close_popup() . "\<Down>"
-    autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-    autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-    autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-    autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-    autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-    let g:neocomplete#sources#omni#input_patterns = {}
-endif
-
-call neobundle#end()
-filetype plugin indent on
-NeoBundleCheck
