@@ -5,9 +5,16 @@
 	ui = auto
 [alias]
   co = checkout
-  ci = commit
-  st = status
+  c = commit
+  ca = commit --amend
+  s = status -sb
+  l = log
+  d = diff
+  dc = diff --cached
   br = branch
+  a = add
+  aa = add -A .
+  ad = ls-files --deleted | xargs git rm
   hist = log --pretty=format:\"%C(yellow)%h %C(blue)%ad %C(red)%d %C(reset)%s%d %C(green)[%an]\" --decorate --graph --date=short
   type = cat-file -t
   dump = cat-file -p

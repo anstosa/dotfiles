@@ -26,17 +26,7 @@ alias ll='ls -alF'
 alias up='cd ../'
 alias grep='grep --color=auto'
 
-# Git
-alias gs='git status '
-alias ga='git add '
-alias gc='git commit'
-alias gaa='git add -A .'
-alias gd='git diff'
-alias gdh="git diff | haste | sed -e 's/$/.diff/' | xclip -selection c"
-alias gsh="git show | haste | sed -e 's/$/.diff/' | xclip -selection c"
-alias gh='git hist '
-alias gl='git log '
-alias gad='git ls-files --deleted | xargs git rm'
+alias update='sudo apt-get upgrade && sudo apt-get dist-upgrade && sudo apt-get -f install && sudo apt-get autoremove && sudo apt-get autoclean'
 
 # Work
 alias extrahop='/home/ansel/.ansel/extrahop.sh'

@@ -16,21 +16,11 @@ let g:go_fmt_command = "goimports"
 " Bundles ----------------------------------------------------------------------
 NeoBundle 'jelera/vim-javascript-syntax'
 NeoBundle 'mattn/emmet-vim'
-NeoBundle 'osyo-manga/vim-over'
 NeoBundle 'scrooloose/nerdcommenter'
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'Raimondi/delimitMate'
 NeoBundle 'digitaltoad/vim-jade'
 NeoBundle 'scrooloose/syntastic'
-
-" EasyMotion -------------------------------------------------------------------
-NeoBundle 'Lokaltog/vim-easymotion'
-let g:EasyMotion_smartcase = 1
-nmap s <Plug>(easymotion-s2)
-map <Leader>l <Plug>(easymotion-lineforward)
-map <Leader>j <Plug>(easymotion-j)
-map <Leader>k <Plug>(easymotion-k)
-map <Leader>h <Plug>(easymotion-linebackward)
 
 " vim tmux navigator -----------------------------------------------------------
 NeoBundle 'christoomey/vim-tmux-navigator'
@@ -111,6 +101,7 @@ endif
 NeoBundle 'airblade/vim-gitgutter'
 highlight clear SignColumn
 let g:CSApprox_hook_post = ['hi clear SignColumn']
+let g:gitgutter_max_signs = 1000
 
 " NeoComplete ------------------------------------------------------------------
 if has('lua')
@@ -177,7 +168,7 @@ set listchars=tab:›\ ,trail:•,extends:#,nbsp:.
 " Max Columns ==================================================================
 set fo-=t
 set colorcolumn=81
-highlight ColorColumn ctermbg=8
+highlight ColorColumn ctermbg=0
 
 
 " Cursor =======================================================================
