@@ -161,6 +161,7 @@ workspace 2 output DVI-I-1
 # Start default programs
 exec --no-startup-id i3-msg 'workspace 1; exec gnome-terminal'
 exec --no-startup-id i3-msg 'workspace 2; exec google-chrome-stable'
+exec --no-startup-id nm-applet
 
 # Pulse Audio controls
 bindsym XF86AudioRaiseVolume exec pactl set-sink-volume 0 +5% #increase sound volume
@@ -170,3 +171,6 @@ bindsym XF86AudioMute exec pactl set-sink-mute 0 toggle # mute sound
 # Sreen brightness controls
 bindsym XF86MonBrightnessUp exec xbacklight -inc 20 # increase screen brightness
 bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightness
+
+# Natural scrolling
+exec --no-startup-id xinput set-prop "SynPS/2 Synaptics TouchPad" "Synaptics Scrolling Distance" -106, -106
