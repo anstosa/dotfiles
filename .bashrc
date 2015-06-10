@@ -26,7 +26,7 @@ alias ll='ls -alF'
 alias up='cd ../'
 alias grep='grep --color=auto'
 
-alias update='sudo apt-get upgrade && sudo apt-get dist-upgrade && sudo apt-get -f install && sudo apt-get autoremove && sudo apt-get autoclean'
+alias update='sudo apt-get update && sudo apt-get upgrade && sudo apt-get dist-upgrade && sudo apt-get -f install && sudo apt-get autoremove && sudo apt-get autoclean'
 
 # Work
 alias extrahop='/home/ansel/.ansel/extrahop.sh'
