@@ -1,29 +1,21 @@
-" NeoBundle ====================================================================
-if has('vim_starting')
-    set nocompatible
-    filetype off
-    set runtimepath+=/home/ansel/.vim/bundle/neobundle.vim/
-endif
-call neobundle#begin(expand('/home/ansel/.vim/bundle'))
-
-" Let NeoBundle manage NeoBundle
-NeoBundleFetch 'Shougo/neobundle.vim'
+" Bundle == ====================================================================
+call plug#begin('~/.vim/plugged')
 
 " vim Go -----------------------------------------------------------------------
-NeoBundle 'fatih/vim-go'
+Plug 'fatih/vim-go', { 'for': 'go' }
 let g:go_fmt_command = "goimports"
 
 " Bundles ----------------------------------------------------------------------
-NeoBundle 'jelera/vim-javascript-syntax'
-NeoBundle 'mattn/emmet-vim'
-NeoBundle 'scrooloose/nerdcommenter'
-NeoBundle 'tpope/vim-surround'
-NeoBundle 'Raimondi/delimitMate'
-NeoBundle 'digitaltoad/vim-jade'
-NeoBundle 'scrooloose/syntastic'
+Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
+Plug 'mattn/emmet-vim', { 'for': ['html', 'javascript', 'css']}
+Plug 'scrooloose/nerdcommenter'
+Plug 'tpope/vim-surround'
+Plug 'Raimondi/delimitMate'
+Plug 'digitaltoad/vim-jade', { 'for': 'jade' }
+Plug 'scrooloose/syntastic'
 
 " vim tmux navigator -----------------------------------------------------------
-NeoBundle 'christoomey/vim-tmux-navigator'
+Plug 'christoomey/vim-tmux-navigator'
 nnoremap <silent> <C-Left> :TmuxNavigateLeft<cr>
 nnoremap <silent> <C-Down> :TmuxNavigateDown<cr>
 nnoremap <silent> <C-Up> :TmuxNavigateUp<cr>
@@ -31,17 +23,15 @@ nnoremap <silent> <C-Right> :TmuxNavigateRight<cr>
 nnoremap <silent> <C-~> :TmuxNavigatePrevious<cr>
 
 " vim Fugitive -----------------------------------------------------------------
-NeoBundle 'tpope/vim-fugitive'
+Plug 'tpope/vim-fugitive'
 nnoremap <silent> <leader>gs :Gstatus<CR>
 nnoremap <silent> <leader>gd :Gdiff<CR>
 nnoremap <silent> <leader>gc :Gcommit<CR>
 nnoremap <silent> <leader>gb :Gblame<CR>
 nnoremap <silent> <leader>gl :Glog<CR>
-NeoBundle 'idanarye/vim-merginal'
-map <C-g> :MerginalToggle<CR>
 
 " Solarized --------------------------------------------------------------------
-NeoBundle 'altercation/vim-colors-solarized'
+Plug 'altercation/vim-colors-solarized'
 let g:solarized_termtrans=1
 let g:solarized_contrast="normal"
 let g:solarized_visibility="normal"
@@ -51,8 +41,8 @@ colorscheme solarized
 highlight IncSearch ctermbg=5 ctermfg=8 cterm=none
 
 " Ctrlp ------------------------------------------------------------------------
-NeoBundle 'kien/ctrlp.vim'
-NeoBundle 'tacahiroy/ctrlp-funky'
+Plug 'kien/ctrlp.vim'
+Plug 'tacahiroy/ctrlp-funky'
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_user_command = {
     \ 'types': {
@@ -68,10 +58,10 @@ noremap <c-r> :CtrlPFunky<Cr>
 noremap <c-u> :CtrlPBuffer<Cr>
 
 " NERDTree ---------------------------------------------------------------------
-NeoBundle 'scrooloose/nerdtree'
-NeoBundle 'jistr/vim-nerdtree-tabs'
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeTabsToggle' }
+Plug 'jistr/vim-nerdtree-tabs', { 'on':  'NERDTreeTabsToggle' }
 "autocmd vimenter * NERDTree
-map <C-e> <plug>NERDTreeTabsToggle<CR>
+map <C-e> :NERDTreeTabsToggle<CR>
 map <leader>e :NERDTreeFind<CR>
 nmap <leader>nt :NERDTreeFind<CR>
 let NERDTreeShowBookmarks=1
@@ -83,7 +73,7 @@ let NERDTreeKeepTreeInNewTab=1
 let g:nerdtree_tabs_open_on_gui_startup=0
 
 " Airline ----------------------------------------------------------------------
-NeoBundle 'bling/vim-airline'
+Plug 'bling/vim-airline'
 set showmode
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
@@ -98,14 +88,14 @@ if has('statusline')
 endif
 
 " GitGutter --------------------------------------------------------------------
-NeoBundle 'airblade/vim-gitgutter'
+Plug 'airblade/vim-gitgutter'
 highlight clear SignColumn
 let g:CSApprox_hook_post = ['hi clear SignColumn']
 let g:gitgutter_max_signs = 1000
 
 " NeoComplete ------------------------------------------------------------------
 if has('lua')
-    NeoBundle 'Shougo/neocomplete.vim'
+    Plug 'Shougo/neocomplete.vim'
     let g:acp_enableAtStartup = 0
     let g:neocomplete#enable_at_startup = 1
     let g:neocomplete#enable_smart_case = 1
@@ -139,9 +129,8 @@ if has('lua')
     let g:neocomplete#sources#omni#input_patterns = {}
 endif
 
-call neobundle#end()
+call plug#end()
 filetype plugin indent on
-NeoBundleCheck
 
 
 " Appearance ===================================================================
