@@ -23,7 +23,7 @@
 	eol = lf
 	pager = less -F -R -X -x1,5
 [push]
-	default = simple
+	default = upstream
 [branch]
 	autosetuprebase = always
 [diff]
