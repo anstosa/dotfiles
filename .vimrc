@@ -14,6 +14,9 @@ Plug 'Raimondi/delimitMate'
 Plug 'digitaltoad/vim-jade', { 'for': 'jade' }
 Plug 'scrooloose/syntastic'
 
+" vim dim inactive -------------------------------------------------------------
+Plug 'blueyed/vim-diminactive'
+
 " vim tmux navigator -----------------------------------------------------------
 Plug 'christoomey/vim-tmux-navigator'
 nnoremap <silent> <C-Left> :TmuxNavigateLeft<cr>
@@ -198,6 +201,7 @@ set scrolloff=3
 nmap <silent> <leader>d :bp\|bd #<CR>
 cmap w!! w !sudo tee % >/dev/null
 nmap cp :let @+ = expand("%:p")<CR>
+nnoremap gp `[v`]
 
 
 " Tabs =========================================================================
