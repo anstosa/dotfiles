@@ -167,6 +167,7 @@ nmap <silent> <leader>d :bp\|bd #<CR>
 cmap w!! w !sudo tee % >/dev/null
 nmap cp :let @+ = expand("%:p")<CR>
 nnoremap gp `[v`]
+nnoremap <silent> <esc> :noh<cr><esc>
 
 
 " Tabs =========================================================================
