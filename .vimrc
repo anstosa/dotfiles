@@ -96,6 +96,10 @@ highlight clear SignColumn
 let g:CSApprox_hook_post = ['hi clear SignColumn']
 let g:gitgutter_max_signs = 1000
 
+" DeoComplete ------------------------------------------------------------------
+Plug 'Shougo/deoplete.nvim'
+let g:deoplete#enable_at_startup = 1
+
 " NeoComplete ------------------------------------------------------------------
 Plug 'Shougo/neocomplete.vim'
 let g:acp_enableAtStartup = 0
