@@ -161,7 +161,7 @@ workspace 2 output DVI-I-1
 
 # Start default programs
 exec --no-startup-id i3-msg 'workspace 1; exec gnome-terminal'
-exec --no-startup-id i3-msg 'workspace 2; exec google-chrome-stable'
+exec --no-startup-id i3-msg 'workspace 2; exec google-chrome'
 exec --no-startup-id nm-applet
 
 # Pulse Audio controls
