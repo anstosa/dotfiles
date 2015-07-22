@@ -20,6 +20,7 @@
   hist = log --pretty=format:\"%C(yellow)%h %C(blue)%ad %C(red)%d %C(reset)%s%d %C(green)[%an]\" --decorate --graph --date=short
   type = cat-file -t
   dump = cat-file -p
+  week = log --since=1.weeks --author=ansel
 [core]
 	autocrlf = false
 	eol = lf
