@@ -34,6 +34,7 @@ alias extrahop='/home/ansel/.ansel/extrahop.sh'
 # TMUX
 alias tmux='TERM=screen-256color-bce tmux -2 -u'
 alias ta='tmux attach -d -t'
+alias fzf='fzf-tmux'
 powerline-daemon -q
 POWERLINE_BASH_CONTINUATION=1
 POWERLINE_BASH_SELECT=1
@@ -63,3 +64,8 @@ source ~/.ansel/cdhist.sh
 source ~/.bashrc_local
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+
+export FZF_DEFAULT_COMMAND='
+ (git ls-files $(git rev-parse --show-toplevel) --cached --exclude-standard --others ||
+  find * -name ".*" -prune -o -type f -print -o -type l -print) 2> /dev/null'
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
