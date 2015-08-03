@@ -3,3 +3,5 @@
 
 # Vim
 *~
+.vim/.netrwhist
+.vim/autoload/plug.vim.old
