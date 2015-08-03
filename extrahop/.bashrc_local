@@ -1,0 +1,18 @@
+DEPOT=/home/ansel/depot
+export GOPATH=$HOME/.Go:$DEPOT/vendor/golibs:$DEPOT/extrahop/go
+export GOROOT=/usr/local/go
+
+alias fixcap='sudo ethtool -K eth0 tso off;sudo ethtool -K eth0 gro off;sudo ethtool -K eth0 gso off;'
+alias fcsh='cd /home/ansel/depot/extrahop/gui; rlwrap /home/ansel/depot/build/stage/opt/flex/bin/fcsh'
+alias enter='sudo make -C /home/ansel/depot/build enter'
+alias maint='cd ~/Tools/engtools && git pull && cd ~/depot && git pull && ~/Tools/engtools/depot_maintenance -d . && rm depot_maintenance*'
+alias haste="HASTE_SERVER=http://exsidian:7777 haste | sed -e 's/$/.diff/' | xclip -selection c"
+alias monitors="xrandr --output HDMI-0 --off --output DVI-I-1 --mode 1920x1200 --pos 3840x240 --rotate left --output DVI-I-0 --off --output DP-1 --mode 3840x2160 --pos 0x0 --rotate normal --output DP-0 --off"
+alias vminstallfirmware="~/Tools/engtools/enoverify && ~/Tools/engtools/install_firmware ansel-vm default"
+alias vminstallgui="~/Tools/engtools/install_htmlgui && ~/Tools/engtools/ecreset"
+
+function delbranch() {
+    git co master && git pull && git co $1 && git rebase master && git co master && git br -d $1
+}
+
+export PATH=$HOME/.Go/bin:/home/ansel/Tools/engtools:$DEPOT/vendor/golibs/bin:$DEPOT/extrahop/go/bin:$GOROOT/bin:$PATH
