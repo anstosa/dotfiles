@@ -2,7 +2,7 @@
 
 DIR="$( cd "$( dirname "$0" )" && pwd )"
 
-echo "This will create symlinks and destroy any conflicting configs already in place."
+echo "Create symlinks and destroy any conflicting configs already in place."
 read -p "Continue? [y/N] " choice
 
 function makeLink() {
@@ -43,7 +43,46 @@ case "$choice" in
         echo "Hotswapping bash config..."
         source .bashrc
 
-        echo "Done! Exiting."
+        echo "Linked."
     ;;
-  * ) echo "Aborted!"
+  * ) echo "Skipping link"
 esac
+
+if type nvim >/dev/null 2>&1; then
+    echo "Found Neovim."
+else
+    echo "Installing NeoVim..."
+    sudo add-apt-repository ppa:neovim-ppa/unstable
+    sudo apt-get update
+    sudo apt-get install neovim python-dev python-pip python3-dev python3-pip
+    sudo pip3 install neovim
+
+    echo "Installed. Setting defaults"
+    sudo update-alternatives --install /usr/bin/vi vi /usr/bin/nvim 60
+    sudo update-alternatives --config vi
+    sudo update-alternatives --install /usr/bin/vim vim /usr/bin/nvim 60
+    sudo update-alternatives --config vim
+    sudo update-alternatives --install /usr/bin/editor editor /usr/bin/nvim 60
+    sudo update-alternatives --config editor
+    echo "Defaults set."
+fi
+
+if type tmux >/dev/null 2>&1; then
+    echo "Found tmux"
+else
+    echo "Installing tmux..."
+    sudo apt-get install -y python-software-properties software-properties-common
+    sudo add-apt-repository -y ppa:pi-rho/dev
+    sudo apt-get update
+    sudo apt-get install -y tmux
+    echo "Installed."
+fi
+
+if [ -d "$HOME/.fzf" ]; then
+    echo "Found FZF"
+else
+    echo "Installing FZF..."
+    git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+    ~/.fzf/install
+    echo "Installed."
+fi
