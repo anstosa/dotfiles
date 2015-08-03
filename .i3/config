@@ -144,6 +144,9 @@ bindsym $mod+r mode "resize"
 # finds out, if available)
 bar {
         status_command i3status
+        mode hide
+        hidden_state hide
+        modifier Mod4
 }
 
 for_window [window_role="pop-up"] floating enable
