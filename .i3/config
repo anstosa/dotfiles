@@ -144,13 +144,9 @@ bindsym $mod+r mode "resize"
 # finds out, if available)
 bar {
         status_command i3status
-        mode hide
-        hidden_state hide
-        modifier Mod4
 }
 
 for_window [window_role="pop-up"] floating enable
-for_window [window_role="pop-up"] move container to workspace 2
 
 # Fix monitor configuration
 exec_always --no-startup-id ~/.screenlayout/ApplyScreenLayout.sh
@@ -163,6 +159,7 @@ workspace 2 output DVI-I-1
 exec --no-startup-id i3-msg 'workspace 1; exec gnome-terminal'
 exec --no-startup-id i3-msg 'workspace 2; exec google-chrome'
 exec --no-startup-id nm-applet
+exec --no-startup-id xfce4-power-manager
 
 # Pulse Audio controls
 bindsym XF86AudioRaiseVolume exec pactl set-sink-volume 0 +5% #increase sound volume
