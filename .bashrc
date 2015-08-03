@@ -21,6 +21,7 @@ On_White='\e[47m'       # White
 # prevent Ctrl-S from being a little bitch
 stty -ixon
 
+alias vim='nvim'
 alias ls='ls --color=auto'
 alias ll='ls -alF'
 alias up='cd ../'
@@ -29,7 +30,7 @@ alias grep='grep --color=auto'
 alias update='sudo apt-get update && sudo apt-get upgrade && sudo apt-get dist-upgrade && sudo apt-get -f install && sudo apt-get autoremove && sudo apt-get autoclean'
 
 # Work
-alias extrahop='/home/ansel/.ansel/extrahop.sh'
+alias extrahop='/home/ansel/.ansel/extrahop/extrahop.sh'
 
 # TMUX
 alias tmux='TERM=screen-256color-bce tmux -2 -u'
