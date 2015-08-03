@@ -3,8 +3,8 @@ PATH=$HOME/.local/bin:$PATH
 export LANG=en_US.UTF-8
 
 # History
-HISTSIZE=1000
-HISTFILESIZE=2000
+HISTSIZE=50000
+HISTFILESIZE=50000
 HISTCONTROL=ignoredups:ignorespace
 shopt -s histappend
 
