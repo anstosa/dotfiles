@@ -3,12 +3,17 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 Plug 'mattn/emmet-vim',         { 'for': ['html', 'javascript', 'css']}
-Plug 'scrooloose/nerdcommenter'
+Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
+Plug 'godlygeek/tabular'
 Plug 'Raimondi/delimitMate'
 Plug 'digitaltoad/vim-jade',    { 'for': 'jade' }
 Plug 'scrooloose/syntastic'
 Plug 'blueyed/vim-diminactive'
+Plug 'Shougo/vimproc.vim',      { 'do': 'make' }
+
+Plug 'elzr/vim-json'
+let g:vim_json_syntax_conceal = 0
 
 Plug 'fatih/vim-go',            { 'for': 'go' }
 let g:go_fmt_command = "goimports"
