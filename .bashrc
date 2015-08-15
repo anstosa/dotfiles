@@ -21,26 +21,31 @@ On_White='\e[47m'       # White
 # prevent Ctrl-S from being a little bitch
 stty -ixon
 
-alias vim='nvim'
+alias vim='nvim'        # Use NeoVim
+alias sl=ls
 alias ls='ls --color=auto'
-alias ll='ls -alF'
-alias up='cd ../'
+alias la='ls -AF'
+alias ll='ls -al'
+alias l='ls -a'
+alias l1='ls -1'
 alias grep='grep --color=auto'
 
 alias update='sudo apt-get update && sudo apt-get upgrade && sudo apt-get dist-upgrade && sudo apt-get -f install && sudo apt-get autoremove && sudo apt-get autoclean'
 
 # Work
-alias extrahop='/home/ansel/.ansel/extrahop/extrahop.sh'
+alias extrahop='~/.dotfiles/extrahop/extrahop.sh'
 
 # TMUX
 alias tmux='TERM=screen-256color-bce tmux -2 -u'
 alias ta='tmux attach -d -t'
 alias fzf='fzf-tmux'
+
+# Powerline
 powerline-daemon -q
 POWERLINE_BASH_CONTINUATION=1
 POWERLINE_BASH_SELECT=1
 . /usr/local/lib/python2.7/dist-packages/powerline/bindings/bash/powerline.sh
-source ~/.ansel/tmuxinator.bash
+source ~/.dotfiles/tmuxinator.bash
 if [[ -z "$TMUX" ]] ;then
     ID="`tmux ls | grep -vm1 attached | cut -d: -f1`" # get the id of a deattached session
     if [[ -z "$ID" ]] ;then # if not available create a new one
@@ -50,21 +55,21 @@ if [[ -z "$TMUX" ]] ;then
     fi
 fi
 
-# Editor
-export EDITOR='vim'
-if [ -e /usr/bin/vimx ]; then alias vim='/usr/bin/vimx'; fi
-
 # Prompt
 PS1="\[$Black$On_White\]\W \$\[$Color_Off\] "
 PS1="$PS1"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#I_#P") "$PWD")'
 
-# Source scripts
-source ~/.ansel/cdhist.sh
+# Source plugins
+source ~/.dotfiles/cdhist.sh
 
 # Source local
 source ~/.bashrc_local
 
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+# Ruby
+if [[ -d ${HOME}/.rvm ]]; then
+    PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+    source ${HOME}/.rvm/scripts/rvm
+fi
 
 export FZF_DEFAULT_COMMAND='
  (git ls-files $(git rev-parse --show-toplevel) --cached --exclude-standard --others ||
