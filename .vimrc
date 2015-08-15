@@ -41,21 +41,21 @@ set background=dark
 colorscheme solarized
 highlight IncSearch ctermbg=5 ctermfg=8 cterm=none
 
-Plug 'kien/ctrlp.vim'
-Plug 'tacahiroy/ctrlp-funky'
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_user_command = {
-    \ 'types': {
-    \ 1: ['.git', 'cd %s && git ls-files . --cached --exclude-standard --others'],
-        \ },
-    \ 'fallback': 'find %s -type f'
-    \ }
-set runtimepath^=~/.vim/bundle/ctrlp.vim
-let g:ctrlp_extensions = ['funky']
-nnoremap <Leader>fu :CtrlPFunky<Cr>
-nnoremap U <c-r>
-noremap  <c-r>      :CtrlPFunky<Cr>
-noremap  <c-u>      :CtrlPBuffer<Cr>
+Plug 'Shougo/unite.vim'
+Plug 'yuku-t/unite-git'
+Plug 'Shougo/neomru.vim'
+Plug 'Shougo/unite-outline'
+Plug 'lambdalisue/unite-grep-vcs'
+let g:unite_source_history_yank_enable = 1
+let g:unite_data_directory = "~/.vim/unite"
+function GitFiles()
+    silent echo system('git ls-files $(git rev-parse --show-toplevel)')
+endfunction
+nnoremap <silent> <c-p> :Unite -buffer-name=files -start-insert buffer file_mru git_cached<CR>
+nnoremap <silent> <c-r> :Unite -buffer-name=outline -start-insert outline<CR>
+nnoremap <silent> <c-e> :Unite -buffer-name=yanks   -quick-match history/yank<CR>
+nnoremap <silent> <c-u> :Unite -buffer-name=buffers -start-insert buffer<CR>
+nnoremap <silent> <c-g> :Unite -buffer-name=git-grep -ignorecase grep/git<CR>
 
 Plug 'scrooloose/nerdtree',     { 'on':  'NERDTreeTabsToggle' }
 Plug 'jistr/vim-nerdtree-tabs', { 'on':  'NERDTreeTabsToggle' }
