@@ -6,7 +6,7 @@ echo "Create symlinks and destroy any conflicting configs already in place."
 read -p "Continue? [y/N] " choice
 
 function makeLink() {
-    ln -sf $DIR/$1 $1
+    ln -sfn $DIR/$1 $1
 }
 
 case "$choice" in
@@ -19,10 +19,10 @@ case "$choice" in
         makeLink .profile
 
         echo "Linking vim..."
-        makeLink .vimrc
         makeLink .vim
-        makeLink .nvimrc
+        makeLink .vimrc
         makeLink .nvim
+        makeLink .nvimrc
 
         echo "Linking Git..."
         makeLink .gitconfig
@@ -38,7 +38,7 @@ case "$choice" in
         makeLink .inputrc
 
         echo "Linking powerline..."
-        ln -sf $DIR/powerline ~/.config/powerline
+        ln -sfn $DIR/powerline ~/.config/powerline
 
         echo "Hotswapping bash config..."
         source .bashrc
@@ -78,11 +78,19 @@ else
     echo "Installed."
 fi
 
-if [ -d "$HOME/.fzf" ]; then
+if type powerline >/dev/null 2>&1; then
+    echo "Found powerline"
+else
+    echo "Installing powerline..."
+    sudo apt-get install -y python-pip
+    pip install powerline-status
+    echo "Installed. Don't forget to patch your fonts"
+fi
+
+if type fzf >/dev/null 2>&1; then
     echo "Found FZF"
 else
     echo "Installing FZF..."
-    git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-    ~/.fzf/install
+    $DIR/plugins/fzf/install
     echo "Installed."
 fi

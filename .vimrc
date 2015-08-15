@@ -1,29 +1,25 @@
-" Bundle == ====================================================================
+" Bundle =======================================================================
 call plug#begin('~/.vim/plugged')
 
-" vim Go -----------------------------------------------------------------------
-Plug 'fatih/vim-go', { 'for': 'go' }
-let g:go_fmt_command = "goimports"
-
-" Bundles ----------------------------------------------------------------------
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
-Plug 'mattn/emmet-vim', { 'for': ['html', 'javascript', 'css']}
+Plug 'mattn/emmet-vim',         { 'for': ['html', 'javascript', 'css']}
 Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-surround'
 Plug 'Raimondi/delimitMate'
-Plug 'digitaltoad/vim-jade', { 'for': 'jade' }
+Plug 'digitaltoad/vim-jade',    { 'for': 'jade' }
 Plug 'scrooloose/syntastic'
 Plug 'blueyed/vim-diminactive'
 
-" vim tmux navigator -----------------------------------------------------------
-Plug 'christoomey/vim-tmux-navigator'
-nnoremap <silent> <C-Left> :TmuxNavigateLeft<cr>
-nnoremap <silent> <C-Down> :TmuxNavigateDown<cr>
-nnoremap <silent> <C-Up> :TmuxNavigateUp<cr>
-nnoremap <silent> <C-Right> :TmuxNavigateRight<cr>
-nnoremap <silent> <C-~> :TmuxNavigatePrevious<cr>
+Plug 'fatih/vim-go',            { 'for': 'go' }
+let g:go_fmt_command = "goimports"
 
-" vim Fugitive -----------------------------------------------------------------
+Plug 'christoomey/vim-tmux-navigator'
+nnoremap <silent> <C-Left>  :TmuxNavigateLeft<cr>
+nnoremap <silent> <C-Down>  :TmuxNavigateDown<cr>
+nnoremap <silent> <C-Up>    :TmuxNavigateUp<cr>
+nnoremap <silent> <C-Right> :TmuxNavigateRight<cr>
+nnoremap <silent> <C-~>     :TmuxNavigatePrevious<cr>
+
 Plug 'tpope/vim-fugitive'
 nnoremap <silent> <leader>gs :Gstatus<CR>
 nnoremap <silent> <leader>gd :Gdiff<CR>
@@ -31,7 +27,6 @@ nnoremap <silent> <leader>gc :Gcommit<CR>
 nnoremap <silent> <leader>gb :Gblame<CR>
 nnoremap <silent> <leader>gl :Glog<CR>
 
-" Solarized --------------------------------------------------------------------
 Plug 'altercation/vim-colors-solarized'
 let g:solarized_termtrans=1
 let g:solarized_contrast="normal"
@@ -41,7 +36,6 @@ set background=dark
 colorscheme solarized
 highlight IncSearch ctermbg=5 ctermfg=8 cterm=none
 
-" Ctrlp ------------------------------------------------------------------------
 Plug 'kien/ctrlp.vim'
 Plug 'tacahiroy/ctrlp-funky'
 let g:ctrlp_map = '<c-p>'
@@ -55,15 +49,13 @@ set runtimepath^=~/.vim/bundle/ctrlp.vim
 let g:ctrlp_extensions = ['funky']
 nnoremap <Leader>fu :CtrlPFunky<Cr>
 nnoremap U <c-r>
-noremap <c-r> :CtrlPFunky<Cr>
-noremap <c-u> :CtrlPBuffer<Cr>
+noremap  <c-r>      :CtrlPFunky<Cr>
+noremap  <c-u>      :CtrlPBuffer<Cr>
 
-" NERDTree ---------------------------------------------------------------------
-Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeTabsToggle' }
+Plug 'scrooloose/nerdtree',     { 'on':  'NERDTreeTabsToggle' }
 Plug 'jistr/vim-nerdtree-tabs', { 'on':  'NERDTreeTabsToggle' }
-"autocmd vimenter * NERDTree
-map <C-e> :NERDTreeTabsToggle<CR>
-map <leader>e :NERDTreeFind<CR>
+map  <C-e>      :NERDTreeTabsToggle<CR>
+map  <leader>e  :NERDTreeFind<CR>
 nmap <leader>nt :NERDTreeFind<CR>
 let NERDTreeShowBookmarks=1
 let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr', 'node_modules']
@@ -73,7 +65,6 @@ let NERDTreeShowHidden=1
 let NERDTreeKeepTreeInNewTab=1
 let g:nerdtree_tabs_open_on_gui_startup=0
 
-" Airline ----------------------------------------------------------------------
 Plug 'bling/vim-airline'
 set showmode
 let g:airline_powerline_fonts = 1
@@ -88,14 +79,12 @@ if has('statusline')
     set statusline+=%=%-14.(%l,%c%V%)\ %p%%  " Right aligned file nav info
 endif
 
-" GitGutter --------------------------------------------------------------------
 Plug 'airblade/vim-gitgutter'
 highlight clear SignColumn
 let g:CSApprox_hook_post = ['hi clear SignColumn']
 let g:gitgutter_max_signs = 1000
 
-" YouCompleteMe ----------------------------------------------------------------
-Plug 'Valloric/YouCompleteMe'
+Plug 'Valloric/YouCompleteMe', { 'do': './install.sh --gocode-completer' }
 let g:ycm_complete_in_strings = 0
 let g:ycm_seed_identifiers_with_syntax = 1
 
@@ -105,26 +94,26 @@ filetype plugin indent on
 
 " Appearance ===================================================================
 scriptencoding utf-8
+syntax on
 set shortmess+=filmnrxoOtT          " Abbrev. of messages (avoids 'hit enter')
 set hidden                          " Allow buffer switching without saving
-set showmatch
-set winminheight=0
-set spell
-syntax on
-
-
-" Appearance ===================================================================
-set number
-set nowrap
+set showmatch                       " Highlight matches on search
+set winminheight=0                  " Allow windows to collapse entirely
+set spell                           " Enable spellcheck
+set number                          " Enable line numbers
+set nowrap                          " Don't wrap long lines
+" Highlight the current line
 set cursorline
 highlight CursorLine cterm=none ctermbg=8
-au BufNewFile,BufRead *.mxml set filetype=javascript
-au BufNewFile,BufRead *.as set filetype=javascript
+" Show whitespace
 set list
 set listchars=tab:›\ ,trail:•,extends:#,nbsp:.
-
-
-" Max Columns ==================================================================
+autocmd BufNewFile,BufRead * :highlight BadForm ctermbg=11 ctermfg=8
+autocmd BufNewFile,BufRead * :match BadForm /\s\+$/
+" Highlight flex files like Javascript
+au BufNewFile,BufRead *.mxml set filetype=javascript
+au BufNewFile,BufRead *.as set filetype=javascript
+" Highlight 80th collumn
 set fo-=t
 set colorcolumn=81
 highlight ColorColumn ctermbg=0
@@ -154,11 +143,6 @@ set wildmenu
 set wildmode=list:longest,full
 
 
-" Mouse ========================================================================
-"set mouse=a
-"set mousehide
-
-
 " Keybindings ==================================================================
 let mapleader = ','
 set backspace=indent,eol,start
@@ -169,7 +153,6 @@ nmap <silent> <leader>d :bp\|bd #<CR>
 cmap w!! w !sudo tee % >/dev/null
 nmap cp :let @+ = expand("%:p")<CR>
 nnoremap gp `[v`]
-nnoremap <silent> <esc> :noh<cr><esc>
 
 
 " Tabs =========================================================================
@@ -191,31 +174,31 @@ map <leader>tt :tabnext<cr>
 
 
 " Splits =======================================================================
-set splitright
-set splitbelow
+set splitright                          " Open new splits to right of current
+set splitbelow                          " Open new splits below current
 
 
 " Whitespace ===================================================================
-autocmd BufNewFile,BufRead * :highlight BadForm ctermbg=11 ctermfg=8
-autocmd BufNewFile,BufRead * :match BadForm /\s\+$/
+" 4 space tabs
 set tabstop=4
 set softtabstop=4
-set expandtab
 set shiftwidth=4
-set autoindent
-set smartindent
-set linespace=0
-set nojoinspaces
+set expandtab
+set autoindent                          " Indent on paste
+set smartindent                         " Indent intelligently
+set nojoinspaces                        " Collapse spaces after sentences
+" Don't exit visual mode when indenting
 vnoremap < <gv
 vnoremap > >gv
-vnoremap . :normal .<CR>
 
 
 " Search =======================================================================
 set ignorecase
 set smartcase
 set incsearch
-"set hlsearch
+set hlsearch
+" Remove search highlights on Esc
+nnoremap <silent> <esc> :noh<cr><esc>
 
 
 " Metadata =====================================================================
@@ -238,38 +221,3 @@ autocmd BufEnter * if bufname("") !~ "^\[A-Za-z0-9\]*://" | lcd %:p:h | endif
 " set it to the first line when editing a git commit message
 au FileType gitcommit au! BufEnter COMMIT_EDITMSG call setpos('.', [0, 1, 1, 0])
 map <leader>fc /\v^[<\|=>]{7}( .*\|$)<CR>
-
-
-" Wipeout ======================================================================
-function! Wipeout()
-    " list of *all* buffer numbers
-    let l:buffers = range(1, bufnr('$'))
-
-    " what tab page are we in?
-    let l:currentTab = tabpagenr()
-    try
-        " go through all tab pages
-        let l:tab = 0
-        while l:tab < tabpagenr('$')
-            let l:tab += 1
-
-            " go through all windows
-            let l:win = 0
-            while l:win < winnr('$')
-                let l:win += 1
-                " whatever buffer is in this window in this tab, remove it from
-                " l:buffers list
-                let l:thisbuf = winbufnr(l:win)
-                call remove(l:buffers, index(l:buffers, l:thisbuf))
-            endwhile
-        endwhile
-
-        " if there are any buffers left, delete them
-        if len(l:buffers)
-            execute 'bwipeout' join(l:buffers)
-        endif
-    finally
-        " go back to our original tab page
-        execute 'tabnext' l:currentTab
-    endtry
-endfunction

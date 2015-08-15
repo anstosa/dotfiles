@@ -1,33 +1,32 @@
 [user]
-	name = Ansel Santosa
-	email = ansel@extrahop.com
+    name = Ansel Santosa
+    email = anstosa@gmail.com
 [color]
-	ui = auto
+    ui = auto
 [alias]
-  co = checkout
-  c = commit
-  ca = commit --amend
-  s = status -sb
-  l = log
-  lv = log --pretty=fuller
-  ld = log --full-diff
-  d = diff
-  dc = diff --cached
-  br = branch
-  a = add
-  aa = add -A .
-  ad = ls-files --deleted | xargs git rm
-  hist = log --pretty=format:\"%C(yellow)%h %C(blue)%ad %C(red)%d %C(reset)%s%d %C(green)[%an]\" --decorate --graph --date=short
-  type = cat-file -t
-  dump = cat-file -p
-  week = log --since=1.weeks --author=ansel
+    co = checkout
+    c = commit
+    ca = commit --amend
+    s = status -sb
+    l = log
+    lv = log --pretty=fuller
+    ld = log --full-diff
+    d = diff
+    dc = diff --cached
+    br = branch
+    a = add
+    aa = add -A .
+    ad = ls-files --deleted | xargs git rm
+    ff = merge --ff-only
+    hist = log --pretty=format:\"%C(yellow)%h %C(blue)%ad %C(red)%d %C(reset)%s%d %C(green)[%an]\" --decorate --graph --date=short
+    type = cat-file -t
+    dump = cat-file -p
+    week = log --since=1.weeks --author=ansel
 [core]
-	autocrlf = false
-	eol = lf
-	pager = less -F -R -X -x1,5
+    autocrlf = false
+    eol = lf
+    pager = less -F -R -X -x1,5
 [push]
-	default = upstream
+    default = upstream
 [branch]
-	autosetuprebase = always
-[diff]
-	tool = meld
+    autosetuprebase = always
