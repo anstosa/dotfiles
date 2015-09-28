@@ -1,5 +1,5 @@
 # ~/.bashrc
-PATH=$HOME/.local/bin:$PATH
+PATH=$HOME/.local/bin:$HOME/.dotfiles/bin:$PATH
 export LANG=en_US.UTF-8
 
 # History
@@ -75,3 +75,21 @@ export FZF_DEFAULT_COMMAND='
  (git ls-files $(git rev-parse --show-toplevel) --cached --exclude-standard --others ||
   find * -name ".*" -prune -o -type f -print -o -type l -print) 2> /dev/null'
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+strip_diff_leading_symbols(){
+    color_code_regex="(\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K])"
+
+    # simplify the unified patch diff header
+    sed -r "s/^($color_code_regex)diff --git .*$//g" | \
+        sed -r "s/^($color_code_regex)index .*$/\n\1$(rule)/g" | \
+        sed -r "s/^($color_code_regex)\+\+\+(.*)$/\1+++\5\n\1$(rule)\x1B\[m/g" |\
+
+    # actually strips the leading symbols
+        sed -r "s/^($color_code_regex)[\+\-]/\1 /g"
+}
+export -f strip_diff_leading_symbols
+
+## Print a horizontal rule
+rule () {
+    printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
+}

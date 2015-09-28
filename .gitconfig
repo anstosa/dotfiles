@@ -25,7 +25,7 @@
 [core]
     autocrlf = false
     eol = lf
-    pager = less -F -R -X -x1,5
+    pager = bash -lc 'diff-highlight | strip_diff_leading_symbols | less -F -R -X -x1,5' -
 [push]
     default = upstream
 [branch]
