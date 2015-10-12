@@ -89,7 +89,7 @@ highlight clear SignColumn
 let g:CSApprox_hook_post = ['hi clear SignColumn']
 let g:gitgutter_max_signs = 1000
 
-Plug 'Valloric/YouCompleteMe', { 'do': './install.sh --gocode-completer' }
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
 let g:ycm_complete_in_strings = 0
 let g:ycm_seed_identifiers_with_syntax = 1
 
