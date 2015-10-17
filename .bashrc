@@ -19,7 +19,7 @@ On_Black='\e[40m'       # Black
 On_White='\e[47m'       # White
 
 # prevent Ctrl-S from being a little bitch
-stty -ixon
+[[ $- == *i* ]] && stty -ixon
 
 alias vim='nvim'        # Use NeoVim
 alias sl=ls

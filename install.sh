@@ -16,7 +16,6 @@ case "$choice" in
 
         echo "Linking bash..."
         makeLink .bashrc
-        makeLink .profile
 
         echo "Linking vim..."
         makeLink .vim
