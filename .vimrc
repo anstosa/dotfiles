@@ -1,8 +1,10 @@
+let mapleader = ','
+
 " Bundle =======================================================================
 if empty(glob('~/.vim/autoload/plug.vim'))
-  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall | source $MYVIMRC
+    silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    autocmd VimEnter * PlugInstall | source $MYVIMRC
 endif
 
 call plug#begin('~/.vim/plugged')
@@ -17,6 +19,9 @@ Plug 'digitaltoad/vim-jade',    { 'for': 'jade' }
 Plug 'scrooloose/syntastic'
 Plug 'blueyed/vim-diminactive'
 Plug 'Shougo/vimproc.vim',      { 'do': 'make' }
+
+Plug 'simnalamburt/vim-mundo'
+nnoremap <leader>u :GundoToggle<CR>
 
 Plug 'elzr/vim-json'
 let g:vim_json_syntax_conceal = 0
@@ -113,6 +118,7 @@ set winminheight=0                  " Allow windows to collapse entirely
 set spell                           " Enable spellcheck
 set number                          " Enable line numbers
 set nowrap                          " Don't wrap long lines
+set lazyredraw                      " Speed up display
 " Highlight the current line
 set cursorline
 highlight CursorLine cterm=none ctermbg=8
@@ -128,6 +134,13 @@ au BufNewFile,BufRead *.as set filetype=javascript
 set fo-=t
 set colorcolumn=81
 highlight ColorColumn ctermbg=0
+
+
+" Folding ======================================================================
+set foldenable
+set foldlevelstart=10
+set foldnestmax=10
+set foldmethod=syntax
 
 
 " Cursor =======================================================================
@@ -155,7 +168,6 @@ set wildmode=list:longest,full
 
 
 " Keybindings ==================================================================
-let mapleader = ','
 set backspace=indent,eol,start
 set whichwrap=b,s,h,l,<,>,[,]
 set scrolljump=5
