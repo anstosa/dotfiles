@@ -20,6 +20,11 @@ Plug 'scrooloose/syntastic'
 Plug 'blueyed/vim-diminactive'
 Plug 'Shougo/vimproc.vim',      { 'do': 'make' }
 
+Plug 'Yggdroot/indentLine'
+let g:indentLine_char = '¦'
+let g:indentLine_enabled = 1
+let g:indentLine_color_term = 0
+
 Plug 'simnalamburt/vim-mundo'
 nnoremap <leader>u :GundoToggle<CR>
 
