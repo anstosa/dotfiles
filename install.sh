@@ -20,8 +20,7 @@ case "$choice" in
         echo "Linking vim..."
         makeLink .vim
         makeLink .vimrc
-        makeLink .nvim
-        makeLink .nvimrc
+        ln -sfn $DIR/.vim ~/.config/nvim
 
         echo "Linking Git..."
         makeLink .gitconfig
