@@ -32,9 +32,6 @@ alias grep='grep --color=auto'
 
 alias update='sudo apt-get update && sudo apt-get upgrade && sudo apt-get dist-upgrade && sudo apt-get -f install && sudo apt-get autoremove && sudo apt-get autoclean'
 
-# Work
-alias extrahop='~/.dotfiles/extrahop/extrahop.sh'
-
 # TMUX
 alias tmux='TERM=screen-256color-bce tmux -2 -u'
 alias ta='tmux attach -d -t'
