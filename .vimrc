@@ -110,6 +110,12 @@ Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
 let g:ycm_complete_in_strings = 0
 let g:ycm_seed_identifiers_with_syntax = 1
 
+Plug 'terryma/vim-multiple-cursors'
+let g:multi_cursor_next_key='<C-d>'
+let g:multi_cursor_quit_key='<Esc>'
+let g:multi_cursor_exit_from_visual_mode=0
+let g:multi_cursor_exit_from_insert_mode=0
+
 call plug#end()
 filetype plugin indent on
 
