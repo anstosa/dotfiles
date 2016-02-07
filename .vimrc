@@ -99,6 +99,7 @@ if has('statusline')
     set statusline+=\ [%{getcwd()}]          " Current dir
     set statusline+=%=%-14.(%l,%c%V%)\ %p%%  " Right aligned file nav info
 endif
+Plug 'vim-airline/vim-airline-themes'
 
 Plug 'airblade/vim-gitgutter'
 highlight clear SignColumn
