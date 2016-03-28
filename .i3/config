@@ -13,12 +13,13 @@ set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below. ISO 10646 = Unicode
-font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
+# font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
+
 # The font above is very space-efficient, that is, it looks good, sharp and
 # clear in small sizes. However, if you need a lot of unicode glyphs or
 # right-to-left text rendering, you should instead use pango for rendering and
 # chose a FreeType font, such as:
-# font pango:DejaVu Sans Mono 10
+font pango:Source Code Pro for Powerline Medium 10
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -75,10 +76,10 @@ bindsym $mod+e layout toggle split
 bindsym $mod+Shift+space floating toggle
 
 # change focus between tiling / floating windows
-bindsym $mod+space focus mode_toggle
+bindsym $mod+Space focus mode_toggle
 
 # focus the parent container
-bindsym $mod+a focus parent
+bindsym $mod+p focus parent
 
 # focus the child container
 #bindsym $mod+d focus child
@@ -140,14 +141,31 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
+client.focused          #268bd2 #268bd2 #fdf6e3
+client.focused_inactive #586e75 #586e75 #eee8d5
+client.unfocused        #073642 #073642 #839496
+client.urgent           #dc322f #dc322f #fdf6e3
+
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-        status_command i3status
-        modifier Mod4
+    status_command i3status --config~/.i3status.conf
+    modifier Mod4
+    font pango:FontAwesome, Source Code Pro for Powerline Medium 10
+    separator_symbol 
+    colors {
+        background #073642
+        statusline #839496
+        separator #073642
+        focused_workspace  #268bd2 #268bd2 #073642
+        active_workspace   #586e75 #586e75 #002b36
+        inactive_workspace #073642 #002b36 #839496
+        urgent_workspace   #dc322f #dc322f #fdf6e3
+    }
 }
 
 for_window [window_role="pop-up"] floating enable
+for_window [Title="^Hangouts"] floating disable
 
 # Fix monitor configuration
 exec_always --no-startup-id ~/.screenlayout/ApplyScreenLayout.sh
@@ -160,7 +178,6 @@ workspace 2 output DVI-I-1
 exec --no-startup-id i3-msg 'workspace 1; exec gnome-terminal'
 exec --no-startup-id i3-msg 'workspace 2; exec google-chrome'
 exec --no-startup-id nm-applet
-exec --no-startup-id xfce4-power-manager
 
 # Pulse Audio controls
 bindsym XF86AudioRaiseVolume exec pactl set-sink-volume 0 +5% #increase sound volume

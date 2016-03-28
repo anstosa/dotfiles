@@ -46,9 +46,39 @@ case "$choice" in
   * ) echo "Skipping link"
 esac
 
-if type nvim >/dev/null 2>&1; then
-    echo "Found Neovim."
-else
+echo "Getting dependencies..."
+cd $DIR
+git submodule update
+
+if [ ! -d /usr/share/fonts/truetype/SourceCodePro ]; then
+    echo "Installing fonts..."
+    sudo apt-get install -y fonts-roboto
+    sudo cp -r $DIR/plugins/fonts/SourceCodePro /usr/share/fonts/truetype/
+    sudo cp -r $DIR/plugins/Font-Awesome/fonts /usr/share/fonts/truetype/
+    sudo fc-cache -fv
+    read -p "Installed. Select Source Code Pro as mono and Roboto as sans-serif. [Enter] to continue"
+fi
+
+if [ ! -f /etc/apt/sources.list.d/snwh-pulp-trusty.list ]; then
+    echo "Installing theme..."
+    sudo add-apt-repository ppa:snwh/pulp
+    sudo apt-get update
+    sudo apt-get install -y paper-icon-theme paper-gtk-theme lxappearance gtk-chtheme qt4-qtconfig
+    read -p "Installed. Select Paper in lxappearance and gtk-chtheme. Select GTK+ in qt4-qtconfig. [Enter] to continue"
+fi
+
+if ! type i3 >/dev/null 2>&1; then
+    echo "Installing i3..."
+    sudo echo "deb http://debian.sur5r.net/i3/ $(lsb_release -c -s) universe" >> /etc/apt/sources.list
+    sudo apt-get update
+    sudo apt-get --allow-unauthenticated install sur5r-keyring
+    sudo apt-get update
+    sudo apt-get install -y i3
+    sudo echo "*/1 * * * * $DIR/.i3/i3batwarn.sh" | sudo tee /etc/cron.d/i3batwarn > /dev/null
+    echo "Installed."
+fi
+
+if ! type nvim >/dev/null 2>&1; then
     echo "Installing NeoVim..."
     sudo add-apt-repository ppa:neovim-ppa/unstable
     sudo apt-get update
@@ -65,9 +95,7 @@ else
     echo "Defaults set."
 fi
 
-if type tmux >/dev/null 2>&1; then
-    echo "Found tmux"
-else
+if ! type tmux >/dev/null 2>&1; then
     echo "Installing tmux..."
     sudo apt-get install -y python-software-properties software-properties-common
     sudo add-apt-repository -y ppa:pi-rho/dev
@@ -76,18 +104,14 @@ else
     echo "Installed."
 fi
 
-if type powerline >/dev/null 2>&1; then
-    echo "Found powerline"
-else
+if ! type powerline >/dev/null 2>&1; then
     echo "Installing powerline..."
     sudo apt-get install -y python-pip
     pip install powerline-status
-    echo "Installed. Don't forget to patch your fonts"
+    echo "Installed."
 fi
 
-if type fzf >/dev/null 2>&1; then
-    echo "Found FZF"
-else
+if ! type fzf >/dev/null 2>&1; then
     echo "Installing FZF..."
     $DIR/plugins/fzf/install
     echo "Installed."

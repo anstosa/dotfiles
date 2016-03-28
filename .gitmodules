@@ -1,6 +1,12 @@
+[submodule "plugins/fonts"]
+	path = plugins/fonts
+	url = git@github.com/powerline/fonts.git
 [submodule "plugins/fzf"]
 	path = plugins/fzf
 	url = git@github.com:junegunn/fzf.git
 [submodule "plugins/cdhist"]
 	path = plugins/cdhist
 	url = git@github.com:bulletmark/cdhist.git
+[submodule "plugins/Font-Awesome"]
+	path = plugins/Font-Awesome
+	url = https://github.com/FortAwesome/Font-Awesome.git
