@@ -15,10 +15,13 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'godlygeek/tabular'
 Plug 'Raimondi/delimitMate'
-Plug 'digitaltoad/vim-jade',    { 'for': 'jade' }
-Plug 'scrooloose/syntastic'
+Plug 'digitaltoad/vim-pug',
 Plug 'blueyed/vim-diminactive'
-Plug 'Shougo/vimproc.vim',      { 'do': 'make' }
+Plug 'Shougo/vimproc.vim',
+Plug 'leafgarland/typescript-vim'
+
+Plug 'scrooloose/syntastic'
+let g:syntastic_javascript_checkers = ['eslint']
 
 Plug 'Yggdroot/indentLine'
 let g:indentLine_char = '¦'
@@ -109,6 +112,10 @@ let g:gitgutter_max_signs = 1000
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
 let g:ycm_complete_in_strings = 0
 let g:ycm_seed_identifiers_with_syntax = 1
+if !exists("g:ycm_semantic_triggers")
+    let g:ycm_semantic_triggers = {}
+endif
+let g:ycm_semantic_triggers['typescript'] = ['.']
 
 Plug 'terryma/vim-multiple-cursors'
 let g:multi_cursor_next_key='<C-d>'
