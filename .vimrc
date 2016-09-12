@@ -245,6 +245,7 @@ nnoremap <silent> <esc> :noh<cr><esc>
 
 " Metadata =====================================================================
 set backup
+set backupcopy=yes
 set history=1000
 set backupdir=$HOME/.vim/backups
 set directory=$HOME/.vim/swaps
