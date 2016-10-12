@@ -178,6 +178,7 @@ workspace 2 output HDMI-1
 # Start default programs
 exec --no-startup-id i3-msg 'workspace 1; exec gnome-terminal'
 exec --no-startup-id i3-msg 'workspace 2; exec google-chrome'
+exec --no-startup-id /usr/libexec/gnome-settings-daemon
 exec --no-startup-id nm-applet
 
 # Pulse Audio controls
