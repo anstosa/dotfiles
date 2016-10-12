@@ -172,8 +172,8 @@ for_window [Title="Slack$"] floating disable
 exec_always --no-startup-id ~/.screenlayout/ApplyScreenLayout.sh
 
 # Put workspaces on correct monitors
-workspace 1 output DP-1
-workspace 2 output DVI-I-1
+workspace 1 output LVDS-1
+workspace 2 output HDMI-1
 
 # Start default programs
 exec --no-startup-id i3-msg 'workspace 1; exec gnome-terminal'
