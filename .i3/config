@@ -166,6 +166,7 @@ bar {
 
 for_window [window_role="pop-up"] floating enable
 for_window [Title="^Google Hangouts"] floating disable
+for_window [Title="Slack$"] floating disable
 
 # Fix monitor configuration
 exec_always --no-startup-id ~/.screenlayout/ApplyScreenLayout.sh
