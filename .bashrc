@@ -1,5 +1,7 @@
 # ~/.bashrc
-PATH=$HOME/.local/bin:$HOME/.dotfiles/bin:$PATH
+GOPATH=$HOME/go
+PATH=$HOME/.local/bin:$HOME/.dotfiles/bin:$PATH:$GOPATH/bin
+export PYTHONPATH=$PYTHONPATH:$HOME
 export LANG=en_US.UTF-8
 
 # History
@@ -41,7 +43,7 @@ alias fzf='fzf-tmux'
 powerline-daemon -q
 POWERLINE_BASH_CONTINUATION=1
 POWERLINE_BASH_SELECT=1
-. /usr/local/lib/python2.7/dist-packages/powerline/bindings/bash/powerline.sh
+. ~/.local/lib/python2.7/site-packages/powerline/bindings/bash/powerline.sh
 source ~/.dotfiles/tmuxinator.bash
 if [[ -z "$TMUX" && $- == *i* ]] ;then
     ID="`tmux ls | grep -vm1 attached | cut -d: -f1`" # get the id of a deattached session
