@@ -107,6 +107,7 @@ fi
 if ! type powerline >/dev/null 2>&1; then
     echo "Installing powerline..."
     sudo apt-get install -y python-pip
+    pip install --upgrade pip
     pip install powerline-status
     echo "Installed."
 fi
