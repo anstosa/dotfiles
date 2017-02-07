@@ -163,6 +163,7 @@ set foldmethod=syntax
 
 
 " Cursor =======================================================================
+set mouse-=a                        " Disable visual selection with mouse
 set iskeyword-=.                    " '.' is an end of word designator
 set iskeyword-=#                    " '#' is an end of word designator
 set iskeyword-=-                    " '-' is an end of word designator
