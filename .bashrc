@@ -23,7 +23,6 @@ On_White='\e[47m'       # White
 # prevent Ctrl-S from being a little bitch
 [[ $- == *i* ]] && stty -ixon
 
-alias vim='nvim'        # Use NeoVim
 alias sl=ls
 alias ls='ls --color=auto'
 alias la='ls -AF'
