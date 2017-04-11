@@ -1,3 +1,5 @@
+set nocompatible
+map <Esc>[B <Down>]
 let mapleader = ','
 
 " Bundle =======================================================================
