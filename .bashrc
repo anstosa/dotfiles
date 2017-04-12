@@ -20,8 +20,8 @@ White='\e[0;37m'        # White
 On_Black='\e[40m'       # Black
 On_White='\e[47m'       # White
 
-# prevent Ctrl-S from being a little bitch
-[[ $- == *i* ]] && stty -ixon
+# Fix Ctrl-S and Ctrl-Q being shitty:
+stty -ixono
 
 alias sl=ls
 alias ls='ls --color=auto'
