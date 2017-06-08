@@ -22,6 +22,29 @@ Plug 'blueyed/vim-diminactive'
 Plug 'Shougo/vimproc.vim',
 Plug 'leafgarland/typescript-vim'
 
+Plug 'easymotion/vim-easymotion'
+map <Leader> <Plug>(easymotion-prefix)
+
+Plug 'kana/vim-operator-user'
+Plug 'haya14busa/vim-operator-flashy'
+map y <Plug>(operator-flashy)
+nmap Y <Plug>(operator-flashy)$
+
+Plug 'haya14busa/incsearch.vim'
+map / <Plug>(incsearch-easymotion-/)
+map ? <Plug>(incsearch-easymotion-?)
+map g/ <Plug>(incsearch-easymotion-stay)
+
+Plug 'haya14busa/incsearch-easymotion.vim'
+map m/ <Plug>(incsearch-fuzzy-/)
+map m? <Plug>(incsearch-fuzzy-?)
+map mg/ <Plug>(incsearch-fuzzy-stay)
+
+Plug 'haya14busa/incsearch-fuzzy.vim'
+map z/ <Plug>(incsearch-fuzzy-/)
+map z? <Plug>(incsearch-fuzzy-?)
+map zg/ <Plug>(incsearch-fuzzy-stay)
+
 Plug 'scrooloose/syntastic'
 let g:syntastic_javascript_checkers = ['eslint']
 
