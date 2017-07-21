@@ -31,9 +31,9 @@ map y <Plug>(operator-flashy)
 nmap Y <Plug>(operator-flashy)$
 
 Plug 'haya14busa/incsearch.vim'
-map / <Plug>(incsearch-easymotion-/)
-map ? <Plug>(incsearch-easymotion-?)
-map g/ <Plug>(incsearch-easymotion-stay)
+map / <Plug>(incsearch-forward)
+map ? <Plug>(incsearch-backward)
+map g/ <Plug>(incsearch-stay)
 
 Plug 'haya14busa/incsearch-easymotion.vim'
 map m/ <Plug>(incsearch-fuzzy-/)
