@@ -27,6 +27,7 @@ alias sl=ls
 alias ls='ls --color --group-directories-first -FAv'
 alias ll='ls --color --group-directories-first -FAvlhG'
 alias grep='grep --color=auto'
+alias fix='stty sane'
 
 alias update='sudo apt-get update && sudo apt-get upgrade && sudo apt-get dist-upgrade && sudo apt-get -f install && sudo apt-get autoremove && sudo apt-get autoclean'
 
