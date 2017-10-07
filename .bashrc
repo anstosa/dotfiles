@@ -28,7 +28,7 @@ alias ls='ls --color --group-directories-first -FAv'
 alias ll='ls --color --group-directories-first -FAvlhG'
 alias grep='grep --color=auto'
 
-alias update='sudo apt-get update && sudo apt-get upgrade && sudo apt-get dist-upgrade && sudo apt-get -f install && sudo apt-get autoremove && sudo apt-get autoclean'
+alias update='sudo apt-get update && sudo apt-get upgrade && sudo apt-get dist-upgrade && sudo apt-get install update-manager-core && sudo apt-get -f install && sudo apt-get autoremove && sudo apt-get autoclean'
 
 # TMUX
 alias tmux='TERM=screen-256color-bce tmux -2 -u'
