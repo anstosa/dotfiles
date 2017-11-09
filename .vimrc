@@ -163,6 +163,7 @@ set spell                           " Enable spellcheck
 set number                          " Enable line numbers
 set nowrap                          " Don't wrap long lines
 set lazyredraw                      " Speed up display
+set ttyfast                         " Speed up display
 " Highlight the current line
 set cursorline
 highlight CursorLine cterm=none ctermbg=8
