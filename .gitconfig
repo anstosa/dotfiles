@@ -26,6 +26,7 @@
     autocrlf = false
     eol = lf
     pager = bash -lc 'diff-highlight | strip_diff_leading_symbols | less -F -R -X -x1,5' -
+	editor = vim
 [push]
     default = upstream
 [branch]
