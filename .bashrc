@@ -3,6 +3,9 @@ GOPATH=$HOME/go
 PATH=$HOME/.local/bin:$HOME/.dotfiles/bin:$PATH:$GOPATH/bin
 export PYTHONPATH=$PYTHONPATH:$HOME
 export LANG=en_US.UTF-8
+export PATH="/home/ansto/.pyenv/bin:$PATH"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
 
 # History
 HISTSIZE=50000
