@@ -12,6 +12,7 @@ endif
 call plug#begin('~/.vim/plugged')
 
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
+Plug 'mxw/vim-jsx'
 Plug 'mattn/emmet-vim',         { 'for': ['html', 'javascript', 'css']}
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
@@ -135,6 +136,7 @@ let g:CSApprox_hook_post = ['hi clear SignColumn']
 let g:gitgutter_max_signs = 1000
 
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
+set encoding=utf-8
 let g:ycm_complete_in_strings = 0
 let g:ycm_seed_identifiers_with_syntax = 1
 if !exists("g:ycm_semantic_triggers")
