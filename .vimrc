@@ -12,7 +12,7 @@ endif
 call plug#begin('~/.vim/plugged')
 
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
-Plug 'mxw/vim-jsx'
+Plug 'chemzqm/vim-jsx-improve'
 Plug 'mattn/emmet-vim',         { 'for': ['html', 'javascript', 'css']}
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
@@ -181,13 +181,6 @@ au BufNewFile,BufRead *.as set filetype=javascript
 set fo-=t
 set colorcolumn=81
 highlight ColorColumn ctermbg=0
-
-
-" Folding ======================================================================
-set foldenable
-set foldlevelstart=10
-set foldnestmax=10
-set foldmethod=syntax
 
 
 " Cursor =======================================================================
