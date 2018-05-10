@@ -14,6 +14,9 @@ call plug#begin('~/.vim/plugged')
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 Plug 'chemzqm/vim-jsx-improve'
 Plug 'mattn/emmet-vim',         { 'for': ['html', 'javascript', 'css']}
+Plug 'ap/vim-css-color'
+Plug 'hail2u/vim-css3-syntax'
+Plug 'groenewege/vim-less'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'godlygeek/tabular'
@@ -143,12 +146,6 @@ if !exists("g:ycm_semantic_triggers")
     let g:ycm_semantic_triggers = {}
 endif
 let g:ycm_semantic_triggers['typescript'] = ['.']
-
-Plug 'terryma/vim-multiple-cursors'
-let g:multi_cursor_next_key='<C-d>'
-let g:multi_cursor_quit_key='<Esc>'
-let g:multi_cursor_exit_from_visual_mode=0
-let g:multi_cursor_exit_from_insert_mode=0
 
 call plug#end()
 filetype plugin indent on
