@@ -15,8 +15,6 @@ Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 Plug 'chemzqm/vim-jsx-improve'
 Plug 'mattn/emmet-vim',         { 'for': ['html', 'javascript', 'css']}
 Plug 'ap/vim-css-color'
-Plug 'hail2u/vim-css3-syntax'
-Plug 'groenewege/vim-less'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'godlygeek/tabular'
@@ -25,6 +23,13 @@ Plug 'digitaltoad/vim-pug',
 Plug 'blueyed/vim-diminactive'
 Plug 'Shougo/vimproc.vim',
 Plug 'leafgarland/typescript-vim'
+
+Plug 'hail2u/vim-css3-syntax'
+augroup VimCSS3Syntax
+    autocmd!
+
+    autocmd FileType css setlocal iskeyword+=-
+augroup END
 
 Plug 'easymotion/vim-easymotion'
 map <Leader> <Plug>(easymotion-prefix)
