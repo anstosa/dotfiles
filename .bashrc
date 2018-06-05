@@ -1,11 +1,7 @@
 # ~/.bashrc
 GOPATH=$HOME/go
 PATH=$HOME/.local/bin:$HOME/.dotfiles/bin:$PATH:$GOPATH/bin
-export PYTHONPATH=$PYTHONPATH:$HOME
 export LANG=en_US.UTF-8
-export PATH="/home/ansto/.pyenv/bin:$PATH"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
 
 # History
 HISTSIZE=50000
@@ -68,6 +64,14 @@ source ~/.bashrc_local
 if [[ -d ${HOME}/.rvm ]]; then
     PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
     source ${HOME}/.rvm/scripts/rvm
+fi
+
+# Python
+export PYTHONPATH=$PYTHONPATH:$HOME
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+if command -v pyenv 1>/dev/null 2>&1; then
+    eval "$(pyenv init -)"
 fi
 
 export FZF_DEFAULT_COMMAND='
