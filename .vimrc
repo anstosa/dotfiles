@@ -17,12 +17,14 @@ Plug 'mattn/emmet-vim',         { 'for': ['html', 'javascript', 'css']}
 Plug 'ap/vim-css-color'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-sleuth'
 Plug 'godlygeek/tabular'
 Plug 'Raimondi/delimitMate'
 Plug 'digitaltoad/vim-pug',
 Plug 'blueyed/vim-diminactive'
 Plug 'Shougo/vimproc.vim',
 Plug 'leafgarland/typescript-vim'
+Plug 'wesQ3/vim-windowswap'
 
 Plug 'hail2u/vim-css3-syntax'
 augroup VimCSS3Syntax
