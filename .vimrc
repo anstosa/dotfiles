@@ -185,6 +185,11 @@ set fo-=t
 set colorcolumn=81
 highlight ColorColumn ctermbg=0
 
+" https://unix.stackexchange.com/a/383044
+autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() != 'c' | checktime | endif
+autocmd FileChangedShellPost *
+  \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
+
 
 " Cursor =======================================================================
 set mouse-=a                        " Disable visual selection with mouse
