@@ -1,6 +1,7 @@
 # ~/.bashrc
+GOROOT=/usr/local/go
 GOPATH=$HOME/go
-PATH=$HOME/.local/bin:$HOME/.dotfiles/bin:$PATH:$GOPATH/bin
+PATH=$HOME/.local/bin:$HOME/.dotfiles/bin:$PATH:$GOROOT/bin:$GOPATH/bin
 export LANG=en_US.UTF-8
 
 # History
