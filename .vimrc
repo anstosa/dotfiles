@@ -13,7 +13,6 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 Plug 'chemzqm/vim-jsx-improve'
-Plug 'mattn/emmet-vim',         { 'for': ['html', 'javascript', 'css']}
 Plug 'ap/vim-css-color'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
