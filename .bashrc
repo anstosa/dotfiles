@@ -98,3 +98,5 @@ export -f strip_diff_leading_symbols
 rule () {
     printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
 }
+
+alias gam="/home/ansto/bin/gamadv-xtd/gam"
