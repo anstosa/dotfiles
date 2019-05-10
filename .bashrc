@@ -28,6 +28,7 @@ alias ls='ls --color --group-directories-first -FAv'
 alias ll='ls --color --group-directories-first -FAvlhG'
 alias grep='grep --color=auto'
 alias fix='stty sane'
+alias code-server='code-server --allow-http --no-auth'
 
 alias update='sudo apt-get update && sudo apt-get upgrade && sudo apt-get dist-upgrade && sudo apt-get install update-manager-core && sudo apt-get -f install && sudo apt-get autoremove && sudo apt-get autoclean'
 
@@ -54,6 +55,18 @@ fi
 # Prompt
 PS1="\[$Black$On_White\]\W \$\[$Color_Off\] "
 PS1="$PS1"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#I_#P") "$PWD")'
+
+export VISUAL=vim
+export EDITOR="$VISUAL"
+
+# enable bash completion in interactive shells
+if ! shopt -oq posix; then
+    if [ -f /usr/share/bash-completion/bash_completion ]; then
+        . /usr/share/bash-completion/bash_completion
+    elif [ -f /etc/bash_completion ]; then
+        . /etc/bash_completion
+    fi
+fi
 
 # Source plugins
 source ~/.dotfiles/cdhist.sh
