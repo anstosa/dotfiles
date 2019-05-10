@@ -1,26 +1,6 @@
 {
     "segments": {
         "right": [
-            {
-                "function": "powerline.segments.common.sys.system_load",
-                "priority": 50
-            },
-            {
-                "function": "powerline.segments.common.time.date",
-                "args": {
-                    "format": "%a %e, %b",
-                    "istime": true
-                }
-            },
-            {
-                "function": "powerline.segments.common.time.date",
-                "name": "time",
-                "args": {
-                    "format": "%l:%M %p",
-                    "istime": true
-                },
-                "highlight_groups": ["cwd"]
-            }
         ]
     }
 }
