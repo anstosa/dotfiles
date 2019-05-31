@@ -30,6 +30,9 @@ case "$choice" in
         echo "Linking inputrc..."
         makeLink .inputrc
 
+        echo "Linking python..."
+        makeLink .pystartup
+
         echo "Linking powerline..."
         ln -sfn $DIR/powerline ~/.config/powerline
 
