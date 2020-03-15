@@ -12,15 +12,25 @@ endif
 call plug#begin('~/.vim/plugged')
 
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
-Plug 'mattn/emmet-vim',         { 'for': ['html', 'javascript', 'css']}
+Plug 'chemzqm/vim-jsx-improve'
+Plug 'ap/vim-css-color'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-sleuth'
 Plug 'godlygeek/tabular'
 Plug 'Raimondi/delimitMate'
 Plug 'digitaltoad/vim-pug',
 Plug 'blueyed/vim-diminactive'
 Plug 'Shougo/vimproc.vim',
 Plug 'leafgarland/typescript-vim'
+Plug 'wesQ3/vim-windowswap'
+
+Plug 'hail2u/vim-css3-syntax'
+augroup VimCSS3Syntax
+    autocmd!
+
+    autocmd FileType css setlocal iskeyword+=-
+augroup END
 
 Plug 'easymotion/vim-easymotion'
 map <Leader> <Plug>(easymotion-prefix)
@@ -134,19 +144,14 @@ highlight clear SignColumn
 let g:CSApprox_hook_post = ['hi clear SignColumn']
 let g:gitgutter_max_signs = 1000
 
-" Plug 'Valloric/YouCompleteMe', { 'do': './install.py --js-completer' }
+" Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
+" set encoding=utf-8
 " let g:ycm_complete_in_strings = 0
 " let g:ycm_seed_identifiers_with_syntax = 1
 " if !exists("g:ycm_semantic_triggers")
 "     let g:ycm_semantic_triggers = {}
 " endif
 " let g:ycm_semantic_triggers['typescript'] = ['.']
-
-Plug 'terryma/vim-multiple-cursors'
-let g:multi_cursor_next_key='<C-d>'
-let g:multi_cursor_quit_key='<Esc>'
-let g:multi_cursor_exit_from_visual_mode=0
-let g:multi_cursor_exit_from_insert_mode=0
 
 call plug#end()
 filetype plugin indent on
@@ -180,12 +185,10 @@ set fo-=t
 set colorcolumn=81
 highlight ColorColumn ctermbg=0
 
-
-" Folding ======================================================================
-set foldenable
-set foldlevelstart=10
-set foldnestmax=10
-set foldmethod=syntax
+" https://unix.stackexchange.com/a/383044
+autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() != 'c' | checktime | endif
+autocmd FileChangedShellPost *
+  \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
 
 
 " Cursor =======================================================================

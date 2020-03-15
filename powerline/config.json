@@ -1,4 +1,7 @@
 {
+	"common": {
+		"default_top_theme": "ascii"
+	},
 	"ext": {
 		"shell": {
 			"colorscheme": "solarized",

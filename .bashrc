@@ -1,7 +1,7 @@
 # ~/.bashrc
+GOROOT=/usr/local/go
 GOPATH=$HOME/go
-PATH=$HOME/.local/bin:$HOME/.dotfiles/bin:$PATH:$GOPATH/bin
-export PYTHONPATH=$PYTHONPATH:$HOME
+PATH=$HOME/.local/bin:$HOME/.dotfiles/bin:$PATH:$GOROOT/bin:$GOPATH/bin
 export LANG=en_US.UTF-8
 
 # History
@@ -28,6 +28,7 @@ alias ls='ls --color --group-directories-first -FAv'
 alias ll='ls --color --group-directories-first -FAvlhG'
 alias grep='grep --color=auto'
 alias fix='stty sane'
+alias code-server='code-server --allow-http --no-auth'
 
 alias update='sudo apt-get update && sudo apt-get upgrade && sudo apt-get dist-upgrade && sudo apt-get install update-manager-core && sudo apt-get -f install && sudo apt-get autoremove && sudo apt-get autoclean'
 
@@ -55,6 +56,18 @@ fi
 PS1="\[$Black$On_White\]\W \$\[$Color_Off\] "
 PS1="$PS1"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#I_#P") "$PWD")'
 
+export VISUAL=vim
+export EDITOR="$VISUAL"
+
+# enable bash completion in interactive shells
+if ! shopt -oq posix; then
+    if [ -f /usr/share/bash-completion/bash_completion ]; then
+        . /usr/share/bash-completion/bash_completion
+    elif [ -f /etc/bash_completion ]; then
+        . /etc/bash_completion
+    fi
+fi
+
 # Source plugins
 source ~/.dotfiles/cdhist.sh
 
@@ -66,6 +79,15 @@ if [[ -d ${HOME}/.rvm ]]; then
     PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
     source ${HOME}/.rvm/scripts/rvm
 fi
+
+# Python
+export PYTHONPATH=$PYTHONPATH:$HOME
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+if command -v pyenv 1>/dev/null 2>&1; then
+    eval "$(pyenv init -)"
+fi
+eval "$(pyenv virtualenv-init -)"
 
 export FZF_DEFAULT_COMMAND='
  (git ls-files $(git rev-parse --show-toplevel) --cached --exclude-standard --others ||
@@ -89,3 +111,5 @@ export -f strip_diff_leading_symbols
 rule () {
     printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
 }
+
+alias gam="/home/ansto/bin/gamadv-xtd/gam"
