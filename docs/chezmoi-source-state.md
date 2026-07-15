@@ -28,6 +28,8 @@ chezmoi apply --dry-run --verbose
 
 Do not use force options during this migration. Applying is a later cutover
 step after the isolated-home safety checks and approval evidence are complete.
+The required evidence and rollback boundary are documented in
+[the migration cutover and rollback guide](migration-cutover-and-rollback.md).
 
 ## Explicit exclusions
 
