@@ -1,0 +1,317 @@
+{
+  "entries": [
+    {
+      "classification": "tracked",
+      "path": ".bashrc",
+      "type": "file"
+    },
+    {
+      "classification": "tracked",
+      "path": ".gitconfig",
+      "type": "file"
+    },
+    {
+      "classification": "tracked",
+      "path": ".gitignore",
+      "type": "file"
+    },
+    {
+      "classification": "tracked",
+      "path": ".gitmodules",
+      "type": "file"
+    },
+    {
+      "classification": "untracked",
+      "path": ".i3",
+      "type": "directory"
+    },
+    {
+      "classification": "tracked",
+      "path": ".i3/config",
+      "type": "file"
+    },
+    {
+      "classification": "tracked",
+      "path": ".i3/i3batwarn.sh",
+      "type": "file"
+    },
+    {
+      "classification": "tracked",
+      "path": ".inputrc",
+      "type": "file"
+    },
+    {
+      "classification": "tracked",
+      "path": ".pystartup",
+      "type": "file"
+    },
+    {
+      "classification": "tracked",
+      "path": ".tmux.conf",
+      "type": "file"
+    },
+    {
+      "classification": "untracked",
+      "path": ".vim",
+      "type": "directory"
+    },
+    {
+      "classification": "untracked",
+      "path": ".vim/autoload",
+      "type": "directory"
+    },
+    {
+      "classification": "tracked",
+      "path": ".vim/autoload/.gitignore",
+      "type": "file"
+    },
+    {
+      "classification": "untracked",
+      "path": ".vim/backups",
+      "type": "directory"
+    },
+    {
+      "classification": "tracked",
+      "path": ".vim/backups/.gitignore",
+      "type": "file"
+    },
+    {
+      "classification": "untracked",
+      "path": ".vim/colors",
+      "type": "directory"
+    },
+    {
+      "classification": "tracked",
+      "path": ".vim/colors/solarized.vim",
+      "type": "file"
+    },
+    {
+      "classification": "tracked",
+      "path": ".vim/init.vim",
+      "type": "symlink"
+    },
+    {
+      "classification": "untracked",
+      "path": ".vim/plugged",
+      "type": "directory"
+    },
+    {
+      "classification": "tracked",
+      "path": ".vim/plugged/.gitignore",
+      "type": "file"
+    },
+    {
+      "classification": "untracked",
+      "path": ".vim/shada",
+      "type": "directory"
+    },
+    {
+      "classification": "tracked",
+      "path": ".vim/shada/.gitignore",
+      "type": "file"
+    },
+    {
+      "classification": "untracked",
+      "path": ".vim/spell",
+      "type": "directory"
+    },
+    {
+      "classification": "tracked",
+      "path": ".vim/spell/en.utf-8.spl",
+      "type": "file"
+    },
+    {
+      "classification": "untracked",
+      "path": ".vim/swaps",
+      "type": "directory"
+    },
+    {
+      "classification": "tracked",
+      "path": ".vim/swaps/.gitignore",
+      "type": "file"
+    },
+    {
+      "classification": "untracked",
+      "path": ".vim/undo",
+      "type": "directory"
+    },
+    {
+      "classification": "tracked",
+      "path": ".vim/undo/.gitignore",
+      "type": "file"
+    },
+    {
+      "classification": "tracked",
+      "path": ".vimrc",
+      "type": "file"
+    },
+    {
+      "classification": "ignored",
+      "path": "AGENTS.md",
+      "type": "file"
+    },
+    {
+      "classification": "tracked",
+      "path": "README.md",
+      "type": "file"
+    },
+    {
+      "classification": "untracked",
+      "path": "bin",
+      "type": "directory"
+    },
+    {
+      "classification": "tracked",
+      "path": "bin/diff-highlight",
+      "type": "symlink"
+    },
+    {
+      "classification": "tracked",
+      "path": "cdhist.sh",
+      "type": "file"
+    },
+    {
+      "classification": "tracked",
+      "path": "install.sh",
+      "type": "file"
+    },
+    {
+      "classification": "untracked",
+      "path": "plugins",
+      "type": "directory"
+    },
+    {
+      "classification": "tracked",
+      "path": "plugins/Font-Awesome",
+      "type": "gitlink"
+    },
+    {
+      "classification": "untracked",
+      "path": "plugins/diff-highlight",
+      "type": "directory"
+    },
+    {
+      "classification": "tracked",
+      "path": "plugins/diff-highlight/diff-highlight",
+      "type": "file"
+    },
+    {
+      "classification": "tracked",
+      "path": "plugins/fonts",
+      "type": "gitlink"
+    },
+    {
+      "classification": "tracked",
+      "path": "plugins/fzf",
+      "type": "gitlink"
+    },
+    {
+      "classification": "untracked",
+      "path": "powerline",
+      "type": "directory"
+    },
+    {
+      "classification": "untracked",
+      "path": "powerline/colorschemes",
+      "type": "directory"
+    },
+    {
+      "classification": "untracked",
+      "path": "powerline/colorschemes/shell",
+      "type": "directory"
+    },
+    {
+      "classification": "tracked",
+      "path": "powerline/colorschemes/shell/solarized.json",
+      "type": "file"
+    },
+    {
+      "classification": "tracked",
+      "path": "powerline/colorschemes/solarized.json",
+      "type": "file"
+    },
+    {
+      "classification": "tracked",
+      "path": "powerline/config.json",
+      "type": "file"
+    },
+    {
+      "classification": "tracked",
+      "path": "powerline/powerline",
+      "type": "symlink"
+    },
+    {
+      "classification": "untracked",
+      "path": "powerline/themes",
+      "type": "directory"
+    },
+    {
+      "classification": "untracked",
+      "path": "powerline/themes/shell",
+      "type": "directory"
+    },
+    {
+      "classification": "tracked",
+      "path": "powerline/themes/shell/ansel.json",
+      "type": "file"
+    },
+    {
+      "classification": "untracked",
+      "path": "powerline/themes/tmux",
+      "type": "directory"
+    },
+    {
+      "classification": "tracked",
+      "path": "powerline/themes/tmux/ansel.json",
+      "type": "file"
+    },
+    {
+      "classification": "tracked",
+      "path": "private",
+      "type": "gitlink"
+    },
+    {
+      "classification": "tracked",
+      "path": "tmuxinator.bash",
+      "type": "file"
+    }
+  ],
+  "excluded_roots": [
+    ".git",
+    ".omx"
+  ],
+  "migration_manifest_proposal": {
+    "rules": [
+      {
+        "action": "copy",
+        "destination": "home-relative",
+        "requires_review": true,
+        "selector": "tracked file or symlink"
+      },
+      {
+        "action": "retain-reference",
+        "destination": "same-relative-path",
+        "requires_review": true,
+        "selector": "tracked gitlink"
+      },
+      {
+        "action": "exclude",
+        "destination": null,
+        "requires_review": true,
+        "selector": "untracked or ignored entry"
+      }
+    ],
+    "schema_version": 1,
+    "source_inventory": "tracked-inventory.json"
+  },
+  "schema_version": 1,
+  "summary": {
+    "directory": 19,
+    "file": 29,
+    "gitlink": 4,
+    "ignored": 1,
+    "symlink": 3,
+    "tracked": 35,
+    "untracked": 19
+  }
+}

@@ -1,0 +1,184 @@
+{
+  "entries": [
+    {
+      "mode": "100644",
+      "path": ".bashrc",
+      "type": "file"
+    },
+    {
+      "mode": "100644",
+      "path": ".gitconfig",
+      "type": "file"
+    },
+    {
+      "mode": "100644",
+      "path": ".gitignore",
+      "type": "file"
+    },
+    {
+      "mode": "100644",
+      "path": ".gitmodules",
+      "type": "file"
+    },
+    {
+      "mode": "100644",
+      "path": ".i3/config",
+      "type": "file"
+    },
+    {
+      "mode": "100644",
+      "path": ".i3/i3batwarn.sh",
+      "type": "file"
+    },
+    {
+      "mode": "100644",
+      "path": ".inputrc",
+      "type": "file"
+    },
+    {
+      "mode": "100644",
+      "path": ".pystartup",
+      "type": "file"
+    },
+    {
+      "mode": "100644",
+      "path": ".tmux.conf",
+      "type": "file"
+    },
+    {
+      "mode": "100644",
+      "path": ".vim/autoload/.gitignore",
+      "type": "file"
+    },
+    {
+      "mode": "100644",
+      "path": ".vim/backups/.gitignore",
+      "type": "file"
+    },
+    {
+      "mode": "100644",
+      "path": ".vim/colors/solarized.vim",
+      "type": "file"
+    },
+    {
+      "mode": "120000",
+      "path": ".vim/init.vim",
+      "type": "symlink"
+    },
+    {
+      "mode": "100644",
+      "path": ".vim/plugged/.gitignore",
+      "type": "file"
+    },
+    {
+      "mode": "100644",
+      "path": ".vim/shada/.gitignore",
+      "type": "file"
+    },
+    {
+      "mode": "100644",
+      "path": ".vim/spell/en.utf-8.spl",
+      "type": "file"
+    },
+    {
+      "mode": "100644",
+      "path": ".vim/swaps/.gitignore",
+      "type": "file"
+    },
+    {
+      "mode": "100644",
+      "path": ".vim/undo/.gitignore",
+      "type": "file"
+    },
+    {
+      "mode": "100644",
+      "path": ".vimrc",
+      "type": "file"
+    },
+    {
+      "mode": "100644",
+      "path": "README.md",
+      "type": "file"
+    },
+    {
+      "mode": "120000",
+      "path": "bin/diff-highlight",
+      "type": "symlink"
+    },
+    {
+      "mode": "100644",
+      "path": "cdhist.sh",
+      "type": "file"
+    },
+    {
+      "mode": "100755",
+      "path": "install.sh",
+      "type": "file"
+    },
+    {
+      "mode": "160000",
+      "path": "plugins/Font-Awesome",
+      "type": "gitlink"
+    },
+    {
+      "mode": "100755",
+      "path": "plugins/diff-highlight/diff-highlight",
+      "type": "file"
+    },
+    {
+      "mode": "160000",
+      "path": "plugins/fonts",
+      "type": "gitlink"
+    },
+    {
+      "mode": "160000",
+      "path": "plugins/fzf",
+      "type": "gitlink"
+    },
+    {
+      "mode": "100644",
+      "path": "powerline/colorschemes/shell/solarized.json",
+      "type": "file"
+    },
+    {
+      "mode": "100644",
+      "path": "powerline/colorschemes/solarized.json",
+      "type": "file"
+    },
+    {
+      "mode": "100644",
+      "path": "powerline/config.json",
+      "type": "file"
+    },
+    {
+      "mode": "120000",
+      "path": "powerline/powerline",
+      "type": "symlink"
+    },
+    {
+      "mode": "100644",
+      "path": "powerline/themes/shell/ansel.json",
+      "type": "file"
+    },
+    {
+      "mode": "100644",
+      "path": "powerline/themes/tmux/ansel.json",
+      "type": "file"
+    },
+    {
+      "mode": "160000",
+      "path": "private",
+      "type": "gitlink"
+    },
+    {
+      "mode": "100644",
+      "path": "tmuxinator.bash",
+      "type": "file"
+    }
+  ],
+  "excluded_roots": [
+    ".git",
+    ".omx"
+  ],
+  "schema_version": 1
+}
