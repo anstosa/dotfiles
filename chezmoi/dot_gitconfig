@@ -1,0 +1,37 @@
+[user]
+    name = Ansel Santosa
+    email = anstosa@users.noreply.github.com
+[color]
+    ui = auto
+[alias]
+    a = add
+    aa = add -A .
+    ad = ls-files --deleted | xargs git rm
+    br = branch
+    c = commit
+    ca = commit --amend
+    co = checkout
+    d = diff
+    dc = diff --cached
+    dump = cat-file -p
+    ff = merge --ff-only
+    hist = log --pretty=format:\"%C(yellow)%h %C(blue)%ad %C(red)%d %C(reset)%s%d %C(green)[%an]\" --decorate --graph --date=short
+    l = log
+    lv = log --pretty=fuller
+    rv = review -R -y
+    s = status -sb
+    type = cat-file -t
+    week = log --since=1.weeks --author=ansel
+[core]
+    autocrlf = false
+    eol = lf
+    pager = bash -lc 'diff-highlight | strip_diff_leading_symbols | less -F -R -X -x1,5' -
+	editor = vim
+[push]
+    default = upstream
+[branch]
+    autosetuprebase = always
+[interactive]
+	diffFilter = diff-highlight
+[log]
+	date = local

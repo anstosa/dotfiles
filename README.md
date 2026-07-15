@@ -1,21 +1,14 @@
-Ansel's dotfiles
-================
+# Ansel's dotfiles
 
-My personal, opinionated dotfiles that I use on all my linux machines
+This repository is transitioning from a destructive symlink installer to a
+ChezMoi-managed source state for Linux and WSL.
 
-WARNING
--------
+## Current migration status
 
-The install script provided with these dotfiles is destructive and will overwrite files without asking. To ensure that you do not lose anything important please read [install.sh](https://github.com/anstosa/dotfiles/blob/master/install.sh) so you know which files will be overwritten and make backups accordingly.
+The legacy files and `install.sh` are preserved as the migration baseline. Do
+not run `install.sh`: it overwrites files and installs packages. G002 adds the
+non-destructive source state in [`chezmoi/`](chezmoi/) but does not apply it,
+delete legacy files, bootstrap packages, or inspect the `private` Gitlink.
 
-The install script will also install various programs without asking. Please read [install.sh](https://github.com/anstosa/dotfiles/blob/master/install.sh) to make sure you want all of these programs before continuing
-
-I cannot be held responsible if you lose any important data.
-
-Installation
-------------
-
-1. Clone repo: `git clone git@github.com:anstosa/dotfiles.git ~/.dotfiles`
-4. **[OPTIONAL]** Backup existing dotfiles
-5. Install dotfiles: `~/.dotfiles/install.sh`
-6. **[RECOMMENDED]** Restart or `source ~/.bashrc` in all open terminals
+Read [the ChezMoi source-state guide](docs/chezmoi-source-state.md) for the
+platform rules, preview command, exclusions, and validation command.

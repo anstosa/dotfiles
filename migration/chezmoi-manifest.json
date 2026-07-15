@@ -1,0 +1,165 @@
+{
+  "schema_version": 1,
+  "scope": "G002 ChezMoi source-state scaffold; no legacy deletion or apply",
+  "source_root": "chezmoi",
+  "entries": [
+    {
+      "legacy_path": ".bashrc",
+      "chezmoi_source": "chezmoi/dot_bashrc.tmpl",
+      "target": "~/.bashrc",
+      "platform": "linux-or-wsl",
+      "disposition": "migrated-with-path-update",
+      "legacy_git_blob": "a1ce8f5b5730a24a7db060a63a8dc6c5272bcabc",
+      "source_sha256": "1300c0f161b61b13f1856aac5cb28d667f9e1b9720674206968c58e3d098920b",
+      "executable": false,
+      "notes": "Only tmuxinator and cdhist source paths change to their managed locations."
+    },
+    {
+      "legacy_path": ".gitconfig",
+      "chezmoi_source": "chezmoi/dot_gitconfig",
+      "target": "~/.gitconfig",
+      "platform": "linux-or-wsl",
+      "disposition": "migrated",
+      "source_sha256": "7ff8b65600770a7a29d0d53a9970e2952233fd791ae9bff3607d1cc78b349743",
+      "executable": false
+    },
+    {
+      "legacy_path": ".inputrc",
+      "chezmoi_source": "chezmoi/dot_inputrc",
+      "target": "~/.inputrc",
+      "platform": "linux-or-wsl",
+      "disposition": "migrated",
+      "source_sha256": "e43cf2e0ceff0b2f13b11820151dda4be795243b3315e4443b1be13374de90f9",
+      "executable": false
+    },
+    {
+      "legacy_path": ".pystartup",
+      "chezmoi_source": "chezmoi/dot_pystartup",
+      "target": "~/.pystartup",
+      "platform": "linux-or-wsl",
+      "disposition": "migrated",
+      "source_sha256": "43054bda83410ac126f3bca43c6b682abab069e0f3bc5c4afa8a4fe3b06bbfa2",
+      "executable": false
+    },
+    {
+      "legacy_path": ".tmux.conf",
+      "chezmoi_source": "chezmoi/dot_tmux.conf",
+      "target": "~/.tmux.conf",
+      "platform": "linux-or-wsl",
+      "disposition": "migrated",
+      "source_sha256": "2ba5837b35321809e483ac1669130e843fd46350ac02e14776cef589bb8b493a",
+      "executable": false
+    },
+    {
+      "legacy_path": ".vimrc",
+      "chezmoi_source": "chezmoi/dot_vimrc",
+      "target": "~/.vimrc",
+      "platform": "linux-or-wsl",
+      "disposition": "migrated",
+      "source_sha256": "88ef395d24b62cc3786354cbef2457729a375b09fe3ac0a2e64316d646360007",
+      "executable": false
+    },
+    {
+      "legacy_path": ".vim/",
+      "chezmoi_source": "chezmoi/dot_vim/",
+      "target": "~/.vim/",
+      "platform": "linux-or-wsl",
+      "disposition": "migrated",
+      "executable": false,
+      "notes": "Includes the legacy init.vim symlink as symlink_init.vim."
+    },
+    {
+      "legacy_path": ".i3/",
+      "chezmoi_source": "chezmoi/dot_i3/",
+      "target": "~/.i3/",
+      "platform": "linux-only",
+      "disposition": "migrated",
+      "executable": false,
+      "notes": "Ignored on WSL and non-Linux by .chezmoiignore."
+    },
+    {
+      "legacy_path": "powerline/",
+      "chezmoi_source": "chezmoi/dot_config/powerline/",
+      "target": "~/.config/powerline/",
+      "platform": "linux-or-wsl",
+      "disposition": "migrated",
+      "executable": false,
+      "notes": "The legacy absolute powerline/powerline symlink is intentionally excluded."
+    },
+    {
+      "legacy_path": "cdhist.sh",
+      "chezmoi_source": "chezmoi/dot_local/share/dotfiles/cdhist.sh",
+      "target": "~/.local/share/dotfiles/cdhist.sh",
+      "platform": "linux-or-wsl",
+      "disposition": "migrated",
+      "source_sha256": "1d3d182310e0c7a416fedad588c04d80ad67b88154c1f10c311e7a26c4ae3b89",
+      "executable": false
+    },
+    {
+      "legacy_path": "tmuxinator.bash",
+      "chezmoi_source": "chezmoi/dot_local/share/dotfiles/tmuxinator.bash",
+      "target": "~/.local/share/dotfiles/tmuxinator.bash",
+      "platform": "linux-or-wsl",
+      "disposition": "migrated",
+      "source_sha256": "10d30dfa98d34c5f209f24c0931955e6909ba148743e83d9ffe3fe3ceaf9c1e2",
+      "executable": false
+    },
+    {
+      "legacy_path": "plugins/diff-highlight/diff-highlight",
+      "chezmoi_source": "chezmoi/dot_local/bin/diff-highlight",
+      "target": "~/.local/bin/diff-highlight",
+      "platform": "linux-or-wsl",
+      "disposition": "migrated",
+      "source_sha256": "a6708d57c4ace4614c9da6be1d6a3d8ee6ac0d4f3dbcbdb75d8e677f9c82bc17",
+      "executable": true,
+      "notes": "Managed as a file only; it is never a ChezMoi run script."
+    },
+    {
+      "legacy_path": "bin/diff-highlight",
+      "disposition": "superseded-reference",
+      "notes": "Legacy symlink remains untouched; its target is represented by the managed executable above."
+    },
+    {
+      "legacy_path": "install.sh",
+      "disposition": "legacy-retained",
+      "notes": "Destructive installer and package bootstrap are deliberately not part of source state."
+    },
+    {
+      "legacy_path": ".gitignore",
+      "disposition": "repository-metadata-retained"
+    },
+    {
+      "legacy_path": ".gitmodules",
+      "disposition": "repository-metadata-retained"
+    },
+    {
+      "legacy_path": "README.md",
+      "disposition": "repository-documentation-retained"
+    },
+    {
+      "legacy_path": "plugins/Font-Awesome",
+      "disposition": "gitlink-deferred",
+      "notes": "Provisioning is outside normal apply."
+    },
+    {
+      "legacy_path": "plugins/fonts",
+      "disposition": "gitlink-deferred",
+      "notes": "Provisioning is outside normal apply."
+    },
+    {
+      "legacy_path": "plugins/fzf",
+      "disposition": "gitlink-deferred",
+      "notes": "Provisioning is outside normal apply."
+    },
+    {
+      "legacy_path": "private",
+      "disposition": "blocked-not-inspected",
+      "notes": "No source entry, metadata inspection, migration, or deletion is authorized in G002."
+    },
+    {
+      "legacy_path": "powerline/powerline",
+      "disposition": "absolute-symlink-deferred",
+      "notes": "Its machine-specific absolute target is not portable source state."
+    }
+  ]
+}
