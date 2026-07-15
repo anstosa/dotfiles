@@ -1,0 +1,7 @@
+{
+  "schema_version": 1,
+  "approval_authority": "anstosa",
+  "baseline_owner": "anstosa",
+  "rollback_custodian": "anstosa",
+  "shared_role_assignment": "The repository owner holds all three roles for this migration."
+}
