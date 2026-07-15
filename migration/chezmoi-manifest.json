@@ -106,7 +106,7 @@
     },
     {
       "legacy_path": "plugins/diff-highlight/diff-highlight",
-      "chezmoi_source": "chezmoi/dot_local/bin/diff-highlight",
+      "chezmoi_source": "chezmoi/dot_local/bin/executable_diff-highlight",
       "target": "~/.local/bin/diff-highlight",
       "platform": "linux-or-wsl",
       "disposition": "migrated",
