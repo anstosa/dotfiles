@@ -1,16 +1,18 @@
 # Ansel's dotfiles
 
-This repository is transitioning from a destructive symlink installer to a
-ChezMoi-managed source state for Linux and WSL.
+This repository uses a ChezMoi-managed source state for Linux and WSL.
 
 ## Current migration status
 
-The legacy dotfiles are preserved as the migration baseline. The root
-[`install.sh`](install.sh) is now the explicit bootstrap entry point: it
-installs Homebrew and ChezMoi when absent, validates the source, runs the
-isolated fixture, previews the change, and invokes the guarded apply wrapper.
-It does not force or silently overwrite a target. The former `private` Gitlink
-was removed without inspection at the repository owner's direction.
+The final cutover is approved and complete. The legacy layout remains
+recoverable from the remote baseline branch and annotated tag recorded in
+[`migration/cutover-approval.json`](migration/cutover-approval.json); it is no
+longer present in the working tree. The root [`install.sh`](install.sh) is the
+explicit bootstrap entry point: it installs Homebrew and ChezMoi when absent,
+validates the source, runs the isolated fixture, previews the change, and
+invokes the guarded apply wrapper. It does not force or silently overwrite a
+target. The former `private` Gitlink was removed without inspection at the
+repository owner's direction.
 
 Read [the ChezMoi source-state guide](docs/chezmoi-source-state.md) for the
 platform rules, preview command, exclusions, and validation command.

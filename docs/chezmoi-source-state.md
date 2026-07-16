@@ -45,9 +45,10 @@ arguments and never passes force or interactive override options. Set
 `CHEZMOI_BIN`, `CHEZMOI_SOURCE`, `CHEZMOI_DESTINATION`, `CHEZMOI_CONFIG`, and
 `CHEZMOI_STATE` only for an isolated/recovery environment.
 
-Applying is a later cutover step after the isolated-home safety checks and
-approval evidence are complete. The required evidence and rollback boundary
-are documented in [the migration cutover and rollback guide](migration-cutover-and-rollback.md).
+The isolated-home safety checks and approved cutover record are complete. Use
+the explicit [`install.sh`](../install.sh) or [`update.sh`](../update.sh)
+workflow for a new or existing machine. The evidence and rollback boundary are
+documented in [the migration cutover and rollback guide](migration-cutover-and-rollback.md).
 
 ## Explicit exclusions
 

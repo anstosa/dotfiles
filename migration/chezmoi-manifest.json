@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "scope": "Current ChezMoi source state; legacy removal remains gated by cutover approval.",
+  "scope": "Current ChezMoi source state after the approved legacy-layout cutover.",
   "source_root": "chezmoi",
   "entries": [
     {
@@ -181,6 +181,21 @@
       "notes": "Removed as an explicitly approved Gitlink deletion."
     },
     {
+      "legacy_path": ".inputrc",
+      "disposition": "dropped-by-owner",
+      "notes": "Absent from the current machine and explicitly excluded from the rebuilt setup."
+    },
+    {
+      "legacy_path": ".pystartup",
+      "disposition": "dropped-by-owner",
+      "notes": "Absent from the current machine and explicitly excluded from the rebuilt setup."
+    },
+    {
+      "legacy_path": "cdhist.sh",
+      "disposition": "dropped-by-owner",
+      "notes": "Absent from the current machine and explicitly excluded from the rebuilt setup."
+    },
+    {
       "legacy_path": "private",
       "disposition": "dropped-by-owner-without-inspection",
       "notes": "Removed as an explicitly approved Gitlink deletion without inspecting its contents."
@@ -196,7 +211,8 @@
     },
     {
       "legacy_path": ".gitmodules",
-      "disposition": "repository-metadata-retained"
+      "disposition": "dropped-by-owner",
+      "notes": "Removed because the final repository has no submodules."
     },
     {
       "legacy_path": "README.md",

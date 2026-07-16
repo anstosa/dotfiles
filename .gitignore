@@ -1,7 +1,5 @@
 # Git
 .gitmessage.txt
 
-# Vim
+# Editor backups
 *~
-.vim/.netrwhist
-.vim/autoload/plug.vim.old

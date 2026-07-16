@@ -122,9 +122,41 @@ def main() -> int:
     if unresolved:
         blockers.append('legacy paths still need an explicit cutover disposition: ' + ', '.join(unresolved))
 
-    approval = ROOT / 'migration/cutover-approval.json'
-    if not approval.is_file():
+    approval_path = ROOT / 'migration/cutover-approval.json'
+    roles_path = ROOT / 'migration/migration-roles.json'
+    validation_path = ROOT / '.omx/evidence/cutover-validation.json'
+    if not approval_path.is_file():
         blockers.append('cutover approval record is absent')
+    elif not roles_path.is_file() or not validation_path.is_file():
+        blockers.append('cutover approval prerequisites are missing')
+    else:
+        approval = load_json(approval_path)
+        roles = load_json(roles_path)
+        assert isinstance(approval, dict) and isinstance(roles, dict)
+        required = {
+            'approved_by', 'approved_at', 'baseline_owner', 'rollback_custodian',
+            'baseline_sha', 'manifest_sha256', 'filesystem_inventory_sha256',
+            'baseline_remote_evidence_sha256', 'validation_evidence_sha256',
+        }
+        if approval.get('schema_version') != 1 or required - set(approval):
+            blockers.append('cutover approval record is incomplete or not schema version 1')
+        if approval.get('approved_by') != roles.get('approval_authority'):
+            blockers.append('cutover approval authority does not match migration roles')
+        if approval.get('baseline_owner') != roles.get('baseline_owner'):
+            blockers.append('cutover approval baseline owner does not match migration roles')
+        if approval.get('rollback_custodian') != roles.get('rollback_custodian'):
+            blockers.append('cutover approval rollback custodian does not match migration roles')
+        hashes = {
+            'manifest_sha256': ROOT / 'migration/chezmoi-manifest.json',
+            'filesystem_inventory_sha256': inventory_path,
+            'baseline_remote_evidence_sha256': remote_path,
+            'validation_evidence_sha256': validation_path,
+        }
+        for field, path in hashes.items():
+            if approval.get(field) != hashlib.sha256(path.read_bytes()).hexdigest():
+                blockers.append(f'cutover approval {field} is missing or mismatched')
+        if approval.get('baseline_sha') != remote.get('branch_sha'):
+            blockers.append('cutover approval baseline SHA does not match remote evidence')
 
     if blockers:
         print('CUTOVER NOT READY:')

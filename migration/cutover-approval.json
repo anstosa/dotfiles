@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "approved_by": "anstosa",
+  "approved_at": "2026-07-16T19:05:13Z",
+  "approval_scope": "Repository owner approved the complete final ChezMoi cutover and removal of every explicitly retired legacy path.",
+  "baseline_owner": "anstosa",
+  "rollback_custodian": "anstosa",
+  "baseline_sha": "757fc34b403686c3e02102bedccff018cc7a5571",
+  "manifest_sha256": "0fe7cd71544aac641865387f26261184ac2e0278d922fd8f34d18550839ea755",
+  "filesystem_inventory_sha256": "80a9864e37260ef2b4d667b357f272ce5f0649e972fe336e8f8053168a7490a7",
+  "baseline_remote_evidence_sha256": "e5b620f331c6cf259112e322d9c469b85e31a01af12801717a7f042e3e002673",
+  "validation_evidence_sha256": "c55400934cad934cf9efe87292aa751d845aa989739456d125db7308dea54065"
+}

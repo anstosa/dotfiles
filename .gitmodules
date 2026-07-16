@@ -1,3 +1,0 @@
-[submodule "plugins/cdhist"]
-	path = plugins/cdhist
-	url = git@github.com:bulletmark/cdhist.git

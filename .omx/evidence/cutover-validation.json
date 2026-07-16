@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "validated_at": "2026-07-16T19:05:13Z",
+  "scope": "Final approved ChezMoi cutover repository state; commands ran without writing to HOME.",
+  "checks": [
+    {
+      "command": "scripts/validate-chezmoi-source-state.sh",
+      "result": "pass"
+    },
+    {
+      "command": "scripts/test-source-manifest-mutation.sh",
+      "result": "pass"
+    },
+    {
+      "command": "scripts/test-bootstrap-scripts.sh",
+      "result": "pass"
+    },
+    {
+      "command": "CHEZMOI_BIN=.omx/tmp/chezmoi-bin/chezmoi scripts/test-chezmoi-fixture.sh",
+      "result": "pass"
+    },
+    {
+      "command": "python3 -c \"from pathlib import Path; [compile(Path(p).read_text(), p, 'exec') for p in ('scripts/check-cutover-readiness.py', 'scripts/generate-cutover-inventory.py')]\"",
+      "result": "pass"
+    },
+    {
+      "command": "git diff --check",
+      "result": "pass"
+    }
+  ]
+}

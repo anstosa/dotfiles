@@ -1,317 +1,1517 @@
 {
-  "entries": [
-    {
-      "classification": "tracked",
-      "path": ".bashrc",
-      "type": "file"
-    },
-    {
-      "classification": "tracked",
-      "path": ".gitconfig",
-      "type": "file"
-    },
-    {
-      "classification": "tracked",
-      "path": ".gitignore",
-      "type": "file"
-    },
-    {
-      "classification": "tracked",
-      "path": ".gitmodules",
-      "type": "file"
-    },
-    {
-      "classification": "untracked",
-      "path": ".i3",
-      "type": "directory"
-    },
-    {
-      "classification": "tracked",
-      "path": ".i3/config",
-      "type": "file"
-    },
-    {
-      "classification": "tracked",
-      "path": ".i3/i3batwarn.sh",
-      "type": "file"
-    },
-    {
-      "classification": "tracked",
-      "path": ".inputrc",
-      "type": "file"
-    },
-    {
-      "classification": "tracked",
-      "path": ".pystartup",
-      "type": "file"
-    },
-    {
-      "classification": "tracked",
-      "path": ".tmux.conf",
-      "type": "file"
-    },
-    {
-      "classification": "untracked",
-      "path": ".vim",
-      "type": "directory"
-    },
-    {
-      "classification": "untracked",
-      "path": ".vim/autoload",
-      "type": "directory"
-    },
-    {
-      "classification": "tracked",
-      "path": ".vim/autoload/.gitignore",
-      "type": "file"
-    },
-    {
-      "classification": "untracked",
-      "path": ".vim/backups",
-      "type": "directory"
-    },
-    {
-      "classification": "tracked",
-      "path": ".vim/backups/.gitignore",
-      "type": "file"
-    },
-    {
-      "classification": "untracked",
-      "path": ".vim/colors",
-      "type": "directory"
-    },
-    {
-      "classification": "tracked",
-      "path": ".vim/colors/solarized.vim",
-      "type": "file"
-    },
-    {
-      "classification": "tracked",
-      "path": ".vim/init.vim",
-      "type": "symlink"
-    },
-    {
-      "classification": "untracked",
-      "path": ".vim/plugged",
-      "type": "directory"
-    },
-    {
-      "classification": "tracked",
-      "path": ".vim/plugged/.gitignore",
-      "type": "file"
-    },
-    {
-      "classification": "untracked",
-      "path": ".vim/shada",
-      "type": "directory"
-    },
-    {
-      "classification": "tracked",
-      "path": ".vim/shada/.gitignore",
-      "type": "file"
-    },
-    {
-      "classification": "untracked",
-      "path": ".vim/spell",
-      "type": "directory"
-    },
-    {
-      "classification": "tracked",
-      "path": ".vim/spell/en.utf-8.spl",
-      "type": "file"
-    },
-    {
-      "classification": "untracked",
-      "path": ".vim/swaps",
-      "type": "directory"
-    },
-    {
-      "classification": "tracked",
-      "path": ".vim/swaps/.gitignore",
-      "type": "file"
-    },
-    {
-      "classification": "untracked",
-      "path": ".vim/undo",
-      "type": "directory"
-    },
-    {
-      "classification": "tracked",
-      "path": ".vim/undo/.gitignore",
-      "type": "file"
-    },
-    {
-      "classification": "tracked",
-      "path": ".vimrc",
-      "type": "file"
-    },
-    {
-      "classification": "ignored",
-      "path": "AGENTS.md",
-      "type": "file"
-    },
-    {
-      "classification": "tracked",
-      "path": "README.md",
-      "type": "file"
-    },
-    {
-      "classification": "untracked",
-      "path": "bin",
-      "type": "directory"
-    },
-    {
-      "classification": "tracked",
-      "path": "bin/diff-highlight",
-      "type": "symlink"
-    },
-    {
-      "classification": "tracked",
-      "path": "cdhist.sh",
-      "type": "file"
-    },
-    {
-      "classification": "tracked",
-      "path": "install.sh",
-      "type": "file"
-    },
-    {
-      "classification": "untracked",
-      "path": "plugins",
-      "type": "directory"
-    },
-    {
-      "classification": "tracked",
-      "path": "plugins/Font-Awesome",
-      "type": "gitlink"
-    },
-    {
-      "classification": "untracked",
-      "path": "plugins/diff-highlight",
-      "type": "directory"
-    },
-    {
-      "classification": "tracked",
-      "path": "plugins/diff-highlight/diff-highlight",
-      "type": "file"
-    },
-    {
-      "classification": "tracked",
-      "path": "plugins/fonts",
-      "type": "gitlink"
-    },
-    {
-      "classification": "tracked",
-      "path": "plugins/fzf",
-      "type": "gitlink"
-    },
-    {
-      "classification": "untracked",
-      "path": "powerline",
-      "type": "directory"
-    },
-    {
-      "classification": "untracked",
-      "path": "powerline/colorschemes",
-      "type": "directory"
-    },
-    {
-      "classification": "untracked",
-      "path": "powerline/colorschemes/shell",
-      "type": "directory"
-    },
-    {
-      "classification": "tracked",
-      "path": "powerline/colorschemes/shell/solarized.json",
-      "type": "file"
-    },
-    {
-      "classification": "tracked",
-      "path": "powerline/colorschemes/solarized.json",
-      "type": "file"
-    },
-    {
-      "classification": "tracked",
-      "path": "powerline/config.json",
-      "type": "file"
-    },
-    {
-      "classification": "tracked",
-      "path": "powerline/powerline",
-      "type": "symlink"
-    },
-    {
-      "classification": "untracked",
-      "path": "powerline/themes",
-      "type": "directory"
-    },
-    {
-      "classification": "untracked",
-      "path": "powerline/themes/shell",
-      "type": "directory"
-    },
-    {
-      "classification": "tracked",
-      "path": "powerline/themes/shell/ansel.json",
-      "type": "file"
-    },
-    {
-      "classification": "untracked",
-      "path": "powerline/themes/tmux",
-      "type": "directory"
-    },
-    {
-      "classification": "tracked",
-      "path": "powerline/themes/tmux/ansel.json",
-      "type": "file"
-    },
-    {
-      "classification": "tracked",
-      "path": "private",
-      "type": "gitlink"
-    },
-    {
-      "classification": "tracked",
-      "path": "tmuxinator.bash",
-      "type": "file"
-    }
-  ],
+  "schema_version": 1,
   "excluded_roots": [
     ".git",
     ".omx"
   ],
-  "migration_manifest_proposal": {
-    "rules": [
-      {
-        "action": "copy",
-        "destination": "home-relative",
-        "requires_review": true,
-        "selector": "tracked file or symlink"
-      },
-      {
-        "action": "retain-reference",
-        "destination": "same-relative-path",
-        "requires_review": true,
-        "selector": "tracked gitlink"
-      },
-      {
-        "action": "exclude",
-        "destination": null,
-        "requires_review": true,
-        "selector": "untracked or ignored entry"
-      }
-    ],
-    "schema_version": 1,
-    "source_inventory": "tracked-inventory.json"
-  },
-  "schema_version": 1,
+  "entries": [
+    {
+      "path": ".gitignore",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "repository-metadata",
+      "size": 43,
+      "mode": "0644",
+      "sha256": "77bccbb9f88569c89e64587daed0d9cd24c1880839210fc293161295a72391d6"
+    },
+    {
+      "path": "README.md",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "documentation",
+      "size": 2742,
+      "mode": "0644",
+      "sha256": "a52a74be5bbd9d41ff4b8e9c941a2434f95c1de6f11bb8fba57a356250595eb3"
+    },
+    {
+      "path": "chezmoi",
+      "type": "directory",
+      "classification": "untracked",
+      "disposition": "managed-source",
+      "size": 4096,
+      "mode": "0755"
+    },
+    {
+      "path": "chezmoi/dot_bashrc",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 5644,
+      "mode": "0644",
+      "sha256": "345a3deb318481b7f069552589260c83612cb894e5d29cb209b7f833319f86fe"
+    },
+    {
+      "path": "chezmoi/dot_codex",
+      "type": "directory",
+      "classification": "untracked",
+      "disposition": "managed-source",
+      "size": 4096,
+      "mode": "0755"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills",
+      "type": "directory",
+      "classification": "untracked",
+      "disposition": "managed-source",
+      "size": 4096,
+      "mode": "0755"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/_shared",
+      "type": "directory",
+      "classification": "untracked",
+      "disposition": "managed-source",
+      "size": 4096,
+      "mode": "0755"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/_shared/common.md",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 8994,
+      "mode": "0644",
+      "sha256": "b602ccb87b9caddfdf44471eefca3e13d2993183a9340b58a70f8bfac39f2bf7"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/_shared/custom-risks-guide.md",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 1850,
+      "mode": "0644",
+      "sha256": "76b471db02ee68068a8585d5b46462ed3ca7ae6fb5aecc4b73c0ade49259a0df"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/_shared/decay-risks.md",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 15336,
+      "mode": "0644",
+      "sha256": "923935619ec2f1ca28fb7934b7d31a4372aa19a432b09e32ae7f7dddc6b6dfa9"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/_shared/remedy-guide.md",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 1597,
+      "mode": "0644",
+      "sha256": "0aab251cf432054ececa51195b89b771a98d355e682f3f2267091ad064c23d9c"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/_shared/source-coverage.md",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 8374,
+      "mode": "0644",
+      "sha256": "e3f9aadc17db20be17e89467f65aed91dbc1d3b17cd4896ad356b5963368820c"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/_shared/test-decay-risks.md",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 11511,
+      "mode": "0644",
+      "sha256": "69dee13e0886ccfb7c9f7f95b590569c68be2d2e7fae491e9d400f8c88730040"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/address",
+      "type": "directory",
+      "classification": "untracked",
+      "disposition": "managed-source",
+      "size": 4096,
+      "mode": "0755"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/address/SKILL.md",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 8927,
+      "mode": "0644",
+      "sha256": "917758aa2455888f9402aac9e52487ce3d529a3c4711948dd7789d1acf389e32"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/address/agents",
+      "type": "directory",
+      "classification": "untracked",
+      "disposition": "managed-source",
+      "size": 4096,
+      "mode": "0755"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/address/agents/openai.yaml",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 283,
+      "mode": "0644",
+      "sha256": "0d776c0f8223b04ed3e37403a6656fb5d5acf50fa82da453d9a9ce03226ef902"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/brooks-audit",
+      "type": "directory",
+      "classification": "untracked",
+      "disposition": "managed-source",
+      "size": 4096,
+      "mode": "0755"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/brooks-audit/SKILL.md",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 3314,
+      "mode": "0644",
+      "sha256": "ddbb183879fa0d123f4563473d761ba5d742b7f21144cd04502ab7698ab6ca3b"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/brooks-audit/architecture-guide.md",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 8801,
+      "mode": "0644",
+      "sha256": "e75beed697eec214845ea31cbf695127e88fef02957204327c92a75fc4065b4a"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/brooks-audit/onboarding-guide.md",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 2970,
+      "mode": "0644",
+      "sha256": "167e50f6429b5757ad67bdc6e1a4bcc34fdc59a98e3be015b64eef1e76b3fe19"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/brooks-debt",
+      "type": "directory",
+      "classification": "untracked",
+      "disposition": "managed-source",
+      "size": 4096,
+      "mode": "0755"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/brooks-debt/SKILL.md",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 2790,
+      "mode": "0644",
+      "sha256": "5b963b6c653ce171d45b3ecff6a27f2b3a3d12994ddedd1e8d317d2a262d38b3"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/brooks-debt/debt-guide.md",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 5315,
+      "mode": "0644",
+      "sha256": "d539b3cf93438f330acd533b23dfe3f20e33d51172f4b5c3f52a86549469f104"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/brooks-health",
+      "type": "directory",
+      "classification": "untracked",
+      "disposition": "managed-source",
+      "size": 4096,
+      "mode": "0755"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/brooks-health/SKILL.md",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 2905,
+      "mode": "0644",
+      "sha256": "5c650abee42fac3c17fe836b267beeac98b4071085d1e49be9ddf51273267000"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/brooks-health/health-guide.md",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 3224,
+      "mode": "0644",
+      "sha256": "f9efbfef3950a88dcda9372f7889fb74f53c1dfe9a3f64a017278731062e9230"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/brooks-review",
+      "type": "directory",
+      "classification": "untracked",
+      "disposition": "managed-source",
+      "size": 4096,
+      "mode": "0755"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/brooks-review/SKILL.md",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 2844,
+      "mode": "0644",
+      "sha256": "e60332e954626a7253f11b678ba00e33f143005aebffd7e34ce876c6b09d41c7"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/brooks-review/pr-review-guide.md",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 6995,
+      "mode": "0644",
+      "sha256": "2dae11100b648df754b53722768cfc1fe927cf461bcf12b689276f5f6d3b75b5"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/brooks-sweep",
+      "type": "directory",
+      "classification": "untracked",
+      "disposition": "managed-source",
+      "size": 4096,
+      "mode": "0755"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/brooks-sweep/SKILL.md",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 3380,
+      "mode": "0644",
+      "sha256": "6e38fbe4f80699ee6731b4fb35c857ec417aa1da8156dd9403adb5cb9d83f48b"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/brooks-sweep/sweep-guide.md",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 12435,
+      "mode": "0644",
+      "sha256": "4ef4ea5c43e67f1d43373206711d58e9d31680ab02073b7a8aadf4c78fb4842b"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/brooks-test",
+      "type": "directory",
+      "classification": "untracked",
+      "disposition": "managed-source",
+      "size": 4096,
+      "mode": "0755"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/brooks-test/SKILL.md",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 2883,
+      "mode": "0644",
+      "sha256": "7e1d0585923990695d0d980dc7142b08a5c83d86c07add02517e2cbe43157939"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/brooks-test/test-guide.md",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 6354,
+      "mode": "0644",
+      "sha256": "fc8e1f5882e87134c59ca77e854f5ad83ddf0dab1106a2cefb3747a38b042b8e"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/cherry-pick",
+      "type": "directory",
+      "classification": "untracked",
+      "disposition": "managed-source",
+      "size": 4096,
+      "mode": "0755"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/cherry-pick/SKILL.md",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 6041,
+      "mode": "0644",
+      "sha256": "3cbce57f3afc3a7aa345a9772cce61205c1a250dfb640c31cb20d55956797f6b"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/cherry-pick/agents",
+      "type": "directory",
+      "classification": "untracked",
+      "disposition": "managed-source",
+      "size": 4096,
+      "mode": "0755"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/cherry-pick/agents/openai.yaml",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 280,
+      "mode": "0644",
+      "sha256": "2754220709e9f4a9e6b5bbb44d36c583776bc4705c434fa6466a09f6ec1b65d5"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/commit",
+      "type": "directory",
+      "classification": "untracked",
+      "disposition": "managed-source",
+      "size": 4096,
+      "mode": "0755"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/commit/SKILL.md",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 10557,
+      "mode": "0644",
+      "sha256": "b18a8326d02de17993e581819e441a632704134f8be0ab5cc448fa99f0347e5f"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/commit/agents",
+      "type": "directory",
+      "classification": "untracked",
+      "disposition": "managed-source",
+      "size": 4096,
+      "mode": "0755"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/commit/agents/openai.yaml",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 223,
+      "mode": "0644",
+      "sha256": "b2a7d58b90bef909d94253c0dd828d62a12c6eb7cedc3d26be264658f52a042d"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/complexity-review",
+      "type": "directory",
+      "classification": "untracked",
+      "disposition": "managed-source",
+      "size": 4096,
+      "mode": "0755"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/complexity-review/SKILL.md",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 4102,
+      "mode": "0644",
+      "sha256": "29527d0fd2696758b16b3f87256baaa5963963cd703f383f822666a94f3f6098"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/complexity-review/agents",
+      "type": "directory",
+      "classification": "untracked",
+      "disposition": "managed-source",
+      "size": 4096,
+      "mode": "0755"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/complexity-review/agents/openai.yaml",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 253,
+      "mode": "0644",
+      "sha256": "75f2b7c4571239d8cdff2a06224b3e8375e6a00cde04f222e4c45d72b7dfab67"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/complexity-review/references",
+      "type": "directory",
+      "classification": "untracked",
+      "disposition": "managed-source",
+      "size": 4096,
+      "mode": "0755"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/complexity-review/references/review-rubric.md",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 1870,
+      "mode": "0644",
+      "sha256": "bfdf4f5610a0e020ffa447da9f0ed3bd042eb50b7bb211426ab41309db478099"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/complexity-review/scripts",
+      "type": "directory",
+      "classification": "untracked",
+      "disposition": "managed-source",
+      "size": 4096,
+      "mode": "0755"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/complexity-review/scripts/executable_analyze_head_complexity.py",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 22584,
+      "mode": "0755",
+      "sha256": "1697c144c7df54f8a4e14f94133e8a33cf2142e66842296a2aafd6e0ecbfee3c"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/deploy-notes",
+      "type": "directory",
+      "classification": "untracked",
+      "disposition": "managed-source",
+      "size": 4096,
+      "mode": "0755"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/deploy-notes/SKILL.md",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 8986,
+      "mode": "0644",
+      "sha256": "9299a14dc97f27fb32236198f7a0565a1d3b754f327622574fecee925334ca6e"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/deploy-notes/agents",
+      "type": "directory",
+      "classification": "untracked",
+      "disposition": "managed-source",
+      "size": 4096,
+      "mode": "0755"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/deploy-notes/agents/openai.yaml",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 290,
+      "mode": "0644",
+      "sha256": "50a82fffcc0264f62f283d3002dd248924a48ead0b4bbb55162c76e93e72bff5"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/finish",
+      "type": "directory",
+      "classification": "untracked",
+      "disposition": "managed-source",
+      "size": 4096,
+      "mode": "0755"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/finish/SKILL.md",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 3959,
+      "mode": "0644",
+      "sha256": "e510ccb42c859d1f5b5366835472c5e2859e0596b7047ffa7e8c5d1af6393691"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/finish/agents",
+      "type": "directory",
+      "classification": "untracked",
+      "disposition": "managed-source",
+      "size": 4096,
+      "mode": "0755"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/finish/agents/openai.yaml",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 195,
+      "mode": "0644",
+      "sha256": "eb6f1eed2d9c48a286a064588ecffbeec71b3f243afb4470d6053c9713166f1f"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/fixup",
+      "type": "directory",
+      "classification": "untracked",
+      "disposition": "managed-source",
+      "size": 4096,
+      "mode": "0755"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/fixup/SKILL.md",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 8597,
+      "mode": "0644",
+      "sha256": "aa83e57a70fecea92910249c39f46021dd515778fd49f7fce045de22c5f43f81"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/fixup/agents",
+      "type": "directory",
+      "classification": "untracked",
+      "disposition": "managed-source",
+      "size": 4096,
+      "mode": "0755"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/fixup/agents/openai.yaml",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 231,
+      "mode": "0644",
+      "sha256": "0eb168c5ca9ac1bfd47b6d692c8abc777493293210068481378d1c8db0a57180"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/full-review",
+      "type": "directory",
+      "classification": "untracked",
+      "disposition": "managed-source",
+      "size": 4096,
+      "mode": "0755"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/full-review/SKILL.md",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 4368,
+      "mode": "0644",
+      "sha256": "35a0f1b1fe571b38b8f150dbfef130547b1647d34d0fd20f4f0921595f9043f7"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/full-review/agents",
+      "type": "directory",
+      "classification": "untracked",
+      "disposition": "managed-source",
+      "size": 4096,
+      "mode": "0755"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/full-review/agents/openai.yaml",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 200,
+      "mode": "0644",
+      "sha256": "7d504a8bd54ff1e22ad8cd5277de57a2950736ecc3872fbbca97b37db58acacf"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/merge",
+      "type": "directory",
+      "classification": "untracked",
+      "disposition": "managed-source",
+      "size": 4096,
+      "mode": "0755"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/merge/SKILL.md",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 5811,
+      "mode": "0644",
+      "sha256": "49d57d16d31fe3d35a8d86dfab208995f953eb00acde6ffc797ba719a96e5476"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/merge/agents",
+      "type": "directory",
+      "classification": "untracked",
+      "disposition": "managed-source",
+      "size": 4096,
+      "mode": "0755"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/merge/agents/openai.yaml",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 277,
+      "mode": "0644",
+      "sha256": "76294debbb72504c45b5e5f9be81511e9511a218512b5bcf6bf98eb134de46a9"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/pr-ci-fix",
+      "type": "directory",
+      "classification": "untracked",
+      "disposition": "managed-source",
+      "size": 4096,
+      "mode": "0755"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/pr-ci-fix/SKILL.md",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 4539,
+      "mode": "0644",
+      "sha256": "f83a9f3a149b411eee69beee2c63ee8b1355d206eb7428c28d6ee4bb47d56d05"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/pr-ci-fix/agents",
+      "type": "directory",
+      "classification": "untracked",
+      "disposition": "managed-source",
+      "size": 4096,
+      "mode": "0755"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/pr-ci-fix/agents/openai.yaml",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 261,
+      "mode": "0644",
+      "sha256": "4f76178e05fd0e87857f9d73ca9e4a4f24bf21084d1fb108be668ebccbcc345e"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/pr-cleanup-review",
+      "type": "directory",
+      "classification": "untracked",
+      "disposition": "managed-source",
+      "size": 4096,
+      "mode": "0755"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/pr-cleanup-review/SKILL.md",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 28439,
+      "mode": "0644",
+      "sha256": "639d2c3cb18bba7e7aeefe97379dfb33258985238a5ac33b7338445f41fe6d4c"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/pr-cleanup-review/agents",
+      "type": "directory",
+      "classification": "untracked",
+      "disposition": "managed-source",
+      "size": 4096,
+      "mode": "0755"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/pr-cleanup-review/agents/openai.yaml",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 301,
+      "mode": "0644",
+      "sha256": "4e458a4b3c3d63a036b21ec5445fdbf264eab58ff484b9caa4c1ea545d38393c"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/pr-draft",
+      "type": "directory",
+      "classification": "untracked",
+      "disposition": "managed-source",
+      "size": 4096,
+      "mode": "0755"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/pr-draft/SKILL.md",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 19153,
+      "mode": "0644",
+      "sha256": "41f7a9cd434a418edb8d1531ec25792ba94206ffe0dc336bee52ca7bb43d867c"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/pr-draft/agents",
+      "type": "directory",
+      "classification": "untracked",
+      "disposition": "managed-source",
+      "size": 4096,
+      "mode": "0755"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/pr-draft/agents/openai.yaml",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 437,
+      "mode": "0644",
+      "sha256": "6414db641a3b4d52fec57f301b6ba6b5c7a2203178ae9e6408d4c6048d840361"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/query",
+      "type": "directory",
+      "classification": "untracked",
+      "disposition": "managed-source",
+      "size": 4096,
+      "mode": "0755"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/query/SKILL.md",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 4237,
+      "mode": "0644",
+      "sha256": "8321dff733ed82cddef2a959a2410bb84d98420b7a4959d5ce8547310d6adec5"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/query/agents",
+      "type": "directory",
+      "classification": "untracked",
+      "disposition": "managed-source",
+      "size": 4096,
+      "mode": "0755"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/query/agents/openai.yaml",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 212,
+      "mode": "0644",
+      "sha256": "1b8905b13473169c9931b312a74b7475d7be6d54f46fe014f853c5d1acf0b0a0"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/rebase",
+      "type": "directory",
+      "classification": "untracked",
+      "disposition": "managed-source",
+      "size": 4096,
+      "mode": "0755"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/rebase/SKILL.md",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 7236,
+      "mode": "0644",
+      "sha256": "b05eb1ccd323585f632f4fc52087103cbc38f8cea7cd291112b4cd7fa7a8aef0"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/rebase/agents",
+      "type": "directory",
+      "classification": "untracked",
+      "disposition": "managed-source",
+      "size": 4096,
+      "mode": "0755"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/rebase/agents/openai.yaml",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 277,
+      "mode": "0644",
+      "sha256": "bec17a165ef973129d82720dc3c4cc47acac81cca67d16223d218c6b914a6018"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/release",
+      "type": "directory",
+      "classification": "untracked",
+      "disposition": "managed-source",
+      "size": 4096,
+      "mode": "0755"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/release/SKILL.md",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 6794,
+      "mode": "0644",
+      "sha256": "52e893b2b00938867cd1161890eeea223bec68b78af75c52295e2fddba9ae05e"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/release/agents",
+      "type": "directory",
+      "classification": "untracked",
+      "disposition": "managed-source",
+      "size": 4096,
+      "mode": "0755"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/release/agents/openai.yaml",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 264,
+      "mode": "0644",
+      "sha256": "0f65523531a2e84c2fbe3a85d05e13e08c07a6d68845e81b0dd8009c3f7dc885"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/release/scripts",
+      "type": "directory",
+      "classification": "untracked",
+      "disposition": "managed-source",
+      "size": 4096,
+      "mode": "0755"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/release/scripts/executable_release.py",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 27971,
+      "mode": "0755",
+      "sha256": "294166699e0c6a90e2fdf2734f4132ea028da17d76a82a6ead88c1c6838a6e07"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/resolve",
+      "type": "directory",
+      "classification": "untracked",
+      "disposition": "managed-source",
+      "size": 4096,
+      "mode": "0755"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/resolve/SKILL.md",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 7166,
+      "mode": "0644",
+      "sha256": "fe2f71d66a146fc65ded8efd688a52ff6d40f6140089450872f5f29bce93621c"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/resolve/agents",
+      "type": "directory",
+      "classification": "untracked",
+      "disposition": "managed-source",
+      "size": 4096,
+      "mode": "0755"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/resolve/agents/openai.yaml",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 274,
+      "mode": "0644",
+      "sha256": "2b9dfc19f174eaca55035aa25186711c0adb896922d264075245313b70c92824"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/review-and-fix",
+      "type": "directory",
+      "classification": "untracked",
+      "disposition": "managed-source",
+      "size": 4096,
+      "mode": "0755"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/review-and-fix/SKILL.md",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 4386,
+      "mode": "0644",
+      "sha256": "874fa3e986601f8a3b135b6bae28d711cc3167629ffe6bb39c61d245af2b6ea7"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/review-and-fix/agents",
+      "type": "directory",
+      "classification": "untracked",
+      "disposition": "managed-source",
+      "size": 4096,
+      "mode": "0755"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/review-and-fix/agents/openai.yaml",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 221,
+      "mode": "0644",
+      "sha256": "a73b62643b6fa08ce50dfae19d8d0486fc58a354a7efb163f7993efa5c2993d8"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/review-cockpit",
+      "type": "directory",
+      "classification": "untracked",
+      "disposition": "managed-source",
+      "size": 4096,
+      "mode": "0755"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/review-cockpit/SKILL.md",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 1632,
+      "mode": "0644",
+      "sha256": "d2aa8ed5ec53610aa0c5cfaf4643caf0e2fa7858e89e1c3c0347de03d723de07"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/review-cockpit/agents",
+      "type": "directory",
+      "classification": "untracked",
+      "disposition": "managed-source",
+      "size": 4096,
+      "mode": "0755"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/review-cockpit/agents/openai.yaml",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 223,
+      "mode": "0644",
+      "sha256": "70617f6faddd025289858d95189b24fefd32c35048ce17c46f41390554114d68"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/review-cockpit/scripts",
+      "type": "directory",
+      "classification": "untracked",
+      "disposition": "managed-source",
+      "size": 4096,
+      "mode": "0755"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/review-cockpit/scripts/executable_generate_review_artifact.py",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 24561,
+      "mode": "0755",
+      "sha256": "fb38beb814b77b6c7cde187cd33868b82228d9ee1cea789b1ac122bff43fc0a2"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/test-urls",
+      "type": "directory",
+      "classification": "untracked",
+      "disposition": "managed-source",
+      "size": 4096,
+      "mode": "0755"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/test-urls/SKILL.md",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 7260,
+      "mode": "0644",
+      "sha256": "26b8269415f5b77a09f32220952d73dc540254b71b70b0b37bb583a9faa83557"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/test-urls/agents",
+      "type": "directory",
+      "classification": "untracked",
+      "disposition": "managed-source",
+      "size": 4096,
+      "mode": "0755"
+    },
+    {
+      "path": "chezmoi/dot_codex/skills/test-urls/agents/openai.yaml",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 223,
+      "mode": "0644",
+      "sha256": "8d97623423b8bf1eaa431a7109a068692b583d0b3b7b08f4c6b0bb2cb5fb3ddc"
+    },
+    {
+      "path": "chezmoi/dot_config",
+      "type": "directory",
+      "classification": "untracked",
+      "disposition": "managed-source",
+      "size": 4096,
+      "mode": "0755"
+    },
+    {
+      "path": "chezmoi/dot_config/nvim",
+      "type": "directory",
+      "classification": "untracked",
+      "disposition": "managed-source",
+      "size": 4096,
+      "mode": "0755"
+    },
+    {
+      "path": "chezmoi/dot_config/nvim/.gitignore",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 51,
+      "mode": "0644",
+      "sha256": "f284e46933d658c493bafc852fe1bb46f54e5dbe479c251a739139517d4683ec"
+    },
+    {
+      "path": "chezmoi/dot_config/nvim/.neoconf.json",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 183,
+      "mode": "0644",
+      "sha256": "1819a5b64b71521f214b374bdb3b4dd7531a2b91b881c0803e0029811da7f3e4"
+    },
+    {
+      "path": "chezmoi/dot_config/nvim/LICENSE",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 11357,
+      "mode": "0644",
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+    },
+    {
+      "path": "chezmoi/dot_config/nvim/README.md",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 171,
+      "mode": "0644",
+      "sha256": "9969960a98455417b5f3781772f01528a64bb450e5f9db57734713ae920bd84a"
+    },
+    {
+      "path": "chezmoi/dot_config/nvim/init.lua",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 72,
+      "mode": "0644",
+      "sha256": "3b2d6e9976a515b7c8df08ed7c7f61a5751e9c08a6ff5579d621b87312c9e2c6"
+    },
+    {
+      "path": "chezmoi/dot_config/nvim/lazy-lock.json",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 4043,
+      "mode": "0644",
+      "sha256": "a7571d1bc393f9690f541df23f81c8eaf2985847afcf2aff32326acc4aec4894"
+    },
+    {
+      "path": "chezmoi/dot_config/nvim/lazyvim.json",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 102,
+      "mode": "0644",
+      "sha256": "c5e6e47a04e9afbf60e324cdbc6728357a63ef1eb10b68eb46539e57c02eb56b"
+    },
+    {
+      "path": "chezmoi/dot_config/nvim/lua",
+      "type": "directory",
+      "classification": "untracked",
+      "disposition": "managed-source",
+      "size": 4096,
+      "mode": "0755"
+    },
+    {
+      "path": "chezmoi/dot_config/nvim/lua/ansel",
+      "type": "directory",
+      "classification": "untracked",
+      "disposition": "managed-source",
+      "size": 4096,
+      "mode": "0755"
+    },
+    {
+      "path": "chezmoi/dot_config/nvim/lua/ansel/review_cockpit.lua",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 29273,
+      "mode": "0644",
+      "sha256": "a023e01d27ab5e7daa5676a685306b71c4fa45f1af09016aa9058cb81a428cf5"
+    },
+    {
+      "path": "chezmoi/dot_config/nvim/lua/config",
+      "type": "directory",
+      "classification": "untracked",
+      "disposition": "managed-source",
+      "size": 4096,
+      "mode": "0755"
+    },
+    {
+      "path": "chezmoi/dot_config/nvim/lua/config/autocmds.lua",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 424,
+      "mode": "0644",
+      "sha256": "ccb2b3a99fe03698bdacaf41b98a48126c70fa38eaa1970e14e7309c876a9635"
+    },
+    {
+      "path": "chezmoi/dot_config/nvim/lua/config/keymaps.lua",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 2223,
+      "mode": "0644",
+      "sha256": "7ba61ea45efecd76b5effc059b907481a4421eb078a61647432bb8dd1cd4d9ea"
+    },
+    {
+      "path": "chezmoi/dot_config/nvim/lua/config/lazy.lua",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 1984,
+      "mode": "0644",
+      "sha256": "3761dae9f7cec0718127642625564afee9892f88724e722bebca5d5e4ec33d0a"
+    },
+    {
+      "path": "chezmoi/dot_config/nvim/lua/config/lazyvim-extras.lua",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 565,
+      "mode": "0644",
+      "sha256": "5c820c6c0677a6e5759200979f59a57540185e899791f45fe8f73e30c2203e58"
+    },
+    {
+      "path": "chezmoi/dot_config/nvim/lua/config/options.lua",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 2336,
+      "mode": "0644",
+      "sha256": "4bac9e0c4f640ad8c0eeb5e5ac0d9a96417eb455e129395759b4b1e3e6502de7"
+    },
+    {
+      "path": "chezmoi/dot_config/nvim/lua/plugins",
+      "type": "directory",
+      "classification": "untracked",
+      "disposition": "managed-source",
+      "size": 4096,
+      "mode": "0755"
+    },
+    {
+      "path": "chezmoi/dot_config/nvim/lua/plugins/commentary.lua",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 778,
+      "mode": "0644",
+      "sha256": "ae3670d82f79e5a3df45ef23e788f09ee128e04abf09829ceb7c9e4ebd785145"
+    },
+    {
+      "path": "chezmoi/dot_config/nvim/lua/plugins/example.lua",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 5295,
+      "mode": "0644",
+      "sha256": "63cab8b37a319da640b073b6d654b11952776eac8cb55d8a6ac00e5f171366ba"
+    },
+    {
+      "path": "chezmoi/dot_config/nvim/lua/plugins/lazygit.lua",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 1607,
+      "mode": "0644",
+      "sha256": "7fc9ba0ce9704bfb2d126a72e92eb99159ed9fcdf165ddfdb737c80e42a618be"
+    },
+    {
+      "path": "chezmoi/dot_config/nvim/lua/plugins/linting.lua",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 5313,
+      "mode": "0644",
+      "sha256": "9011f4f87b5042f1d92074bd48a50fcb561cd02a1d70bca2f9f55e29fddc067f"
+    },
+    {
+      "path": "chezmoi/dot_config/nvim/lua/plugins/lualine.lua",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 304,
+      "mode": "0644",
+      "sha256": "c239988c1837b2ee3e6223c6a286d53f8417526b975499dfa5228079219f03af"
+    },
+    {
+      "path": "chezmoi/dot_config/nvim/lua/plugins/markdown.lua",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 826,
+      "mode": "0644",
+      "sha256": "b819992520edc5789860676b1a232cb2ecc496adc80194ebac86d6f608849966"
+    },
+    {
+      "path": "chezmoi/dot_config/nvim/lua/plugins/review.lua",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 7502,
+      "mode": "0644",
+      "sha256": "e4cb57871326d9b066d5cca72032b3137ac570c9bcf6c1a77f0e2b41720d956d"
+    },
+    {
+      "path": "chezmoi/dot_config/nvim/lua/plugins/tmux-navigator.lua",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 2367,
+      "mode": "0644",
+      "sha256": "fa588b8e9f6920e0fbdad6f34d47f2862ec24812fc230a7a0e6d0b1b6015fd7e"
+    },
+    {
+      "path": "chezmoi/dot_config/nvim/stylua.toml",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 58,
+      "mode": "0644",
+      "sha256": "59841fbcee7b707144c6a470e96e96e96062d7a59d2e45bac445984d863e1af2"
+    },
+    {
+      "path": "chezmoi/dot_gitconfig",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 4640,
+      "mode": "0664",
+      "sha256": "d353e5be3a94e83fe5a7e953f9098a6da4878b37c75019fef4149d63212f9b30"
+    },
+    {
+      "path": "chezmoi/dot_local",
+      "type": "directory",
+      "classification": "untracked",
+      "disposition": "managed-source",
+      "size": 4096,
+      "mode": "0755"
+    },
+    {
+      "path": "chezmoi/dot_local/bin",
+      "type": "directory",
+      "classification": "untracked",
+      "disposition": "managed-source",
+      "size": 4096,
+      "mode": "0755"
+    },
+    {
+      "path": "chezmoi/dot_local/bin/executable_co",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 7310,
+      "mode": "0755",
+      "sha256": "bdc86a8388d29287bcf57fc91f493c6ec66832af3dc35caf511342c101fd4b19"
+    },
+    {
+      "path": "chezmoi/dot_local/bin/executable_codex",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 448,
+      "mode": "0755",
+      "sha256": "bce4e9d87178e8873c992892a685d67f347ebefe037ed8f10414cd6b40800c59"
+    },
+    {
+      "path": "chezmoi/dot_local/bin/executable_codex-auto-update",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 5613,
+      "mode": "0755",
+      "sha256": "ddac3220750ada084d1dfcfc1e79e5a04c595c7c9ad0cb28f43acba006a0ffcf"
+    },
+    {
+      "path": "chezmoi/dot_local/bin/executable_codex-with-worktree-greeting",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 1608,
+      "mode": "0755",
+      "sha256": "f04df182aaa6d21aad1c4166be4b775e6ef618fbf5fd7cc3b6298e9731e61647"
+    },
+    {
+      "path": "chezmoi/dot_local/bin/executable_new",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 2262,
+      "mode": "0755",
+      "sha256": "c10043a5f808849d619e41a44adce0083078d7ca0564f589141f415770c5341f"
+    },
+    {
+      "path": "chezmoi/dot_local/bin/executable_potato",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 91,
+      "mode": "0755",
+      "sha256": "81cd8cc5d09e3fe0520ac479d13b9299613e4ddd979322149c9a50820785ba69"
+    },
+    {
+      "path": "chezmoi/dot_local/bin/executable_pr-worktree-watchdog",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 27819,
+      "mode": "0755",
+      "sha256": "6630f66eefb1bba35b3d53ba1e2ecd896dbb8219e60fedcaa0d83bd3673879d6"
+    },
+    {
+      "path": "chezmoi/dot_local/bin/private_executable_swap",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 5836,
+      "mode": "0700",
+      "sha256": "bd4362183f45c66fec3d5230bcf9fca78abbb5a6a8fb388ac4acd8f38d834df0"
+    },
+    {
+      "path": "chezmoi/dot_tmux.conf",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "managed-source",
+      "size": 6659,
+      "mode": "0644",
+      "sha256": "306a5cd54f2a1f3bf07aac4da1c4b262f11fdff8226155e2b883e4c2fa0ece4d"
+    },
+    {
+      "path": "docs",
+      "type": "directory",
+      "classification": "untracked",
+      "disposition": "documentation",
+      "size": 4096,
+      "mode": "0755"
+    },
+    {
+      "path": "docs/chezmoi-source-state.md",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "documentation",
+      "size": 4624,
+      "mode": "0644",
+      "sha256": "48435061ca73873f2faf37bbce43c06c4b1fca0599ee49c981f79f8337dad803"
+    },
+    {
+      "path": "docs/migration-cutover-and-rollback.md",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "documentation",
+      "size": 3340,
+      "mode": "0644",
+      "sha256": "506f29cb52bd2c2857ff4ded28b0f41ef81c21a700626730be5dafde8f228fdb"
+    },
+    {
+      "path": "install.sh",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "repository-bootstrap",
+      "size": 1595,
+      "mode": "0755",
+      "sha256": "b76a0aa6a98a66c19c472133b899441c78c6810d039c898f2220d33de213140a"
+    },
+    {
+      "path": "migration",
+      "type": "directory",
+      "classification": "untracked",
+      "disposition": "migration-metadata",
+      "size": 4096,
+      "mode": "0755"
+    },
+    {
+      "path": "migration/chezmoi-manifest.json",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "migration-metadata",
+      "size": 8491,
+      "mode": "0644",
+      "sha256": "0fe7cd71544aac641865387f26261184ac2e0278d922fd8f34d18550839ea755"
+    },
+    {
+      "path": "migration/cutover-approval.json",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "migration-metadata",
+      "size": 755,
+      "mode": "0644"
+    },
+    {
+      "path": "migration/encrypted-file-inventory.json",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "migration-metadata",
+      "size": 471,
+      "mode": "0644",
+      "sha256": "ccf385c06a3fc6091227d65047c04124d5a4efa9d185454f9d937ad0d52b2370"
+    },
+    {
+      "path": "migration/migration-roles.json",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "migration-metadata",
+      "size": 221,
+      "mode": "0644",
+      "sha256": "8c439cbd6903ed2656e8b120b827990283ff1035e5f0c090d1261fc4abdef572"
+    },
+    {
+      "path": "scripts",
+      "type": "directory",
+      "classification": "untracked",
+      "disposition": "validation-or-bootstrap",
+      "size": 4096,
+      "mode": "0755"
+    },
+    {
+      "path": "scripts/check-cutover-readiness.py",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "validation-or-bootstrap",
+      "size": 7636,
+      "mode": "0755",
+      "sha256": "48280633910be2ee433cc03db6ad2010cdea3a3e18ba43bf51f4f02c0f87bd9a"
+    },
+    {
+      "path": "scripts/chezmoi-safe-apply.sh",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "validation-or-bootstrap",
+      "size": 2869,
+      "mode": "0755",
+      "sha256": "86c646661d209e804e516bcc734f9809307505b2de4a9bed3f99024f531c583d"
+    },
+    {
+      "path": "scripts/generate-cutover-inventory.py",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "validation-or-bootstrap",
+      "size": 3325,
+      "mode": "0755",
+      "sha256": "ceeceb041be19f657846a56b6d3060dba68177fd975d9d9ba3af34bb7adbba38"
+    },
+    {
+      "path": "scripts/test-bootstrap-scripts.sh",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "validation-or-bootstrap",
+      "size": 861,
+      "mode": "0755",
+      "sha256": "09996bc6d449b5161f6bcfdb000866ffd85b557122e7b9247a22cc7b5724877a"
+    },
+    {
+      "path": "scripts/test-chezmoi-fixture.sh",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "validation-or-bootstrap",
+      "size": 4030,
+      "mode": "0755",
+      "sha256": "68bf8f436b05fb754fc9563d6a49ae07f883041a87defbbeff73a9a201b172b2"
+    },
+    {
+      "path": "scripts/test-source-manifest-mutation.sh",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "validation-or-bootstrap",
+      "size": 911,
+      "mode": "0755",
+      "sha256": "f2afffd6059b8c16633e2a3ee8a421eedb8058b105dbbf25f7225e5f36b8f961"
+    },
+    {
+      "path": "scripts/validate-chezmoi-source-state.sh",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "validation-or-bootstrap",
+      "size": 4575,
+      "mode": "0755",
+      "sha256": "47873275f866ec2624276625a8288c935105bc4de251460f471f9cc3130634ad"
+    },
+    {
+      "path": "update.sh",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "repository-bootstrap",
+      "size": 695,
+      "mode": "0755",
+      "sha256": "bddb267a87bf29d067b652a69863f53d3eeda70014fd84ad00ae18c39567511a"
+    }
+  ],
   "summary": {
-    "directory": 19,
-    "file": 29,
-    "gitlink": 4,
-    "ignored": 1,
-    "symlink": 3,
-    "tracked": 35,
-    "untracked": 19
+    "entries": 174,
+    "tracked": 111,
+    "untracked": 63,
+    "ignored": 0
   }
 }

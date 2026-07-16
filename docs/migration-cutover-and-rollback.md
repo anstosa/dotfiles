@@ -1,9 +1,10 @@
 # Migration cutover and rollback
 
-This guide describes the decision boundary between the preserved legacy
-baseline and a future ChezMoi cutover. It does not authorize a cutover, remove
-unapproved legacy files, or change any source mapping. The former `private`
-Gitlink was removed without inspection under a separate explicit owner decision.
+This guide describes the completed decision boundary between the preserved
+legacy baseline and the ChezMoi source state. The owner approved the final
+cutover record at [`migration/cutover-approval.json`](../migration/cutover-approval.json).
+The former `private` Gitlink was removed without inspection under a separate
+explicit owner decision.
 
 Run the non-destructive readiness check before preparing an approval record:
 
@@ -16,11 +17,11 @@ repository or a home directory.
 
 ## Current state
 
-The repository is still in the preparation phase. The root-level legacy
-dotfiles remain the rollback baseline. The ChezMoi source state is safe to
-preview in an isolated environment. Explicit `install.sh` and `update.sh`
-commands may bootstrap Homebrew/ChezMoi and then use the guarded apply path;
-they do not authorize deletion of any remaining legacy paths.
+The approved cutover is complete. The root-level legacy dotfiles were removed;
+the remote baseline branch and annotated tag remain the rollback baseline. The
+ChezMoi source is safe to preview in an isolated environment. Explicit
+`install.sh` and `update.sh` commands may bootstrap Homebrew/ChezMoi and then
+use the guarded apply path.
 
 ## Cutover readiness record
 
