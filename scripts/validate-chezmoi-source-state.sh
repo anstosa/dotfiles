@@ -63,7 +63,7 @@ assert encrypted_inventory["encryption"] == "age"
 assert isinstance(encrypted_inventory["approved_entries"], list)
 assert encrypted_inventory["key_recovery_policy"].strip()
 private_gitlink = encrypted_inventory["private_gitlink"]
-assert private_gitlink["disposition"] == "blocked-not-inspected"
+assert private_gitlink["disposition"] == "deleted-by-owner-without-inspection"
 assert private_gitlink["reason"].strip()
 
 for entry in encrypted_inventory["approved_entries"]:
@@ -76,9 +76,9 @@ for entry in encrypted_inventory["approved_entries"]:
 entries = manifest["entries"]
 assert any(
     entry["legacy_path"] == "private"
-    and entry["disposition"] == "blocked-not-inspected"
+    and entry["disposition"] == "dropped-by-owner-without-inspection"
     for entry in entries
-), "private must remain explicitly blocked"
+), "private deletion must remain explicitly owner-authorized and uninspected"
 assert all(
     child.name == ".chezmoiignore" or not child.name.startswith(".")
     for child in source_root.iterdir()

@@ -4,7 +4,7 @@
   "approved_entries": [],
   "key_recovery_policy": "Age private keys and recovery material remain outside this repository in the repository owner's approved recovery system.",
   "private_gitlink": {
-    "disposition": "blocked-not-inspected",
-    "reason": "The private Gitlink has no .gitmodules provenance and is not eligible for migration, decryption, or deletion."
+    "disposition": "deleted-by-owner-without-inspection",
+    "reason": "The repository owner explicitly authorized deletion of the uninspected Gitlink; no content, provenance, decryption, or migration was performed."
   }
 }

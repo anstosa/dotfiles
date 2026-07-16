@@ -2,7 +2,8 @@
 
 This guide describes the decision boundary between the preserved legacy
 baseline and a future ChezMoi cutover. It does not authorize a cutover, remove
-legacy files, inspect `private`, or change any source mapping.
+unapproved legacy files, or change any source mapping. The former `private`
+Gitlink was removed without inspection under a separate explicit owner decision.
 
 Run the non-destructive readiness check before preparing an approval record:
 

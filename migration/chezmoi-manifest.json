@@ -10,7 +10,7 @@
       "platform": "linux-or-wsl",
       "disposition": "migrated",
       "executable": false,
-      "source_sha256": "43c2b5f434e220a42d767b4c7215aeb58c6f4bf765a6392284fdb93c88b2589c",
+      "source_sha256": "f4c63cf1df9369c8ff1603b629e8f3deae3f3f84ba9dffffeff906f31b8d2b63",
       "notes": "Uses the current machine Bash prompt; Powerline and tmuxinator are removed."
     },
     {
@@ -114,13 +114,13 @@
     },
     {
       "legacy_path": "plugins/fzf",
-      "disposition": "gitlink-deferred",
-      "notes": "No owner disposition has been supplied."
+      "disposition": "dropped-by-owner",
+      "notes": "Removed as an explicitly approved Gitlink deletion."
     },
     {
       "legacy_path": "private",
-      "disposition": "blocked-not-inspected",
-      "notes": "No provenance or disposition is recorded; it cannot be deleted or migrated."
+      "disposition": "dropped-by-owner-without-inspection",
+      "notes": "Removed as an explicitly approved Gitlink deletion without inspecting its contents."
     },
     {
       "legacy_path": "install.sh",

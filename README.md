@@ -8,7 +8,8 @@ ChezMoi-managed source state for Linux and WSL.
 The legacy files and `install.sh` are preserved as the migration baseline. Do
 not run `install.sh`: it overwrites files and installs packages. G002 adds the
 non-destructive source state in [`chezmoi/`](chezmoi/) but does not apply it,
-delete legacy files, bootstrap packages, or inspect the `private` Gitlink.
+delete remaining legacy files or bootstrap packages. The former `private`
+Gitlink was removed without inspection at the repository owner's direction.
 
 Read [the ChezMoi source-state guide](docs/chezmoi-source-state.md) for the
 platform rules, preview command, exclusions, and validation command.

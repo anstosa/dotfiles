@@ -49,10 +49,10 @@ are documented in [the migration cutover and rollback guide](migration-cutover-a
 
 The source contains no `run_` scripts, hooks, package installation, bootstrap
 commands, or encrypted private content. i3, legacy Vim, tmuxinator, Powerline,
-diff-highlight, Font Awesome, and the old fonts source are intentionally absent.
-The `private` Gitlink is not inspected or migrated. The fzf Gitlink and old
-destructive `install.sh` remain in the legacy tree pending their final cutover
-dispositions.
+diff-highlight, Font Awesome, fonts, and fzf are intentionally absent. The
+owner explicitly removed the `private` Gitlink without inspection, decryption,
+or migration. The old destructive `install.sh` remains in the legacy tree and
+is not run.
 
 Run the static policy check without touching `$HOME`:
 
@@ -60,8 +60,8 @@ Run the static policy check without touching `$HOME`:
 scripts/validate-chezmoi-source-state.sh
 ```
 
-The validator also checks the versioned age policy, including the blocked
-`private` Gitlink. Its companion mutation test proves that changing a migrated
+The validator also checks the versioned age policy, including the recorded
+uninspected `private` deletion. Its companion mutation test proves that changing a migrated
 source artifact is rejected against the manifest's recorded digest:
 
 ```bash
@@ -88,5 +88,5 @@ diff-highlight targets are not created. Run it on both platforms before cutover.
 It is deliberately empty for this release: no private material is in the source tree.
 When a future entry is approved, it must be age-encrypted and its recipient recorded
 in that inventory; age identities and recovery material must stay outside Git. The
-orphan `private` Gitlink remains blocked until its provenance and disposition are
-recorded.
+former `private` Gitlink was deleted only after the owner's explicit instruction,
+without inspecting its contents.
