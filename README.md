@@ -61,7 +61,8 @@ fixture test, and a dry-run before the guarded apply. Package installation is
 therefore explicit to `install.sh`/`update.sh`; ordinary ChezMoi applies and
 the guarded apply wrapper never install packages.
 
-The guarded command refuses any existing unmanaged target instead of adopting
-or overwriting it. On a machine that already has `.bashrc`, `.config/nvim`, or
-`.codex/skills`, preserve and review those paths first, then resolve each
-conflict deliberately. Never bypass the refusal with a force option.
+The guarded command adopts an existing target only when it is byte-identical to
+the source; it refuses every differing target. On a machine that already has
+`.bashrc`, `.config/nvim`, or `.codex/skills`, preserve and review differences
+first, then resolve each conflict deliberately. Never bypass the refusal with
+a force option.

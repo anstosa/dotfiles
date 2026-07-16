@@ -19,9 +19,9 @@
       "type": "file",
       "classification": "tracked",
       "disposition": "documentation",
-      "size": 2742,
+      "size": 2772,
       "mode": "0644",
-      "sha256": "a52a74be5bbd9d41ff4b8e9c941a2434f95c1de6f11bb8fba57a356250595eb3"
+      "sha256": "d52d65a820ecab0cfa18328f7d5dbf1c11bcd679938f53a6b0264b991cc41fa6"
     },
     {
       "path": "chezmoi",
@@ -1362,9 +1362,9 @@
       "type": "file",
       "classification": "tracked",
       "disposition": "documentation",
-      "size": 4624,
+      "size": 4925,
       "mode": "0644",
-      "sha256": "48435061ca73873f2faf37bbce43c06c4b1fca0599ee49c981f79f8337dad803"
+      "sha256": "de0d429e75e735b444f6f551d9b032bd5e49e21f3a2dae04442e12d531f10b88"
     },
     {
       "path": "docs/migration-cutover-and-rollback.md",
@@ -1449,9 +1449,9 @@
       "type": "file",
       "classification": "tracked",
       "disposition": "validation-or-bootstrap",
-      "size": 2869,
+      "size": 4411,
       "mode": "0755",
-      "sha256": "86c646661d209e804e516bcc734f9809307505b2de4a9bed3f99024f531c583d"
+      "sha256": "5692118ca047b519a5b8458e4ca40f4159b4a5dd6eec95a716e2b75efe3165fb"
     },
     {
       "path": "scripts/generate-cutover-inventory.py",
@@ -1476,9 +1476,9 @@
       "type": "file",
       "classification": "tracked",
       "disposition": "validation-or-bootstrap",
-      "size": 4030,
+      "size": 4362,
       "mode": "0755",
-      "sha256": "68bf8f436b05fb754fc9563d6a49ae07f883041a87defbbeff73a9a201b172b2"
+      "sha256": "5a69e0aafa1d732ee652d5bcf1ad29c4cb6bb3e9b0f0c9fde2ee7e06d53b5e9e"
     },
     {
       "path": "scripts/test-source-manifest-mutation.sh",

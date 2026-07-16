@@ -72,17 +72,25 @@ if grep -Eq '^(A|M|D|R|C|\?) ' "$fixture/rerun.log"; then
     exit 1
 fi
 
-# An unmanaged target must be rejected before ChezMoi attempts to apply it.
+# An existing target that differs from the source must be rejected before
+# ChezMoi attempts to apply it.
 rm -rf "$HOME" "$state"
 mkdir -p "$HOME"
 printf 'unmanaged target\n' >"$HOME/.bashrc"
 unmanaged_hash="$(sha256sum "$HOME/.bashrc" | awk '{print $1}')"
 if run_safe_apply >"$fixture/unmanaged-conflict.log" 2>&1; then
-    echo "unmanaged target was unexpectedly accepted by the safety wrapper" >&2
+    echo "differing target was unexpectedly accepted by the safety wrapper" >&2
     exit 1
 fi
-grep -q 'refusing existing unmanaged ChezMoi target' "$fixture/unmanaged-conflict.log"
+grep -q 'refusing existing ChezMoi target(s) that differ from the source' "$fixture/unmanaged-conflict.log"
 test "$unmanaged_hash" = "$(sha256sum "$HOME/.bashrc" | awk '{print $1}')"
+
+# An existing byte-identical target can be adopted without changing content.
+rm -rf "$HOME" "$state"
+mkdir -p "$HOME"
+cp "$source_root/dot_bashrc" "$HOME/.bashrc"
+run_safe_apply >"$fixture/identical-adoption.log"
+cmp "$source_root/dot_bashrc" "$HOME/.bashrc"
 
 # A target changed after management must reach ChezMoi's conflict detector and
 # remain untouched. It is not treated as an unmanaged first-apply target.
@@ -95,7 +103,7 @@ if run_safe_apply >"$fixture/modified-conflict.log" 2>&1; then
     echo "externally modified target was unexpectedly accepted" >&2
     exit 1
 fi
-if grep -q 'refusing existing unmanaged ChezMoi target' "$fixture/modified-conflict.log"; then
+if grep -q 'refusing existing ChezMoi target(s) that differ from the source' "$fixture/modified-conflict.log"; then
     echo "a previously managed target was mistaken for an unmanaged target" >&2
     exit 1
 fi

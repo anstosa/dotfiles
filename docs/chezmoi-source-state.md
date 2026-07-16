@@ -37,8 +37,12 @@ scripts/chezmoi-safe-apply.sh
 
 It derives managed targets from `chezmoi/` and refuses any existing managed
 target that does not appear in ChezMoi's persistent state. This prevents a
-first apply from silently adopting an existing file, symlink, or managed
-directory. For targets ChezMoi previously wrote, it delegates to
+first apply from replacing an existing file, symlink, or managed directory
+whose visible contents differ from the source. Byte-identical files and
+directory symlinks whose complete visible tree exactly matches the source can
+be adopted without a content change. Generated `.omx` runtime metadata inside
+an otherwise equivalent skill-directory symlink is excluded from that
+comparison. For targets ChezMoi previously wrote, it delegates to
 `chezmoi --error-on-conflict apply`; externally modified targets therefore
 remain unchanged and fail instead of being overwritten. The wrapper accepts no
 arguments and never passes force or interactive override options. Set
