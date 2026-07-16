@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "remote_url": "git@github.com:anstosa/dotfiles.git",
+  "branch_ref": "refs/heads/migration/baseline-20260715T155729Z",
+  "tag_ref": "refs/tags/dotfiles-pre-chezmoi-20260715T155729Z",
+  "branch_sha": "757fc34b403686c3e02102bedccff018cc7a5571",
+  "tag_object_sha": "8aa55959aaf77ffac8ad69b3c20e4e83e078672f",
+  "tag_peeled_commit_sha": "757fc34b403686c3e02102bedccff018cc7a5571",
+  "verified_at": "2026-07-16T00:49:43Z",
+  "command": "git ls-remote --heads --tags git@github.com:anstosa/dotfiles.git refs/heads/migration/baseline-20260715T155729Z refs/tags/dotfiles-pre-chezmoi-20260715T155729Z refs/tags/dotfiles-pre-chezmoi-20260715T155729Z^{}"
+}
