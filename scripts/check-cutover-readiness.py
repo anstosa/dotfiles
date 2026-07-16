@@ -115,12 +115,12 @@ def main() -> int:
             + (' ...' if len(missing_paths) > 8 else '')
         )
 
-    deferred = [
+    unresolved = [
         entry.get('legacy_path') for entry in entries
-        if isinstance(entry, dict) and entry.get('disposition') not in {'migrated', 'migrated-with-path-update'}
+        if isinstance(entry, dict) and entry.get('disposition') in {'gitlink-deferred', 'blocked-not-inspected'}
     ]
-    if deferred:
-        blockers.append('legacy paths still need an explicit cutover disposition: ' + ', '.join(deferred))
+    if unresolved:
+        blockers.append('legacy paths still need an explicit cutover disposition: ' + ', '.join(unresolved))
 
     approval = ROOT / 'migration/cutover-approval.json'
     if not approval.is_file():

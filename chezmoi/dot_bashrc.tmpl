@@ -14,12 +14,6 @@ shopt -s histappend
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 
-Color_Off='\e[0m'       # Text Reset
-Black='\e[0;30m'        # Black
-White='\e[0;37m'        # White
-On_Black='\e[40m'       # Black
-On_White='\e[47m'       # White
-
 # prevent Ctrl-S from being a little bitch
 [[ $- == *i* ]] && stty -ixon
 
@@ -37,12 +31,6 @@ alias tmux='TERM=screen-256color-bce tmux -2 -u'
 alias ta='tmux attach -d -t'
 alias fzf='fzf-tmux'
 
-# Powerline
-powerline-daemon -q
-POWERLINE_BASH_CONTINUATION=1
-POWERLINE_BASH_SELECT=1
-. ~/.local/lib/python3.5/site-packages/powerline/bindings/bash/powerline.sh
-source ~/.local/share/dotfiles/tmuxinator.bash
 if [[ -z "$TMUX" && $- == *i* ]] ;then
     ID="`tmux ls | grep -vm1 attached | cut -d: -f1`" # get the id of a deattached session
     if [[ -z "$ID" ]] ;then # if not available create a new one
@@ -52,9 +40,25 @@ if [[ -z "$TMUX" && $- == *i* ]] ;then
     fi
 fi
 
-# Prompt
-PS1="\[$Black$On_White\]\W \$\[$Color_Off\] "
-PS1="$PS1"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#I_#P") "$PWD")'
+# Prompt copied from the current machine's Bash configuration. It replaces the
+# removed Powerline prompt without adding any package or bootstrap dependency.
+if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
+    debian_chroot=$(cat /etc/debian_chroot)
+fi
+case "$TERM" in
+    xterm-color|*-256color) color_prompt=yes;;
+esac
+if [ "$color_prompt" = yes ]; then
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+else
+    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+fi
+unset color_prompt
+case "$TERM" in
+    xterm*|rxvt*)
+        PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+        ;;
+esac
 
 export VISUAL=vim
 export EDITOR="$VISUAL"

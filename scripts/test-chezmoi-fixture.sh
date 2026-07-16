@@ -43,15 +43,12 @@ test ! -e "$HOME/.bashrc"
 audit_apply() {
     run_safe_apply >"$fixture/apply.log"
     test -f "$HOME/.bashrc"
-    test -f "$HOME/.config/powerline/config.json"
-    test -x "$HOME/.local/bin/diff-highlight"
-    test -L "$HOME/.vim/init.vim"
-
-    if grep -qi microsoft /proc/sys/kernel/osrelease; then
-        test ! -e "$HOME/.i3"
-    else
-        test -f "$HOME/.i3/config"
-    fi
+    test -f "$HOME/.tmux.conf"
+    test -f "$HOME/.config/nvim/init.lua"
+    test ! -e "$HOME/.i3"
+    test ! -e "$HOME/.vim"
+    test ! -e "$HOME/.config/powerline"
+    test ! -e "$HOME/.local/bin/diff-highlight"
 }
 
 audit_apply

@@ -117,8 +117,5 @@ for source_file in source_root.rglob("*"):
     ]
     assert len(covering) == 1, f"unmapped or ambiguously mapped source: {relative}"
 
-ignore = (source_root / ".chezmoiignore").read_text()
-assert ".chezmoi.kernel.osrelease" in ignore
-assert ".i3" in ignore
 print(f"validated {len(mapped_sources)} manifest mappings and source parity")
 PY

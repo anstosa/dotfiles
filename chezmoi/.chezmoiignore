@@ -1,4 +1,0 @@
-{{- $isWSL := contains "microsoft" (lower .chezmoi.kernel.osrelease) -}}
-{{- if or (ne .chezmoi.os "linux") $isWSL }}
-.i3
-{{- end }}

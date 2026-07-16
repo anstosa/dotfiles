@@ -6,14 +6,15 @@ rewritten by this change.
 
 ## Supported targets
 
-Shared shell, Git, editor, tmux, Powerline, and helper files target Linux and
-WSL. The `.i3` source tree targets Linux only. Its source is retained on WSL,
-but `.chezmoiignore` excludes it when the Linux kernel release identifies WSL.
+Shared shell, Git, Neovim, tmux, and helper files target Linux and WSL. The
+Neovim source was imported from this machine's `~/.config/nvim` after a
+credential scan. It replaces the legacy Vim configuration.
 
-The Bash template changes only the two helper source locations to
-`~/.local/share/dotfiles`, where this source state manages them. The
-`diff-highlight` executable is a managed file at `~/.local/bin/diff-highlight`;
-it is not an executable ChezMoi action.
+The Bash template changes only the `cdhist.sh` helper source location to
+`~/.local/share/dotfiles`, where this source state manages it. Its prompt is
+the current machine's Debian-style Bash prompt; it has no Powerline dependency.
+The tmux source retains existing keybindings while using the current machine's
+status-bar presentation.
 
 ## Safe preview
 
@@ -46,10 +47,12 @@ are documented in [the migration cutover and rollback guide](migration-cutover-a
 
 ## Explicit exclusions
 
-G002 contains no `run_` scripts, hooks, package installation, bootstrap
-commands, or encrypted private content. The `private` Gitlink is not inspected
-or migrated. Plugin Gitlinks and the old destructive `install.sh` remain in the
-legacy tree and are recorded as deferred in the migration manifest.
+The source contains no `run_` scripts, hooks, package installation, bootstrap
+commands, or encrypted private content. i3, legacy Vim, tmuxinator, Powerline,
+diff-highlight, Font Awesome, and the old fonts source are intentionally absent.
+The `private` Gitlink is not inspected or migrated. The fzf Gitlink and old
+destructive `install.sh` remain in the legacy tree pending their final cutover
+dispositions.
 
 Run the static policy check without touching `$HOME`:
 
@@ -76,8 +79,8 @@ CHEZMOI_BIN=chezmoi scripts/test-chezmoi-fixture.sh
 The fixture requires the preview to leave the temporary destination unchanged, tests
 an empty-home guarded apply and rerun, and proves that unmanaged `.bashrc` is rejected
 by the wrapper before ChezMoi runs while externally modified `.bashrc` remains unchanged
-through ChezMoi's conflict error. It also checks the actual platform predicate: i3 is
-omitted on WSL and included on ordinary Linux. Run it on both platforms before cutover.
+through ChezMoi's conflict error. It also asserts that removed i3, Vim, Powerline, and
+diff-highlight targets are not created. Run it on both platforms before cutover.
 
 ## Private data and recovery
 
