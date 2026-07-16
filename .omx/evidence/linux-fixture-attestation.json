@@ -1,0 +1,8 @@
+{
+  "schema_version": 1,
+  "platform": "ordinary-linux",
+  "evidence_type": "user-provided-fixture-output",
+  "reported_output": "PASS: isolated chezmoi dry-run, guarded apply, conflict, idempotency, and platform checks",
+  "provided_at": "2026-07-16",
+  "limitations": "The result is recorded from the repository owner's stated ordinary-Linux run; the provided output contains no kernel-release capture."
+}
