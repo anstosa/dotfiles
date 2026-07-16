@@ -1,72 +1,54 @@
-#!/bin/bash
+#!/usr/bin/env bash
+# Install Homebrew and ChezMoi when needed, then apply this repository safely.
+set -euo pipefail
 
-DIR="$( cd "$( dirname "$0" )" && pwd )"
+repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-echo "Create symlinks and destroy any conflicting configs already in place."
-read -p "Continue? [y/N] " choice
-
-function makeLink() {
-    ln -sfn $DIR/$1 $1
+die() {
+    echo "install.sh: $*" >&2
+    exit 1
 }
 
-case "$choice" in
-  Y|y|yes )
-        echo "Moving to Home directory..."
-        cd ~;
+find_brew() {
+    if command -v brew >/dev/null 2>&1; then
+        command -v brew
+        return 0
+    fi
 
-        echo "Linking bash..."
-        makeLink .bashrc
+    local candidate
+    for candidate in \
+        /home/linuxbrew/.linuxbrew/bin/brew \
+        "$HOME/.linuxbrew/bin/brew"; do
+        if [[ -x "$candidate" ]]; then
+            printf '%s\n' "$candidate"
+            return 0
+        fi
+    done
+    return 1
+}
 
-        echo "Linking vim..."
-        makeLink .vim
-        makeLink .vimrc
-
-        echo "Linking Git..."
-        makeLink .gitconfig
-
-        echo "Linking tmux..."
-        makeLink .tmux.conf
-
-        echo "Linking inputrc..."
-        makeLink .inputrc
-
-        echo "Linking python..."
-        makeLink .pystartup
-
-        echo "Linking powerline..."
-        ln -sfn $DIR/powerline ~/.config/powerline
-
-        echo "Hotswapping bash config..."
-        source .bashrc
-
-        echo "Linked."
-    ;;
-  * ) echo "Skipping link"
-esac
-
-echo "Getting dependencies..."
-cd $DIR
-git submodule update
-
-if ! type tmux >/dev/null 2>&1; then
-    echo "Installing tmux..."
-    sudo apt-get install -y python-software-properties software-properties-common
-    sudo add-apt-repository -y ppa:pi-rho/dev
-    sudo apt-get update
-    sudo apt-get install -y tmux
-    echo "Installed."
+if [[ "$(uname -s)" != "Linux" ]]; then
+    die "only Linux and WSL are supported"
 fi
 
-if ! type powerline >/dev/null 2>&1; then
-    echo "Installing powerline..."
-    sudo apt-get install -y python3-pip
-    sudo -H pip3 install --upgrade pip
-    sudo -H pip3 install powerline-status
-    echo "Installed."
+brew_bin="$(find_brew || true)"
+if [[ -z "$brew_bin" ]]; then
+    command -v curl >/dev/null 2>&1 || die "curl is required to install Homebrew"
+    echo "Homebrew is not installed; running its official installer."
+    NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    brew_bin="$(find_brew || true)"
+    [[ -n "$brew_bin" ]] || die "Homebrew installer completed but brew was not found"
 fi
 
-if ! type fzf >/dev/null 2>&1; then
-    echo "Installing FZF..."
-    $DIR/plugins/fzf/install
-    echo "Installed."
+eval "$("$brew_bin" shellenv)"
+
+if ! command -v chezmoi >/dev/null 2>&1; then
+    echo "Installing ChezMoi with Homebrew."
+    brew install chezmoi
 fi
+
+chezmoi_bin="$(command -v chezmoi)"
+"$repo_root/scripts/validate-chezmoi-source-state.sh"
+CHEZMOI_BIN="$chezmoi_bin" "$repo_root/scripts/test-chezmoi-fixture.sh"
+"$chezmoi_bin" --source "$repo_root/chezmoi" --destination "$HOME" apply --dry-run --verbose
+"$repo_root/scripts/chezmoi-safe-apply.sh"

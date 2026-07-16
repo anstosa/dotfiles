@@ -16,10 +16,11 @@ repository or a home directory.
 
 ## Current state
 
-The repository is still in the preparation phase. The root-level dotfiles and
-`install.sh` remain the rollback baseline. The ChezMoi source state is safe to
-preview in an isolated environment, but routine application and all package or
-bootstrap provisioning remain out of scope.
+The repository is still in the preparation phase. The root-level legacy
+dotfiles remain the rollback baseline. The ChezMoi source state is safe to
+preview in an isolated environment. Explicit `install.sh` and `update.sh`
+commands may bootstrap Homebrew/ChezMoi and then use the guarded apply path;
+they do not authorize deletion of any remaining legacy paths.
 
 ## Cutover readiness record
 

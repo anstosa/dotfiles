@@ -5,11 +5,12 @@ ChezMoi-managed source state for Linux and WSL.
 
 ## Current migration status
 
-The legacy files and `install.sh` are preserved as the migration baseline. Do
-not run `install.sh`: it overwrites files and installs packages. G002 adds the
-non-destructive source state in [`chezmoi/`](chezmoi/) but does not apply it,
-delete remaining legacy files or bootstrap packages. The former `private`
-Gitlink was removed without inspection at the repository owner's direction.
+The legacy dotfiles are preserved as the migration baseline. The root
+[`install.sh`](install.sh) is now the explicit bootstrap entry point: it
+installs Homebrew and ChezMoi when absent, validates the source, runs the
+isolated fixture, previews the change, and invokes the guarded apply wrapper.
+It does not force or silently overwrite a target. The former `private` Gitlink
+was removed without inspection at the repository owner's direction.
 
 Read [the ChezMoi source-state guide](docs/chezmoi-source-state.md) for the
 platform rules, preview command, exclusions, and validation command.
@@ -33,24 +34,30 @@ git commit -m 'type(dotfiles): describe the change'
 git push
 ```
 
-To update an installed machine, pull the repository, repeat the validation and
-preview, then use the guarded apply command:
+To update an installed machine, use the update wrapper. It fast-forwards this
+checkout, updates Homebrew and ChezMoi when available, then runs the same
+validated, guarded installation flow:
 
 ```bash
-git pull --ff-only
-scripts/validate-chezmoi-source-state.sh
-chezmoi --source "$PWD/chezmoi" --destination "$HOME" apply --dry-run --verbose
-scripts/chezmoi-safe-apply.sh
+./update.sh
 ```
 
 Do not invoke `chezmoi apply --force` or a direct apply for this repository.
 
 ## New machine
 
-Install ChezMoi through the operating system's normal package-management path;
-this repository never installs packages automatically. Clone a revision that
-contains the published commits, then run the source validator, the isolated
-fixture, and a dry-run before the guarded apply command shown above.
+Clone a revision that contains the published commits, then run:
+
+```bash
+./install.sh
+```
+
+When Homebrew is absent, the script downloads and runs Homebrew's official
+installer, initializes its shell environment for the script, and installs
+ChezMoi through Homebrew. It then performs source validation, an isolated
+fixture test, and a dry-run before the guarded apply. Package installation is
+therefore explicit to `install.sh`/`update.sh`; ordinary ChezMoi applies and
+the guarded apply wrapper never install packages.
 
 The guarded command refuses any existing unmanaged target instead of adopting
 or overwriting it. On a machine that already has `.bashrc`, `.config/nvim`, or

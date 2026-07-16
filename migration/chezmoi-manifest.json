@@ -187,8 +187,8 @@
     },
     {
       "legacy_path": "install.sh",
-      "disposition": "legacy-retained",
-      "notes": "Destructive installer remains outside ChezMoi and is not run."
+      "disposition": "repository-bootstrap-script",
+      "notes": "Explicit bootstrap: installs Homebrew and ChezMoi when absent, validates source state, previews, and uses guarded apply without force."
     },
     {
       "legacy_path": ".gitignore",

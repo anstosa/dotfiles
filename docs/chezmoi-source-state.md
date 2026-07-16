@@ -51,13 +51,16 @@ are documented in [the migration cutover and rollback guide](migration-cutover-a
 
 ## Explicit exclusions
 
-The source contains no `run_` scripts, hooks, package installation, bootstrap
-commands, or encrypted private content. i3, legacy Vim, tmuxinator, Powerline,
-diff-highlight, Font Awesome, fonts, fzf, inputrc, Python startup, and cdhist
-are intentionally absent. The
-owner explicitly removed the `private` Gitlink without inspection, decryption,
-or migration. The old destructive `install.sh` remains in the legacy tree and
-is not run.
+The ChezMoi source contains no `run_` scripts, hooks, package installation,
+bootstrap commands, or encrypted private content. i3, legacy Vim, tmuxinator,
+Powerline, diff-highlight, Font Awesome, fonts, fzf, inputrc, Python startup,
+and cdhist are intentionally absent. The owner explicitly removed the
+`private` Gitlink without inspection, decryption, or migration.
+
+Package bootstrap is isolated to the explicit root
+[`install.sh`](../install.sh) and [`update.sh`](../update.sh) commands. They
+install Homebrew and/or ChezMoi only when invoked, then validate and use the
+guarded wrapper; normal ChezMoi applies never install packages.
 
 Run the static policy check without touching `$HOME`:
 
