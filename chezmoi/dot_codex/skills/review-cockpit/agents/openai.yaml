@@ -1,0 +1,4 @@
+interface:
+  display_name: "Review Cockpit"
+  short_description: "Generate local Neovim review artifacts"
+  default_prompt: "Use $review-cockpit to generate local review artifacts for Ansel's guided Neovim review cockpit."

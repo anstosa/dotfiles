@@ -1,0 +1,5 @@
+---
+interface:
+  display_name: "[Potato] Fix PR CI"
+  short_description: "Fix failing GitHub Actions CI, commit, and push"
+  default_prompt: "Use $pr-ci-fix to inspect this PR's failing GitHub Actions checks, fix the focused cause, validate, commit, and push."

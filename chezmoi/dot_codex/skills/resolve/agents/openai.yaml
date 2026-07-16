@@ -1,0 +1,5 @@
+---
+interface:
+  display_name: "[Potato] Resolve"
+  short_description: "Resolve Git and Flyway conflicts"
+  default_prompt: "Use $resolve to resolve the current merge, rebase, or cherry-pick, continue after pre-commit fixes, and resolve duplicate Flyway migration numbers."

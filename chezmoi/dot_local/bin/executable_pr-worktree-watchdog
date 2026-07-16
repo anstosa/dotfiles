@@ -1,0 +1,692 @@
+#!/usr/bin/env python3
+"""Watch PR state across Ansel's simulation-infra worktrees and dispatch Codex fixup."""
+
+from __future__ import annotations
+
+import argparse
+import fcntl
+import json
+import shlex
+import subprocess
+import sys
+import time
+from dataclasses import dataclass
+from datetime import datetime, timezone
+from zoneinfo import ZoneInfo
+from pathlib import Path
+from typing import Any
+
+DEFAULT_CONFIG = Path.home() / ".config" / "pr-worktree-watchdog" / "config.json"
+BUSY_MARKERS = (
+    "running",
+    "thinking",
+    "working",
+    "executing",
+    "applying patch",
+    "waiting for",
+    "tool call",
+    "command running",
+    "analysis",
+)
+PROMPT_MARKERS = (
+    "›",
+    "╭─",
+    "ctrl+j",
+    "enter to send",
+    "message codex",
+)
+SHELL_COMMANDS = {"bash", "zsh", "fish", "sh"}
+AGENT_COMMANDS = {"codex", "node", "omx"}
+FAILURE_CONCLUSIONS = {"FAILURE", "TIMED_OUT", "ACTION_REQUIRED", "STARTUP_FAILURE"}
+PASS_CONCLUSIONS = {"SUCCESS", "SKIPPED", "NEUTRAL", "CANCELLED"}
+MERGE_CONFLICT_STATES = {"DIRTY"}
+PACIFIC_TIME = ZoneInfo("America/Los_Angeles")
+ACTION_LABELS = {
+    "fixup": "$fixup",
+}
+
+
+@dataclass(frozen=True)
+class Worktree:
+    """worktree config"""
+
+    name: str
+    path: Path
+
+
+@dataclass(frozen=True)
+class Pane:
+    """tmux pane facts"""
+
+    pane_id: str
+    session: str
+    path: Path
+    command: str
+    title: str
+
+
+@dataclass(frozen=True)
+class PrAttention:
+    """pr action summary"""
+
+    number: int
+    url: str
+    head_ref: str
+    action: str
+    reason: str
+
+
+# format timestamp
+def human_time(value: str) -> str:
+    """render a compact pacific timestamp"""
+    # parse iso timestamp
+    try:
+        parsed = datetime.fromisoformat(value)
+    except ValueError:
+        return value
+    # normalize timezone
+    if parsed.tzinfo is None:
+        parsed = parsed.replace(tzinfo=timezone.utc)
+    pacific = parsed.astimezone(PACIFIC_TIME)
+    hour = pacific.strftime("%I").lstrip("0") or "12"
+    minute = pacific.strftime("%M")
+    am_pm = pacific.strftime("%p").lower()
+    weekday = pacific.strftime("%a")
+    month = pacific.strftime("%b")
+    day = str(pacific.day)
+    return f"{hour}:{minute}{am_pm} {weekday} {month} {day}"
+
+
+# format action label
+def action_label(action: str | None) -> str:
+    """render a user-facing action name"""
+    return ACTION_LABELS.get(str(action or ""), str(action or "unknown action"))
+
+
+# format event line
+def human_message(record: dict[str, Any]) -> str:
+    """render a watchdog event as pane-friendly text"""
+    event = str(record.get("event", "event"))
+    prefix = f"[{human_time(str(record.get('ts', '')))}]"
+    worktree = record.get("worktree")
+    branch = record.get("branch")
+    pr = record.get("pr")
+
+    # scan lifecycle
+    if event == "scan_start":
+        return f"\n{prefix} Starting PR watchdog scan."
+    # quiet branch
+    if event == "no_attention":
+        return f"{prefix} {worktree}: no PR attention needed on {branch}."
+    # dirty branch
+    if event == "skip_dirty":
+        return f"{prefix} {worktree}: skipped {branch}; worktree has local changes."
+    # detached branch
+    if event == "detached_worktree":
+        return f"{prefix} {worktree}: detached and available for unclaimed PRs."
+    # dirty detached branch
+    if event == "skip_detached_dirty":
+        return f"{prefix} {worktree}: skipped detached worktree; local changes present."
+    # unclaimed summary
+    if event == "unclaimed_attention":
+        return f"{prefix} Found {record.get('count', 0)} unclaimed actionable PR(s)."
+    # skipped unclaimed pr
+    if event == "skip_unclaimed_checked_out":
+        return f"{prefix} Skipped PR #{pr}; branch {record.get('head_ref')} is already checked out."
+    # quiet unclaimed pr
+    if event == "unclaimed_no_attention":
+        return f"{prefix} PR #{pr}: no unclaimed action needed."
+    # actionable pr
+    if event == "attention":
+        return f"{prefix} {worktree}: PR #{pr} needs {action_label(record.get('action'))} ({record.get('reason')})."
+    # active agent safety stop
+    if event == "skip_active_agent":
+        return f"{prefix} {worktree}: skipped; pane {record.get('pane')} has an active agent."
+    # missing pane safety stop
+    if event == "skip_no_pane":
+        return f"{prefix} {worktree}: skipped; no tmux pane found for {record.get('path')}."
+    # dispatch action
+    if event == "dispatch":
+        dry = "dry-run " if record.get("dry_run") else ""
+        return f"{prefix} Dispatching {dry}command to pane {record.get('pane')}: {record.get('text')}"
+    # dispatch failure
+    if event == "dispatch_failed":
+        return f"{prefix} Dispatch failed for pane {record.get('pane')}: {record.get('stderr')}"
+    # scan summary
+    if event == "scan_complete":
+        return f"{prefix} Scan complete; dispatched {record.get('dispatched', 0)} action(s)."
+    # singleton guard
+    if event == "loop_already_running":
+        return f"{prefix} Watchdog loop already running; lock: {record.get('lock_path')}"
+    # tmux failure
+    if event == "tmux_unavailable":
+        return f"{prefix} tmux unavailable: {record.get('stderr')}"
+    # capture failure
+    if event == "capture_failed":
+        return f"{prefix} Could not inspect pane {record.get('pane')}: {record.get('stderr')}"
+    # git failure
+    if event in {"git_branch_failed", "git_status_failed"}:
+        return f"{prefix} Git check failed for {record.get('path')}: {record.get('stderr')}"
+    # command failure
+    if event == "command_failed":
+        return f"{prefix} Command failed: {' '.join(map(str, record.get('command', [])))} :: {record.get('stderr')}"
+    # command exception
+    if event == "command_error":
+        return f"{prefix} Command error: {' '.join(map(str, record.get('command', [])))} :: {record.get('error')}"
+    # json parse failure
+    if event == "json_error":
+        return f"{prefix} Could not parse command JSON: {record.get('error')}"
+    return f"{prefix} {event}: {json.dumps(record, sort_keys=True)}"
+
+
+class Watchdog:
+    """watchdog runner"""
+
+    # init state
+    def __init__(self, config: dict[str, Any], dry_run: bool, verbose: bool, json_output: bool) -> None:
+        self.config = config
+        self.dry_run = dry_run
+        self.verbose = verbose
+        self.json_output = json_output
+        self.repo = str(config.get("repo", "readysetpotato/simulation-infra"))
+        self.sessions = [str(value) for value in config.get("tmux_sessions", ["work", "Potato", "potato"])]
+        self.worktrees = [Worktree(str(item["name"]), Path(item["path"]).expanduser()) for item in config.get("worktrees", [])]
+        self.log_path = Path(str(config.get("log_path", Path.home() / ".local/state/pr-worktree-watchdog/watchdog.jsonl"))).expanduser()
+        self.lock_path = Path(str(config.get("lock_path", Path.home() / ".local/state/pr-worktree-watchdog/watchdog.lock"))).expanduser()
+
+    # command runner
+    def run(self, args: list[str], cwd: Path | None = None, check: bool = False) -> subprocess.CompletedProcess[str]:
+        return subprocess.run(args, cwd=cwd, text=True, capture_output=True, check=check)
+
+    # json command runner
+    def run_json(self, args: list[str], cwd: Path | None = None) -> Any | None:
+        # tolerate missing commands
+        try:
+            result = self.run(args, cwd=cwd, check=False)
+        except OSError as error:
+            self.log("command_error", command=args, cwd=str(cwd) if cwd else None, error=str(error))
+            return None
+        # fail closed
+        if result.returncode != 0:
+            self.log("command_failed", command=args, cwd=str(cwd) if cwd else None, stderr=result.stderr.strip())
+            return None
+        # parse response
+        try:
+            return json.loads(result.stdout or "null")
+        except json.JSONDecodeError as error:
+            self.log("json_error", command=args, error=str(error), stdout=result.stdout[:500])
+            return None
+
+    # event logger
+    def log(self, event: str, **payload: Any) -> None:
+        record = {"ts": datetime.now(timezone.utc).isoformat(), "event": event, **payload}
+        # ensure log dir exists
+        self.log_path.parent.mkdir(parents=True, exist_ok=True)
+        # append machine audit log
+        with self.log_path.open("a", encoding="utf-8") as handle:
+            handle.write(json.dumps(record, sort_keys=True) + "\n")
+        # mirror readable output
+        if self.verbose:
+            output = json.dumps(record, sort_keys=True) if self.json_output else human_message(record)
+            print(output, flush=True)
+
+    # single scan
+    def scan_once(self) -> int:
+        self.log("scan_start")
+        panes = self.tmux_panes()
+        checked_out = self.checked_out_branches()
+        dispatched = 0
+        detached: list[Worktree] = []
+        # inspect configured worktrees
+        for worktree in self.worktrees:
+            branch = self.current_branch(worktree.path)
+            # collect detached slots
+            if branch is None:
+                detached.append(worktree)
+                self.log("detached_worktree", worktree=worktree.name, path=str(worktree.path))
+                continue
+            # protect dirty trees
+            if self.is_dirty(worktree.path):
+                self.log("skip_dirty", worktree=worktree.name, branch=branch)
+                continue
+            attention = self.attention_for_current_branch(worktree.path)
+            # skip quiet prs
+            if attention is None:
+                self.log("no_attention", worktree=worktree.name, branch=branch)
+                continue
+            # dispatch current branch
+            if self.dispatch(worktree, panes, attention, checkout_first=False):
+                dispatched += 1
+        unclaimed = self.unclaimed_attention(checked_out)
+        # assign detached slots
+        for worktree in detached:
+            # stop when no work remains
+            if not unclaimed:
+                break
+            # protect dirty detached trees
+            if self.is_dirty(worktree.path):
+                self.log("skip_detached_dirty", worktree=worktree.name)
+                continue
+            attention = unclaimed.pop(0)
+            # dispatch unclaimed pr
+            if self.dispatch(worktree, panes, attention, checkout_first=True):
+                dispatched += 1
+        self.log("scan_complete", dispatched=dispatched)
+        return dispatched
+
+    # tmux inventory
+    def tmux_panes(self) -> list[Pane]:
+        fmt = "#{session_name}\t#{pane_id}\t#{pane_current_path}\t#{pane_current_command}\t#{pane_title}"
+        result = self.run(["tmux", "list-panes", "-a", "-F", fmt], check=False)
+        panes: list[Pane] = []
+        # handle absent tmux
+        if result.returncode != 0:
+            self.log("tmux_unavailable", stderr=result.stderr.strip())
+            return panes
+        # parse panes
+        for line in result.stdout.splitlines():
+            parts = line.split("\t", 4)
+            # skip malformed rows
+            if len(parts) != 5:
+                continue
+            session, pane_id, path, command, title = parts
+            # skip unmanaged sessions
+            if self.sessions and session not in self.sessions:
+                continue
+            panes.append(Pane(pane_id=pane_id, session=session, path=Path(path), command=command, title=title))
+        return panes
+
+    # branch map
+    def checked_out_branches(self) -> set[str]:
+        branches: set[str] = set()
+        # scan worktrees
+        for worktree in self.worktrees:
+            branch = self.current_branch(worktree.path)
+            # record branch
+            if branch:
+                branches.add(branch)
+        return branches
+
+    # current branch
+    def current_branch(self, path: Path) -> str | None:
+        result = self.run(["git", "branch", "--show-current"], cwd=path, check=False)
+        # missing repo means unusable
+        if result.returncode != 0:
+            self.log("git_branch_failed", path=str(path), stderr=result.stderr.strip())
+            return None
+        branch = result.stdout.strip()
+        # empty means detached
+        if not branch:
+            return None
+        return branch
+
+    # dirty check
+    def is_dirty(self, path: Path) -> bool:
+        result = self.run(["git", "status", "--porcelain=v1", "--untracked-files=normal"], cwd=path, check=False)
+        # fail closed
+        if result.returncode != 0:
+            self.log("git_status_failed", path=str(path), stderr=result.stderr.strip())
+            return True
+        return bool(result.stdout.strip())
+
+    # current branch pr attention
+    def attention_for_current_branch(self, path: Path) -> PrAttention | None:
+        pr = self.run_json(["gh", "pr", "view", "--json", "number,url,headRefName,mergeStateStatus,statusCheckRollup"], cwd=path)
+        # no pr means no action
+        if not isinstance(pr, dict) or not pr.get("number"):
+            return None
+        return self.classify_pr(pr)
+
+    # unclaimed pr attention
+    def unclaimed_attention(self, checked_out: set[str]) -> list[PrAttention]:
+        prs = self.run_json([
+            "gh",
+            "pr",
+            "list",
+            "--repo",
+            self.repo,
+            "--author",
+            "@me",
+            "--state",
+            "open",
+            "--limit",
+            "50",
+            "--json",
+            "number,url,headRefName,mergeStateStatus,statusCheckRollup",
+        ])
+        attention: list[PrAttention] = []
+        # require list response
+        if not isinstance(prs, list):
+            return attention
+        # classify open prs
+        for pr in prs:
+            head_ref = str(pr.get("headRefName") or "")
+            # skip checked out branches
+            if head_ref in checked_out:
+                self.log("skip_unclaimed_checked_out", pr=pr.get("number"), head_ref=head_ref)
+                continue
+            classified = self.classify_pr(pr)
+            # keep actionable prs
+            if classified:
+                attention.append(classified)
+            else:
+                self.log("unclaimed_no_attention", pr=pr.get("number"), head_ref=head_ref)
+        self.log("unclaimed_attention", count=len(attention))
+        return attention
+
+    # pr classifier
+    def classify_pr(self, pr: dict[str, Any]) -> PrAttention | None:
+        number = int(pr["number"])
+        url = str(pr["url"])
+        head_ref = str(pr.get("headRefName") or "")
+        reasons: list[str] = []
+        merge_state = str(pr.get("mergeStateStatus") or "")
+        # record merge conflicts
+        if merge_state in MERGE_CONFLICT_STATES:
+            reasons.append(f"merge state is {merge_state}")
+        unresolved = self.unresolved_review_threads(number)
+        # record review comments
+        if unresolved > 0:
+            reasons.append(f"{unresolved} unresolved review thread(s)")
+        failing = self.failing_checks(pr.get("statusCheckRollup") or [])
+        # record ci failures
+        if failing:
+            reasons.append("failing checks: " + ", ".join(failing[:5]))
+        # dispatch combined fixup
+        if reasons:
+            return PrAttention(number=number, url=url, head_ref=head_ref, action="fixup", reason="; ".join(reasons))
+        return None
+
+    # review thread counter
+    def unresolved_review_threads(self, number: int) -> int:
+        owner, repo = self.repo.split("/", 1)
+        query = """
+query($owner: String!, $repo: String!, $number: Int!) {
+  repository(owner: $owner, name: $repo) {
+    pullRequest(number: $number) {
+      reviewThreads(first: 100) {
+        nodes { isResolved isOutdated }
+      }
+    }
+  }
+}
+"""
+        payload = self.run_json([
+            "gh",
+            "api",
+            "graphql",
+            "-f",
+            f"owner={owner}",
+            "-f",
+            f"repo={repo}",
+            "-F",
+            f"number={number}",
+            "-f",
+            f"query={query}",
+        ])
+        # fail closed as no comment action
+        if not isinstance(payload, dict):
+            return 0
+        nodes = (((payload.get("data") or {}).get("repository") or {}).get("pullRequest") or {}).get("reviewThreads", {}).get("nodes", [])
+        count = 0
+        # count current unresolved threads
+        for node in nodes:
+            # include only actionable-current thread state
+            if not node.get("isResolved") and not node.get("isOutdated"):
+                count += 1
+        return count
+
+    # ci failure extractor
+    def failing_checks(self, checks: list[Any]) -> list[str]:
+        failures: list[str] = []
+        # inspect rollup entries
+        for check in checks:
+            # skip non dict entries
+            if not isinstance(check, dict):
+                continue
+            name = str(check.get("name") or check.get("workflowName") or "unknown")
+            conclusion = str(check.get("conclusion") or "").upper()
+            status = str(check.get("status") or "").upper()
+            # direct failure
+            if conclusion in FAILURE_CONCLUSIONS:
+                failures.append(name)
+                continue
+            # external status failure shape
+            if status in {"FAILURE", "ERROR", "TIMED_OUT", "ACTION_REQUIRED"}:
+                failures.append(name)
+                continue
+            # ignore expected pass or pending states
+            if conclusion in PASS_CONCLUSIONS or status in {"IN_PROGRESS", "QUEUED", "PENDING", "EXPECTED", "COMPLETED", ""}:
+                continue
+        return failures
+
+    # pane selection and dispatch
+    def dispatch(self, worktree: Worktree, panes: list[Pane], attention: PrAttention, checkout_first: bool) -> bool:
+        matching = self.matching_panes(worktree, panes)
+        agent_panes = [pane for pane in matching if self.is_agent_pane(pane)]
+        shell_panes = [pane for pane in matching if self.is_shell_pane(pane)]
+        self.log("attention", worktree=worktree.name, pr=attention.number, action=attention.action, reason=attention.reason, checkout_first=checkout_first)
+        # prefer existing agents
+        for pane in agent_panes:
+            # prompt-only idle gate
+            if self.agent_pane_idle(pane):
+                prompt = self.agent_prompt(attention, checkout_first)
+                return self.send_to_pane(pane, prompt, mode="agent")
+            self.log("skip_active_agent", worktree=worktree.name, pane=pane.pane_id, command=pane.command)
+            return False
+        # launch from shell pane
+        if shell_panes:
+            command = self.shell_command(attention, checkout_first)
+            return self.send_to_pane(shell_panes[0], command, mode="shell")
+        self.log("skip_no_pane", worktree=worktree.name, path=str(worktree.path))
+        return False
+
+    # pane matcher
+    def matching_panes(self, worktree: Worktree, panes: list[Pane]) -> list[Pane]:
+        matched: list[Pane] = []
+        target = worktree.path.resolve()
+        # compare paths
+        for pane in panes:
+            # tolerate deleted paths
+            try:
+                pane_path = pane.path.resolve()
+            except OSError:
+                continue
+            # include nested repo paths
+            if pane_path == target or target in pane_path.parents:
+                matched.append(pane)
+        return matched
+
+    # agent pane predicate
+    def is_agent_pane(self, pane: Pane) -> bool:
+        command = pane.command.lower()
+        title = pane.title.lower()
+        # codex often appears as node
+        if command in AGENT_COMMANDS:
+            return True
+        # title fallback
+        if "codex" in title or "omx" in title:
+            return True
+        return False
+
+    # shell pane predicate
+    def is_shell_pane(self, pane: Pane) -> bool:
+        return pane.command.lower() in SHELL_COMMANDS
+
+    # prompt-only idle detection
+    def agent_pane_idle(self, pane: Pane) -> bool:
+        result = self.run(["tmux", "capture-pane", "-p", "-t", pane.pane_id, "-S", "-80"], check=False)
+        # fail closed
+        if result.returncode != 0:
+            self.log("capture_failed", pane=pane.pane_id, stderr=result.stderr.strip())
+            return False
+        text = result.stdout.lower()
+        tail = "\n".join(result.stdout.splitlines()[-12:]).lower()
+        has_prompt = any(marker in tail for marker in PROMPT_MARKERS)
+        has_busy = any(marker in tail for marker in BUSY_MARKERS)
+        # require prompt marker and no local busy marker
+        return has_prompt and not has_busy and "▌" not in text[-200:]
+
+    # build agent prompt
+    def agent_prompt(self, attention: PrAttention, checkout_first: bool) -> str:
+        # detached checkout path
+        if checkout_first:
+            return f"Check out {attention.url}, then run $fixup."
+        return "$fixup"
+
+    # build shell command
+    def shell_command(self, attention: PrAttention, checkout_first: bool) -> str:
+        prompt = self.agent_prompt(attention, checkout_first)
+        # shell checks out first
+        if checkout_first:
+            return f"gh pr checkout {shlex.quote(attention.url)} && codex {shlex.quote('$fixup')}"
+        return f"codex {shlex.quote(prompt)}"
+
+    # send keys
+    def send_to_pane(self, pane: Pane, text: str, mode: str) -> bool:
+        submit_keys = ["Enter", "Enter-if-pending"] if mode == "agent" else ["Enter"]
+        typing_mode = "character" if mode == "agent" else "line"
+        self.log("dispatch", pane=pane.pane_id, session=pane.session, mode=mode, text=text, submit_keys=submit_keys, typing_mode=typing_mode, dry_run=self.dry_run)
+        # dry run only logs
+        if self.dry_run:
+            return True
+        # simulate agent typing
+        if mode == "agent":
+            result = self.type_agent_prompt(pane, text)
+        else:
+            result = self.run(["tmux", "send-keys", "-t", pane.pane_id, text, "Enter"], check=False)
+        # report send failure
+        if result.returncode != 0:
+            self.log("dispatch_failed", pane=pane.pane_id, stderr=result.stderr.strip())
+            return False
+        return True
+
+    # type agent prompt
+    def type_agent_prompt(self, pane: Pane, text: str) -> subprocess.CompletedProcess[str]:
+        result = self.run(["tmux", "send-keys", "-t", pane.pane_id, "C-u"], check=False)
+        # stop on clear failure
+        if result.returncode != 0:
+            return result
+        time.sleep(0.05)
+        # type each character
+        for character in text:
+            result = self.run(["tmux", "send-keys", "-t", pane.pane_id, "-l", character], check=False)
+            # stop on typing failure
+            if result.returncode != 0:
+                return result
+            time.sleep(0.02)
+        # wait for skill tokenization
+        time.sleep(0.75)
+        result = self.run(["tmux", "send-keys", "-t", pane.pane_id, "Enter"], check=False)
+        # stop on first submit failure
+        if result.returncode != 0:
+            return result
+        time.sleep(0.8)
+        # retry only if still in input
+        if self.prompt_still_pending(pane, text):
+            result = self.run(["tmux", "send-keys", "-t", pane.pane_id, "Enter"], check=False)
+            # stop on fallback failure
+            if result.returncode != 0:
+                return result
+        return subprocess.CompletedProcess(args=["tmux", "send-keys"], returncode=0, stdout="", stderr="")
+
+    # pending prompt detector
+    def prompt_still_pending(self, pane: Pane, text: str) -> bool:
+        result = self.run(["tmux", "capture-pane", "-p", "-t", pane.pane_id, "-S", "-20"], check=False)
+        # fail closed against double submit
+        if result.returncode != 0:
+            return False
+        # inspect prompt line
+        for line in reversed(result.stdout.splitlines()):
+            stripped = line.strip()
+            # find active input row
+            if stripped.startswith("›"):
+                return text in stripped
+        return False
+
+
+# load config
+def load_config(path: Path) -> dict[str, Any]:
+    """load json config"""
+    # read configured json
+    with path.open("r", encoding="utf-8") as handle:
+        return json.load(handle)
+
+
+# parse args
+def parse_args(argv: list[str]) -> argparse.Namespace:
+    """parse cli arguments"""
+    parser = argparse.ArgumentParser(description="Watch PR attention across simulation-infra worktrees.")
+    parser.add_argument("--config", type=Path, default=DEFAULT_CONFIG, help="config json path")
+    parser.add_argument("--once", action="store_true", help="run one scan and exit")
+    parser.add_argument("--loop", action="store_true", help="scan forever using interval_seconds")
+    parser.add_argument("--dry-run", action="store_true", help="log dispatches without sending tmux keys")
+    parser.add_argument("--verbose", action="store_true", help="print human readable events")
+    parser.add_argument("--json-output", action="store_true", help="print json events instead of human readable events")
+    parser.add_argument("--start-tmux", action="store_true", help="start loop in a tmux window")
+    parser.add_argument("--session", default="Potato", help="tmux session for --start-tmux")
+    parser.add_argument("--window-name", default="PR Watchdog", help="tmux window name for --start-tmux")
+    return parser.parse_args(argv)
+
+
+# tmux launcher
+def start_tmux(args: argparse.Namespace) -> int:
+    """start or reuse watchdog tmux window"""
+    command = f"{shlex.quote(str(Path(__file__).resolve()))} --loop --verbose"
+    windows = subprocess.run(["tmux", "list-windows", "-t", args.session, "-F", "#{window_name}:#{window_id}"], text=True, capture_output=True)
+    # reuse running window
+    if windows.returncode == 0:
+        # inspect windows
+        for line in windows.stdout.splitlines():
+            name, _, window_id = line.partition(":")
+            # rename legacy window
+            if name == "pr-watchdog":
+                subprocess.run(["tmux", "rename-window", "-t", window_id, args.window_name], text=True, capture_output=True)
+                print(f"Renamed pr-watchdog to {args.window_name} in tmux session {args.session}.")
+                return 0
+            # avoid duplicate window
+            if name == args.window_name:
+                print(f"{args.window_name} already exists in tmux session {args.session}.")
+                return 0
+    result = subprocess.run(["tmux", "new-window", "-t", f"{args.session}:", "-n", args.window_name, command], text=True, capture_output=True)
+    # report launcher failure
+    if result.returncode != 0:
+        print(result.stderr.strip(), file=sys.stderr)
+        return result.returncode
+    print(f"Started {args.window_name} in tmux session {args.session}.")
+    return 0
+
+
+# cli entrypoint
+def main(argv: list[str]) -> int:
+    """run the watchdog cli"""
+    args = parse_args(argv)
+    # handle launcher mode
+    if args.start_tmux:
+        return start_tmux(args)
+    config = load_config(args.config.expanduser())
+    watchdog = Watchdog(config=config, dry_run=args.dry_run, verbose=args.verbose, json_output=args.json_output)
+    interval = int(config.get("interval_seconds", 300))
+    # default to once
+    if not args.loop:
+        watchdog.scan_once()
+        return 0
+    # ensure lock dir
+    watchdog.lock_path.parent.mkdir(parents=True, exist_ok=True)
+    # hold singleton lock
+    with watchdog.lock_path.open("w", encoding="utf-8") as lock_handle:
+        # avoid duplicate loops
+        try:
+            fcntl.flock(lock_handle, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        except BlockingIOError:
+            watchdog.log("loop_already_running", lock_path=str(watchdog.lock_path))
+            return 0
+        # polling loop
+        while True:
+            watchdog.scan_once()
+            time.sleep(interval)
+
+
+# script guard
+if __name__ == "__main__":
+    raise SystemExit(main(sys.argv[1:]))

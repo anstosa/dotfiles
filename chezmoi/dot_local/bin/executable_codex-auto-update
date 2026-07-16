@@ -1,0 +1,226 @@
+#!/usr/bin/env bash
+set -u
+
+REAL_CODEX=${CODEX_REAL_BIN:-/home/ubuntu/n/bin/codex}
+REAL_OMX=${OMX_REAL_BIN:-/home/ubuntu/n/bin/omx}
+LOCK_FILE=${CODEX_AUTO_UPDATE_LOCK:-$HOME/.codex-auto-update.lock}
+NPM_BIN=${NPM_BIN:-npm}
+
+should_check_update=1
+
+# skip explicit maintenance paths
+case "${1:-}" in
+  update|-h|--help|help|completion)
+    should_check_update=0
+    ;;
+esac
+
+# honor explicit opt-out
+if [[ "${CODEX_AUTO_UPDATE_SKIP:-}" == "1" || "${OMX_AUTO_UPDATE_SKIP:-}" == "1" ]]; then
+  should_check_update=0
+fi
+
+# exit quickly when disabled
+if [[ "$should_check_update" != "1" ]]; then
+  exit 0
+fi
+
+# resolve package root
+resolve_package_json_from_bin() {
+  local bin_path="$1"
+  local resolved=""
+  local dir=""
+
+  # require resolvable binary
+  if ! resolved="$(readlink -f "$bin_path" 2>/dev/null)"; then
+    return 1
+  fi
+
+  dir="$(dirname "$resolved")"
+
+  # walk parent directories
+  for _ in 1 2 3 4 5 6 7 8; do
+    # stop at package root
+    if [[ -f "$dir/package.json" ]]; then
+      printf '%s\n' "$dir/package.json"
+      return 0
+    fi
+
+    dir="$(dirname "$dir")"
+  done
+
+  return 1
+}
+
+# read package version
+package_json_version() {
+  local package_json="$1"
+
+  node -e '
+    const fs = require("fs");
+    const path = process.argv[1];
+    try {
+      const version = JSON.parse(fs.readFileSync(path, "utf8")).version;
+      if (typeof version === "string" && version.trim() !== "") {
+        process.stdout.write(version.trim());
+      }
+    } catch {}
+  ' "$package_json"
+}
+
+# fetch latest version
+latest_npm_version() {
+  local package_name="$1"
+
+  "$NPM_BIN" view "$package_name" version --silent 2>/dev/null | tail -n 1
+}
+
+# compare semver versions
+is_newer_version() {
+  local current="$1"
+  local latest="$2"
+
+  node - "$current" "$latest" <<'JS'
+const current = process.argv[2] || "";
+const latest = process.argv[3] || "";
+
+function parse(version) {
+  const match = version.trim().match(/^v?(\d+)\.(\d+)\.(\d+)(?:[-+].*)?$/);
+  if (!match) return null;
+  return [Number(match[1]), Number(match[2]), Number(match[3])];
+}
+
+const currentParts = parse(current);
+const latestParts = parse(latest);
+if (!currentParts || !latestParts) process.exit(1);
+
+for (let index = 0; index < 3; index += 1) {
+  if (latestParts[index] > currentParts[index]) process.exit(0);
+  if (latestParts[index] < currentParts[index]) process.exit(1);
+}
+
+process.exit(1);
+JS
+}
+
+# decide package update
+should_update_package() {
+  local label="$1"
+  local package_name="$2"
+  local bin_path="$3"
+  local package_json=""
+  local current=""
+  local latest=""
+
+  # require executable binary
+  if [[ ! -x "$bin_path" ]]; then
+    printf 'real %s binary is not executable: %s\n' "$label" "$bin_path" >&2
+    return 1
+  fi
+
+  # require package metadata
+  if ! package_json="$(resolve_package_json_from_bin "$bin_path")"; then
+    printf 'could not resolve %s package metadata from: %s\n' "$label" "$bin_path" >&2
+    return 1
+  fi
+
+  current="$(package_json_version "$package_json")"
+
+  # require current version
+  if [[ -z "$current" ]]; then
+    printf 'could not read current %s version from: %s\n' "$label" "$package_json" >&2
+    return 1
+  fi
+
+  # announce registry check
+  printf 'checking latest %s version...\n' "$label" >&2
+  latest="$(latest_npm_version "$package_name")"
+
+  # require registry version
+  if [[ -z "$latest" ]]; then
+    printf 'could not check latest %s version; continuing launch\n' "$label" >&2
+    return 1
+  fi
+
+  # install only newer versions
+  if is_newer_version "$current" "$latest"; then
+    printf '%s update available: v%s -> v%s\n' "$label" "$current" "$latest" >&2
+    return 0
+  fi
+
+  return 1
+}
+
+# run omx updater
+run_omx_update() {
+  # skip when current
+  if ! should_update_package "OMX" "oh-my-codex" "$REAL_OMX"; then
+    return 0
+  fi
+
+  CODEX_AUTO_UPDATE_SKIP=1 OMX_AUTO_UPDATE_SKIP=1 "$REAL_OMX" update >&2 || {
+    status=$?
+    printf 'omx update failed with status %s; continuing launch\n' "$status" >&2
+  }
+}
+
+# remove stale npm retire dirs
+cleanup_stale_codex_npm_dirs() {
+  local codex_bin_dir=""
+  local node_root=""
+  local openai_dir=""
+
+  codex_bin_dir="$(dirname "$REAL_CODEX")"
+  node_root="$codex_bin_dir/../lib/node_modules"
+  openai_dir="$node_root/@openai"
+
+  # scope cleanup to npm codex temps
+  if [[ -d "$openai_dir" ]]; then
+    find "$openai_dir" -maxdepth 1 -mindepth 1 -type d -name '.codex-*' -exec rm -rf {} +
+  fi
+
+  # scope cleanup to npm codex bin temps
+  if [[ -d "$codex_bin_dir" ]]; then
+    find "$codex_bin_dir" -maxdepth 1 -mindepth 1 -type f -name '.codex-*' -delete
+    find "$codex_bin_dir" -maxdepth 1 -mindepth 1 -type l -name '.codex-*' -delete
+  fi
+}
+
+# run codex updater
+run_codex_update() {
+  # skip when current
+  if ! should_update_package "Codex" "@openai/codex" "$REAL_CODEX"; then
+    return 0
+  fi
+
+  cleanup_stale_codex_npm_dirs
+  CODEX_AUTO_UPDATE_SKIP=1 OMX_AUTO_UPDATE_SKIP=1 "$REAL_CODEX" update >&2 || {
+    status=$?
+    printf 'update failed with status %s; cleaning npm temp dirs and retrying once\n' "$status" >&2
+    cleanup_stale_codex_npm_dirs
+    CODEX_AUTO_UPDATE_SKIP=1 OMX_AUTO_UPDATE_SKIP=1 "$REAL_CODEX" update >&2 || {
+      retry_status=$?
+      printf 'update retry failed with status %s; continuing launch\n' "$retry_status" >&2
+    }
+  }
+}
+
+# run both update checks
+run_updates() {
+  run_omx_update
+  run_codex_update
+}
+
+# serialize concurrent terminals
+if command -v flock >/dev/null 2>&1; then
+  (
+    # avoid duplicate update storms
+    if flock -n 9; then
+      run_updates
+    else
+      printf 'auto-update already running; continuing launch\n' >&2
+    fi
+  ) 9>"$LOCK_FILE"
+else
+  run_updates
+fi

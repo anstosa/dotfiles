@@ -1,0 +1,5 @@
+---
+interface:
+  display_name: "[Potato] Release"
+  short_description: "Build a branch and deploy it to one or more environments"
+  default_prompt: "Use $release to build or reuse a version or branch build and deploy it to the target environment or environments."

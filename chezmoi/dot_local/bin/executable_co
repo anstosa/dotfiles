@@ -1,0 +1,347 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# emit status
+log() {
+  printf 'co: %s\n' "$*"
+}
+
+# emit error
+fail() {
+  printf 'co: %s\n' "$*" >&2
+  exit 1
+}
+
+# current checkout label
+current_ref() {
+  local branch
+
+  # prefer branch name
+  if branch=$(git symbolic-ref --quiet --short HEAD 2>/dev/null); then
+    printf '%s\n' "$branch"
+    return 0
+  fi
+
+  # fall back to commit
+  git rev-parse --verify HEAD
+}
+
+# API source detector
+is_api_source_file() {
+  local path=$1
+
+  # include OpenAPI emitters
+  if [[ "$path" == components/api/src/* ]]; then
+    return 0
+  fi
+
+  # include OpenAPI config
+  if [[ "$path" == components/api/openapi_config/* ]]; then
+    return 0
+  fi
+
+  return 1
+}
+
+# migration detector
+is_migration_file() {
+  local path=$1
+
+  # include Flyway migrations
+  if [[ "$path" == components/db/migrations/* ]]; then
+    return 0
+  fi
+
+  return 1
+}
+
+# Python detector
+is_python_file() {
+  local path=$1
+
+  # match Python source
+  if [[ "$path" == *.py ]]; then
+    return 0
+  fi
+
+  return 1
+}
+
+# add unique array item
+add_unique() {
+  local item=$1
+  shift
+  local existing
+
+  # scan existing items
+  for existing in "$@"; do
+    # avoid duplicates
+    if [[ "$existing" == "$item" ]]; then
+      return 1
+    fi
+  done
+
+  printf '%s\n' "$item"
+}
+
+# print all Python services
+all_python_services() {
+  printf '%s\n' \
+    api_full \
+    api_ui \
+    api_stripe \
+    api_external \
+    api_inline_llm \
+    copilot \
+    processor \
+    processor_model_gateway \
+    stepper \
+    file_router \
+    unsafe_python__opentrons \
+    unsafe_python__computational \
+    unsafe_python__code \
+    unsafe_jupyter
+}
+
+# map Python path to services
+services_for_python_file() {
+  local path=$1
+
+  # map component paths
+  case "$path" in
+    components/api/src/*)
+      printf '%s\n' api_full api_ui api_stripe api_external api_inline_llm
+      ;;
+    components/copilot/src/*)
+      printf '%s\n' copilot
+      ;;
+    components/processor/src/*)
+      printf '%s\n' processor processor_model_gateway
+      ;;
+    components/stepper/src/*)
+      printf '%s\n' stepper
+      ;;
+    components/file_router/src/*)
+      printf '%s\n' file_router
+      ;;
+    components/unsafe_python/src/*)
+      printf '%s\n' unsafe_python__opentrons unsafe_python__computational unsafe_python__code
+      ;;
+    components/unsafe_jupyter/src/*)
+      printf '%s\n' unsafe_jupyter
+      ;;
+    components/shared_py/*)
+      all_python_services
+      ;;
+  esac
+}
+
+# list running compose services
+running_services() {
+  # tolerate inactive stacks
+  if ! docker compose ps --services --filter status=running 2>/dev/null; then
+    return 0
+  fi
+}
+
+# check item in list
+contains_item() {
+  local needle=$1
+  shift
+  local item
+
+  # scan haystack
+  for item in "$@"; do
+    # compare item
+    if [[ "$item" == "$needle" ]]; then
+      return 0
+    fi
+  done
+
+  return 1
+}
+
+# run potato command
+run_potato() {
+  local potato_bin=${CO_POTATO_BIN:-potato}
+
+  "$potato_bin" "$@"
+}
+
+# restart running services
+restart_python_services() {
+  local -a requested=("$@")
+  local -a running=()
+  local -a restartable=()
+  local service
+
+  # load running services
+  mapfile -t running < <(running_services)
+
+  # skip inactive stack
+  if ((${#running[@]} == 0)); then
+    log 'no running compose services found; skipping Python service restarts'
+    return 0
+  fi
+
+  # intersect requested and running services
+  for service in "${requested[@]}"; do
+    # include only running services
+    if contains_item "$service" "${running[@]}"; then
+      restartable+=("$service")
+    fi
+  done
+
+  # skip services that are not running
+  if ((${#restartable[@]} == 0)); then
+    log 'no affected Python services are currently running; skipping restarts'
+    return 0
+  fi
+
+  # restart affected services
+  for service in "${restartable[@]}"; do
+    log "restarting $service"
+    run_potato restart "$service"
+  done
+}
+
+# migrate with repair fallback
+migrate_database() {
+  local codex_bin=${CO_CODEX_BIN:-codex}
+
+  log 'running potato db migrate'
+
+  # try migration first
+  if run_potato db migrate; then
+    return 0
+  fi
+
+  log 'potato db migrate failed; running potato db repair'
+
+  # repair failed
+  if ! run_potato db repair; then
+    log 'potato db repair failed'
+  fi
+
+  log 'retrying potato db migrate'
+
+  # retry after repair
+  if run_potato db migrate; then
+    return 0
+  fi
+
+  log 'migration still failing; opening codex to fix it'
+
+  # require codex launcher
+  if ! command -v "$codex_bin" >/dev/null 2>&1; then
+    fail "codex launcher not found: $codex_bin"
+  fi
+
+  "$codex_bin" 'run `potato db migrate` and fix any issues'
+}
+
+# script entrypoint
+main() {
+  local root
+  local previous_ref
+  local current
+  local path
+  local service
+  local -a changed_files=()
+  local -a requested_services=()
+  local api_changed=0
+  local python_changed=0
+  local migrations_changed=0
+
+  # require checkout target
+  if (($# == 0)); then
+    fail 'usage: co <branch-or-git-checkout-args>'
+  fi
+
+  # require git repo
+  if ! root=$(git rev-parse --show-toplevel 2>/dev/null); then
+    fail 'not inside a git worktree'
+  fi
+
+  # preserve Alex read-only worktree
+  if [[ "$root" == /home/ubuntu/alex || "$root" == /home/ubuntu/alex/* ]]; then
+    fail 'Alex worktree is read-only; checkout automation is disabled there'
+  fi
+
+  cd "$root"
+  previous_ref=$(current_ref)
+
+  log "checking out: $*"
+  git checkout "$@"
+  current=$(current_ref)
+
+  # collect branch diff
+  mapfile -t changed_files < <(git diff --name-only "$previous_ref" "$current" --)
+
+  # skip identical trees
+  if ((${#changed_files[@]} == 0)); then
+    log "no file differences between $previous_ref and $current"
+    return 0
+  fi
+
+  log "found ${#changed_files[@]} changed files between $previous_ref and $current"
+
+  # classify changed files
+  for path in "${changed_files[@]}"; do
+    # detect API source changes
+    if is_api_source_file "$path"; then
+      api_changed=1
+    fi
+
+    # detect migrations
+    if is_migration_file "$path"; then
+      migrations_changed=1
+    fi
+
+    # map Python changes
+    if is_python_file "$path"; then
+      python_changed=1
+
+      # collect mapped services
+      while IFS= read -r service; do
+        # skip empty mapper output
+        if [[ -z "$service" ]]; then
+          continue
+        fi
+
+        # append unique service
+        if add_unique "$service" "${requested_services[@]}" >/dev/null; then
+          requested_services+=("$service")
+        fi
+      done < <(services_for_python_file "$path")
+    fi
+  done
+
+  # regenerate clients when API source changed
+  if ((api_changed)); then
+    log 'API source changed; regenerating Python and TypeScript API clients'
+    run_potato build api all
+  else
+    log 'API source unchanged; skipping API client generation'
+  fi
+
+  # migrate changed database migrations before service restart
+  if ((migrations_changed)); then
+    migrate_database
+  else
+    log 'migrations unchanged; skipping database migration'
+  fi
+
+  # restart services for mapped Python changes
+  if ((python_changed)); then
+    if ((${#requested_services[@]} > 0)); then
+      restart_python_services "${requested_services[@]}"
+    else
+      log 'Python files changed, but no long-running service mapping matched; skipping restarts'
+    fi
+  else
+    log 'Python files unchanged; skipping service restarts'
+  fi
+}
+
+main "$@"

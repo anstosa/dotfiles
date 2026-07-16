@@ -1,0 +1,7 @@
+---
+interface:
+  display_name: "[Potato] Draft PR"
+  short_description: "Create or update draft PRs with $commit branch-wide summaries"
+  default_prompt: >-
+    Use $pr-draft to run $commit as needed, push the current branch,
+    and create or update the branch's draft PR with a freshly rewritten $commit-style branch-wide title/body and filename-only local screenshot placeholders using user-mode captures unless the UI is admin-only.

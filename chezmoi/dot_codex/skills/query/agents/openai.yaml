@@ -1,0 +1,5 @@
+---
+interface:
+  display_name: "[Potato] Query"
+  short_description: "Answer prompts without lasting code changes"
+  default_prompt: "Use $query to investigate this question without making lasting code changes."

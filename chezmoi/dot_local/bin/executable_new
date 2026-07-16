@@ -1,0 +1,91 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+usage() {
+  cat >&2 <<'USAGE'
+Usage: new <branch-name> [initial prompt...]
+
+Fetches origin, creates ansel/<branch-name> from origin/main, then runs codex.
+Any words after <branch-name> are passed to codex as the initial prompt.
+Stops if the current worktree is dirty or the branch already exists.
+USAGE
+}
+
+# require branch slug
+if [[ $# -lt 1 ]]; then
+  usage
+  exit 2
+fi
+
+branch_slug=$1
+shift
+initial_prompt=$*
+
+# avoid double prefix
+if [[ "$branch_slug" == ansel/* ]]; then
+  branch_name=$branch_slug
+else
+  branch_name=ansel/$branch_slug
+fi
+
+# validate final ref
+if ! git check-ref-format --branch "$branch_name" >/dev/null 2>&1; then
+  echo "error: invalid branch name: $branch_name" >&2
+  exit 2
+fi
+
+repo_root=$(git rev-parse --show-toplevel 2>/dev/null) || {
+  echo "error: not inside a git repository" >&2
+  exit 1
+}
+cd "$repo_root"
+
+if [[ -n $(git status --porcelain=v1 --untracked-files=normal) ]]; then
+  echo "error: worktree has uncommitted changes; refusing to switch branches" >&2
+  git status --short --branch >&2
+  exit 1
+fi
+
+if ! git remote get-url origin >/dev/null 2>&1; then
+  echo "error: git remote 'origin' is not configured" >&2
+  exit 1
+fi
+
+user_shell=${SHELL:-/bin/bash}
+if [[ ! -x "$user_shell" ]]; then
+  echo "error: user shell is not executable: $user_shell" >&2
+  exit 1
+fi
+
+if ! "$user_shell" -ic 'type codex >/dev/null 2>&1'; then
+  echo "error: codex command or alias not found in interactive shell: $user_shell" >&2
+  exit 1
+fi
+
+git fetch origin
+
+if ! git rev-parse --verify --quiet origin/main >/dev/null; then
+  echo "error: origin/main was not found after fetch" >&2
+  exit 1
+fi
+
+if git show-ref --verify --quiet "refs/heads/$branch_name"; then
+  echo "error: local branch already exists: $branch_name" >&2
+  exit 1
+fi
+
+if git ls-remote --exit-code --heads origin "$branch_name" >/dev/null 2>&1; then
+  echo "error: remote branch already exists on origin: $branch_name" >&2
+  exit 1
+fi
+
+git switch --no-track -c "$branch_name" origin/main
+
+# Run through the user's interactive shell so their codex alias/function is used.
+# forward prompt
+if [[ -n "$initial_prompt" ]]; then
+  exec "$user_shell" -ic 'codex "$@"' codex "$initial_prompt"
+fi
+
+# launch empty
+exec "$user_shell" -ic codex

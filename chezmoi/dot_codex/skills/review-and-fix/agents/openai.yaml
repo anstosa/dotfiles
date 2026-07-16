@@ -1,0 +1,4 @@
+interface:
+  display_name: "Review and Fix"
+  short_description: "Review, fix, validate, commit, and push"
+  default_prompt: "Use $review-and-fix to review this branch, fix credible findings, validate, commit, and push."

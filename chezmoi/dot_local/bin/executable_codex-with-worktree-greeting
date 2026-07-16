@@ -1,0 +1,61 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+cwd="$(pwd -P)"
+agent=""
+greeting=""
+REAL_CODEX=${CODEX_REAL_BIN:-/home/ubuntu/n/bin/codex}
+
+# choose worktree greeting
+case "$cwd" in
+  /home/ubuntu/cora|/home/ubuntu/cora/*)
+    agent="Cora"
+    greeting="Cora here — what are we tackling today, Ansel?"
+    ;;
+  /home/ubuntu/owen|/home/ubuntu/owen/*)
+    agent="Owen"
+    greeting="Owen here. So, uh, what's the project today, Ansel?"
+    ;;
+  /home/ubuntu/dave|/home/ubuntu/dave/*)
+    agent="Dave"
+    greeting="Dave here. What are we crushing today, Ansel?"
+    ;;
+  /home/ubuntu/eric|/home/ubuntu/eric/*)
+    agent="Eric"
+    greeting="Eric here. What is the precise objective for today, Ansel?"
+    ;;
+  /home/ubuntu/alex|/home/ubuntu/alex/*)
+    agent="Alex"
+    greeting="Alex here — research cart ready, sources alphabetized, and this worktree stays read-only."
+    ;;
+esac
+
+# print named worktree greeting
+if [[ -n "$agent" ]]; then
+  printf '\n%s\n\n' "$greeting"
+fi
+
+# support greeting smoke tests
+if [[ "${CODEX_WORKTREE_GREETING_ONLY:-0}" == "1" ]]; then
+  exit 0
+fi
+
+# route native config commands
+case "${1:-}" in
+  mcp|plugin|app-server)
+    printf 'launching codex...\n' >&2
+    exec "$REAL_CODEX" "$@"
+    ;;
+esac
+
+# keep auto-update on the aliased launcher
+if [[ -x "$HOME/.local/bin/codex-auto-update" ]]; then
+  "$HOME/.local/bin/codex-auto-update" "$@" || true
+else
+  printf 'missing auto-update helper: %s\n' "$HOME/.local/bin/codex-auto-update" >&2
+fi
+
+printf 'launching codex...\n' >&2
+
+exec omx --madmax --high "$@" \
+  2> >(sed '/^\[omx\] madmax isolated state: .* (source: .*$/d' >&2)

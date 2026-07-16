@@ -1,0 +1,4 @@
+interface:
+  display_name: "[Ansel] Full Review"
+  short_description: "Run the full review, cleanup, commit, and push workflow."
+  default_prompt: "Run $full-review on the current repository branch."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "[Ansel] Finish PR"
+  short_description: "Commit, review, and draft the PR"
+  default_prompt: "Use $finish to commit, fully review, and create or update the draft PR."

@@ -1,0 +1,7 @@
+---
+interface:
+  display_name: "[Potato] PR Cleanup Review"
+  short_description: "Review PR for per-category cleanup findings"
+  default_prompt: >-
+    Use $pr-cleanup-review to inspect $(git merge-base HEAD origin/main)..HEAD
+    and report up to three cleanup findings for each applicable category.

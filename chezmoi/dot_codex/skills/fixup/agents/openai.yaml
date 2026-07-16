@@ -1,0 +1,4 @@
+interface:
+  display_name: "Fix up PR issues"
+  short_description: "Fix PR merges, CI, and review comments"
+  default_prompt: "Use $fixup to inspect the current branch PR, fix merge, CI, and review-comment issues, then push once."

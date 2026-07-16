@@ -1,0 +1,4 @@
+interface:
+  display_name: "Address PR Review"
+  short_description: "Address unresolved GitHub PR threads"
+  default_prompt: "Use $address to find the current branch's PR, or $address <GitHub PR URL>, then fix actionable unresolved review threads and resolve them after validation."

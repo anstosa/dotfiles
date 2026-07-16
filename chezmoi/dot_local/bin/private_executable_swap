@@ -1,0 +1,283 @@
+#!/usr/bin/env bash
+set -euo pipefail
+umask 077
+
+CODEX_HOME="${CODEX_HOME:-$HOME/.codex}"
+AUTH_FILE="${CODEX_AUTH_FILE:-$CODEX_HOME/auth.json}"
+STORE_DIR="${CODEX_SWAP_DIR:-$CODEX_HOME/accounts}"
+BACKUP_DIR="$STORE_DIR/backups"
+
+# show help
+usage() {
+  cat <<'USAGE'
+Usage:
+  swap                 Toggle active Codex login between saved slots 1 and 2
+  swap status          Show active login and saved slots without secrets
+  swap save <1|2> [label]
+                       Save the current Codex login into a slot
+  swap use <1|2>       Switch active Codex login to a saved slot
+  swap setup           Print the two-account setup steps
+  swap help            Show this help
+
+Setup:
+  1. Log into the first Codex account, then run:  swap save 1 personal
+  2. Log into the second Codex account, then run: swap save 2 work
+  3. Run `swap` to toggle which saved account is active.
+
+Notes:
+  - The active Codex login file is ~/.codex/auth.json by default.
+  - Saved auth files are stored in ~/.codex/accounts with 0600 permissions.
+  - Existing Codex sessions may keep their current token until restarted.
+USAGE
+}
+
+# fail cleanly
+die() {
+  printf 'swap: %s\n' "$*" >&2
+  exit 1
+}
+
+# require slot name
+validate_slot() {
+  local slot="${1:-}"
+
+  # allow only two slots
+  if [[ "$slot" != "1" && "$slot" != "2" ]]; then
+    die 'slot must be 1 or 2'
+  fi
+}
+
+# resolve slot path
+slot_path() {
+  local slot="$1"
+  printf '%s/account-%s.auth.json\n' "$STORE_DIR" "$slot"
+}
+
+# resolve label path
+label_path() {
+  local slot="$1"
+  printf '%s/account-%s.label\n' "$STORE_DIR" "$slot"
+}
+
+# create private storage
+ensure_store() {
+  mkdir -p "$STORE_DIR" "$BACKUP_DIR"
+  chmod 700 "$STORE_DIR" "$BACKUP_DIR"
+}
+
+# summarize auth identity
+account_key() {
+  local path="$1"
+
+  # require readable auth
+  if [[ ! -s "$path" ]]; then
+    printf 'missing\n'
+    return 0
+  fi
+
+  python3 - "$path" <<'PY'
+import hashlib
+import json
+import pathlib
+import sys
+
+path = pathlib.Path(sys.argv[1])
+
+# load auth json
+try:
+    data = json.loads(path.read_text())
+except Exception:
+    print("unreadable")
+    sys.exit(0)
+
+tokens = data.get("tokens") or {}
+account_id = tokens.get("account_id")
+
+# prefer account id
+if account_id:
+    print(f"chatgpt:{account_id}")
+    sys.exit(0)
+
+api_key = data.get("OPENAI_API_KEY")
+
+# redact api key
+if api_key:
+    digest = hashlib.sha256(api_key.encode()).hexdigest()[:12]
+    print(f"api-key:{digest}")
+    sys.exit(0)
+
+raw = path.read_bytes()
+digest = hashlib.sha256(raw).hexdigest()[:12]
+
+# fallback fingerprint
+print(f"unknown:{digest}")
+PY
+}
+
+# read slot label
+slot_label() {
+  local slot="$1"
+  local label_file
+  label_file="$(label_path "$slot")"
+
+  # use saved label
+  if [[ -s "$label_file" ]]; then
+    cat "$label_file"
+  else
+    printf 'account-%s\n' "$slot"
+  fi
+}
+
+# save slot label
+write_label() {
+  local slot="$1"
+  local label="${2:-account-$slot}"
+
+  printf '%s\n' "$label" > "$(label_path "$slot")"
+  chmod 600 "$(label_path "$slot")"
+}
+
+# copy auth atomically
+copy_auth() {
+  local source="$1"
+  local target="$2"
+  local tmp
+  tmp="${target}.tmp.$$"
+
+  cp "$source" "$tmp"
+  chmod 600 "$tmp"
+  mv "$tmp" "$target"
+}
+
+# backup active auth
+backup_active() {
+  local timestamp
+  timestamp="$(date -u +%Y%m%dT%H%M%SZ)"
+
+  # keep previous active login
+  if [[ -s "$AUTH_FILE" ]]; then
+    copy_auth "$AUTH_FILE" "$BACKUP_DIR/auth.$timestamp.json"
+  fi
+}
+
+# save current login
+save_slot() {
+  local slot="$1"
+  local label="${2:-account-$slot}"
+  local target
+  target="$(slot_path "$slot")"
+
+  validate_slot "$slot"
+
+  # require active login
+  if [[ ! -s "$AUTH_FILE" ]]; then
+    die "active auth file not found: $AUTH_FILE"
+  fi
+
+  copy_auth "$AUTH_FILE" "$target"
+  write_label "$slot" "$label"
+  printf 'Saved current Codex login as slot %s (%s): %s\n' "$slot" "$(slot_label "$slot")" "$(account_key "$target")"
+}
+
+# activate saved login
+use_slot() {
+  local slot="$1"
+  local source
+  source="$(slot_path "$slot")"
+
+  validate_slot "$slot"
+
+  # require saved login
+  if [[ ! -s "$source" ]]; then
+    die "slot $slot is not saved yet; run: swap save $slot [label]"
+  fi
+
+  backup_active
+  copy_auth "$source" "$AUTH_FILE"
+  printf 'Active Codex login is now slot %s (%s): %s\n' "$slot" "$(slot_label "$slot")" "$(account_key "$AUTH_FILE")"
+}
+
+# print status
+status() {
+  local slot
+
+  printf 'Active: %s\n' "$(account_key "$AUTH_FILE")"
+
+  # show both slots
+  for slot in 1 2; do
+    local source
+    source="$(slot_path "$slot")"
+
+    # show saved state
+    if [[ -s "$source" ]]; then
+      printf 'Slot %s (%s): %s\n' "$slot" "$(slot_label "$slot")" "$(account_key "$source")"
+    else
+      printf 'Slot %s: empty\n' "$slot"
+    fi
+  done
+}
+
+# toggle active login
+toggle() {
+  local slot1 slot2 active key1 key2
+  slot1="$(slot_path 1)"
+  slot2="$(slot_path 2)"
+
+  # require first slot
+  if [[ ! -s "$slot1" ]]; then
+    die 'slot 1 is empty; run: swap save 1 [label]'
+  fi
+
+  # require second slot
+  if [[ ! -s "$slot2" ]]; then
+    die 'slot 2 is empty; log into the second account, then run: swap save 2 [label]'
+  fi
+
+  active="$(account_key "$AUTH_FILE")"
+  key1="$(account_key "$slot1")"
+  key2="$(account_key "$slot2")"
+
+  # switch away from slot 1
+  if [[ "$active" == "$key1" ]]; then
+    use_slot 2
+    return 0
+  fi
+
+  # switch away from slot 2
+  if [[ "$active" == "$key2" ]]; then
+    use_slot 1
+    return 0
+  fi
+
+  die "active login does not match saved slot 1 or 2; run 'swap status', then 'swap save <1|2> [label]' or 'swap use <1|2>'"
+}
+
+ensure_store
+exec 9>"$STORE_DIR/.lock"
+flock 9
+
+# choose command
+case "${1:-toggle}" in
+  toggle)
+    toggle
+    ;;
+  status)
+    status
+    ;;
+  save)
+    save_slot "${2:-}" "${3:-account-${2:-}}"
+    ;;
+  use)
+    use_slot "${2:-}"
+    ;;
+  setup)
+    usage
+    ;;
+  help|--help|-h)
+    usage
+    ;;
+  *)
+    usage >&2
+    exit 2
+    ;;
+esac

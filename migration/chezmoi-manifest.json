@@ -69,6 +69,95 @@
       "source_sha256": "1d3d182310e0c7a416fedad588c04d80ad67b88154c1f10c311e7a26c4ae3b89"
     },
     {
+      "legacy_path": "current-machine:.local/bin/co",
+      "chezmoi_source": "chezmoi/dot_local/bin/executable_co",
+      "target": "~/.local/bin/co",
+      "platform": "linux-or-wsl",
+      "disposition": "migrated",
+      "executable": true,
+      "source_sha256": "bdc86a8388d29287bcf57fc91f493c6ec66832af3dc35caf511342c101fd4b19",
+      "notes": "Imported from the current machine after a credential scan."
+    },
+    {
+      "legacy_path": "current-machine:.local/bin/codex",
+      "chezmoi_source": "chezmoi/dot_local/bin/executable_codex",
+      "target": "~/.local/bin/codex",
+      "platform": "linux-or-wsl",
+      "disposition": "migrated",
+      "executable": true,
+      "source_sha256": "bce4e9d87178e8873c992892a685d67f347ebefe037ed8f10414cd6b40800c59",
+      "notes": "Imported from the current machine after a credential scan."
+    },
+    {
+      "legacy_path": "current-machine:.local/bin/codex-auto-update",
+      "chezmoi_source": "chezmoi/dot_local/bin/executable_codex-auto-update",
+      "target": "~/.local/bin/codex-auto-update",
+      "platform": "linux-or-wsl",
+      "disposition": "migrated",
+      "executable": true,
+      "source_sha256": "ddac3220750ada084d1dfcfc1e79e5a04c595c7c9ad0cb28f43acba006a0ffcf",
+      "notes": "Imported from the current machine after a credential scan."
+    },
+    {
+      "legacy_path": "current-machine:.local/bin/codex-with-worktree-greeting",
+      "chezmoi_source": "chezmoi/dot_local/bin/executable_codex-with-worktree-greeting",
+      "target": "~/.local/bin/codex-with-worktree-greeting",
+      "platform": "linux-or-wsl",
+      "disposition": "migrated",
+      "executable": true,
+      "source_sha256": "f04df182aaa6d21aad1c4166be4b775e6ef618fbf5fd7cc3b6298e9731e61647",
+      "notes": "Imported from the current machine after a credential scan."
+    },
+    {
+      "legacy_path": "current-machine:.local/bin/new",
+      "chezmoi_source": "chezmoi/dot_local/bin/executable_new",
+      "target": "~/.local/bin/new",
+      "platform": "linux-or-wsl",
+      "disposition": "migrated",
+      "executable": true,
+      "source_sha256": "c10043a5f808849d619e41a44adce0083078d7ca0564f589141f415770c5341f",
+      "notes": "Imported from the current machine after a credential scan."
+    },
+    {
+      "legacy_path": "current-machine:.local/bin/potato",
+      "chezmoi_source": "chezmoi/dot_local/bin/executable_potato",
+      "target": "~/.local/bin/potato",
+      "platform": "linux-or-wsl",
+      "disposition": "migrated",
+      "executable": true,
+      "source_sha256": "81cd8cc5d09e3fe0520ac479d13b9299613e4ddd979322149c9a50820785ba69",
+      "notes": "Imported from the current machine after a credential scan."
+    },
+    {
+      "legacy_path": "current-machine:.local/bin/pr-worktree-watchdog",
+      "chezmoi_source": "chezmoi/dot_local/bin/executable_pr-worktree-watchdog",
+      "target": "~/.local/bin/pr-worktree-watchdog",
+      "platform": "linux-or-wsl",
+      "disposition": "migrated",
+      "executable": true,
+      "source_sha256": "6630f66eefb1bba35b3d53ba1e2ecd896dbb8219e60fedcaa0d83bd3673879d6",
+      "notes": "Imported from the current machine after a credential scan."
+    },
+    {
+      "legacy_path": "current-machine:.local/bin/swap",
+      "chezmoi_source": "chezmoi/dot_local/bin/private_executable_swap",
+      "target": "~/.local/bin/swap",
+      "platform": "linux-or-wsl",
+      "disposition": "migrated",
+      "executable": true,
+      "source_sha256": "bd4362183f45c66fec3d5230bcf9fca78abbb5a6a8fb388ac4acd8f38d834df0",
+      "notes": "Imported from the current machine after a credential scan; private_executable_ preserves mode 0700."
+    },
+    {
+      "legacy_path": "current-machine:.codex/skills/",
+      "chezmoi_source": "chezmoi/dot_codex/skills/",
+      "target": "~/.codex/skills/",
+      "platform": "linux-or-wsl",
+      "disposition": "migrated",
+      "executable": false,
+      "notes": "User-installed skills only; built-in .system skills and transient .omx state are excluded."
+    },
+    {
       "legacy_path": ".i3/",
       "disposition": "dropped-by-owner",
       "notes": "Owner no longer uses i3."

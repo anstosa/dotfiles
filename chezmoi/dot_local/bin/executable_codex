@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+set -u
+
+# keep this wrapper outside npm-managed Codex bin paths
+REAL_CODEX=${CODEX_REAL_BIN:-/home/ubuntu/n/bin/codex}
+
+# preserve auto-update even when aliases change
+if [[ -x "$HOME/.local/bin/codex-auto-update" ]]; then
+  "$HOME/.local/bin/codex-auto-update" "$@" || true
+else
+  printf 'missing auto-update helper: %s\n' "$HOME/.local/bin/codex-auto-update" >&2
+fi
+
+printf 'launching codex...\n' >&2
+
+exec "$REAL_CODEX" "$@"

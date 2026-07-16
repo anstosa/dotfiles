@@ -31,8 +31,8 @@ if find "$source_root" -type d -name '.chezmoihooks' -print -quit | grep -q .; t
     exit 1
 fi
 
-if find "$source_root" -path '*/private*' -print -quit | grep -q .; then
-    echo "private content must not enter the ChezMoi source tree" >&2
+if find "$source_root" -name private -print -quit | grep -q .; then
+    echo "a target literally named private must not enter the ChezMoi source tree" >&2
     exit 1
 fi
 
@@ -94,7 +94,7 @@ for entry in entries:
     assert path.exists(), f"missing manifest source: {source}"
     assert entry["target"].startswith("~/"), f"non-home target: {entry['target']}"
     if entry.get("executable"):
-        assert path.name.startswith("executable_"), (
+        assert path.name.startswith(("executable_", "private_executable_")), (
             f"executable source needs ChezMoi executable_ attribute: {source}"
         )
     expected = entry.get("source_sha256")

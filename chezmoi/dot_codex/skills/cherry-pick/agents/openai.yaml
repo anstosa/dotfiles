@@ -1,0 +1,4 @@
+interface:
+  display_name: "[Potato] Cherry-pick"
+  short_description: "Cherry-pick safely and resolve Flyway number conflicts"
+  default_prompt: "Use $cherry-pick to cherry-pick one or more commits, resolve conflicts with $resolve, and check duplicate Flyway migration numbers."

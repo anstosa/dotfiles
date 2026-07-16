@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+set -euo pipefail
+exec "${POTATO_SCRIPT:-$HOME/deploy/potato.sh}" "$@"

@@ -1,0 +1,5 @@
+---
+interface:
+  display_name: "[Potato] Merge"
+  short_description: "Merge safely and resolve Flyway number conflicts"
+  default_prompt: "Use $merge to merge a target branch, or origin/main if no target is provided, then check and resolve duplicate Flyway migration numbers."

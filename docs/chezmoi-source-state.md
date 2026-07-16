@@ -10,6 +10,11 @@ Shared shell, Git, Neovim, tmux, and helper files target Linux and WSL. The
 Neovim source was imported from this machine's `~/.config/nvim` after a
 credential scan. It replaces the legacy Vim configuration.
 
+The source also manages the current machine's locally authored executables in
+`~/.local/bin` and user-installed Codex skills in `~/.codex/skills`. Generated
+package entry points, Codex's built-in `.system` skills, and transient `.omx`
+skill state are intentionally excluded. `swap` preserves its owner-only mode.
+
 The Bash template changes only the `cdhist.sh` helper source location to
 `~/.local/share/dotfiles`, where this source state manages it. Its prompt is
 the current machine's Debian-style Bash prompt; it has no Powerline dependency.

@@ -1,0 +1,7 @@
+---
+interface:
+  display_name: "[Potato] Complexity Review"
+  short_description: "Review HEAD McCabe complexity deltas"
+  default_prompt: >-
+    Use $complexity-review to inspect cyclomatic complexity added or changed in
+    HEAD and suggest refactors.

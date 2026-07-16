@@ -1,0 +1,5 @@
+---
+interface:
+  display_name: "[Potato] Rebase"
+  short_description: "Rebase safely and resolve Flyway number conflicts"
+  default_prompt: "Use $rebase to rebase this branch onto a target, or origin/main by default, then check and resolve duplicate Flyway migration numbers."

@@ -1,0 +1,7 @@
+---
+interface:
+  display_name: "[Potato] Deploy Notes"
+  short_description: "Generate deploy changelogs and business tests"
+  default_prompt: >-
+    Use $deploy-notes to generate customer and internal deploy notes comparing
+    <old-tag> to <new-tag>, with business-readable testing steps.

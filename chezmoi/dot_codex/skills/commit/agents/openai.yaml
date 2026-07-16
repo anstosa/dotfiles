@@ -1,0 +1,7 @@
+---
+interface:
+  display_name: "[Potato] Commit"
+  short_description: "Commit current work"
+  default_prompt: >-
+    Use $commit to commit the current uncommitted changes, asking first when the
+    branch is already ahead.

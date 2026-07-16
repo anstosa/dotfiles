@@ -45,6 +45,11 @@ audit_apply() {
     test -f "$HOME/.bashrc"
     test -f "$HOME/.tmux.conf"
     test -f "$HOME/.config/nvim/init.lua"
+    test -x "$HOME/.local/bin/pr-worktree-watchdog"
+    test -x "$HOME/.local/bin/swap"
+    test "$(stat -c '%a' "$HOME/.local/bin/swap")" = 700
+    test -f "$HOME/.codex/skills/address/SKILL.md"
+    test -f "$HOME/.codex/skills/review-cockpit/SKILL.md"
     test ! -e "$HOME/.i3"
     test ! -e "$HOME/.vim"
     test ! -e "$HOME/.config/powerline"

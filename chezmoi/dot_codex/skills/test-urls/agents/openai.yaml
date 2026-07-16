@@ -1,0 +1,5 @@
+---
+interface:
+  display_name: "[Potato] Test URLs"
+  short_description: "Generate local browser URLs for branch testing."
+  default_prompt: "Use $test-urls to list local browser URLs that test each change in this branch."
