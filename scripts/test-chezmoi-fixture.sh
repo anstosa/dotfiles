@@ -50,6 +50,9 @@ audit_apply() {
     test "$(stat -c '%a' "$HOME/.local/bin/swap")" = 700
     test -f "$HOME/.codex/skills/address/SKILL.md"
     test -f "$HOME/.codex/skills/review-cockpit/SKILL.md"
+    test -x "$HOME/.codex/skills/complexity-review/scripts/analyze_head_complexity.py"
+    test -x "$HOME/.codex/skills/release/scripts/release.py"
+    test -x "$HOME/.codex/skills/review-cockpit/scripts/generate_review_artifact.py"
     test ! -e "$HOME/.i3"
     test ! -e "$HOME/.vim"
     test ! -e "$HOME/.config/powerline"
