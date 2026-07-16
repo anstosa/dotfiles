@@ -5,9 +5,19 @@ set -euo pipefail
 repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 source_root="$repo_root/chezmoi"
 manifest="$repo_root/migration/chezmoi-manifest.json"
+safe_apply="$repo_root/scripts/chezmoi-safe-apply.sh"
 
 test -d "$source_root"
 test -f "$manifest"
+test -x "$safe_apply"
+bash -n "$safe_apply"
+
+if grep -Eq -- '--force|--interactive|--less-interactive' "$safe_apply"; then
+    echo "the guarded apply wrapper must not accept ChezMoi overwrite overrides" >&2
+    exit 1
+fi
+
+grep -q -- '--error-on-conflict apply' "$safe_apply"
 
 if find "$source_root" -name 'run_*' -print -quit | grep -q .; then
     echo "ChezMoi run_ files are forbidden in G003" >&2

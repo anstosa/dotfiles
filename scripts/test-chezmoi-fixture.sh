@@ -5,6 +5,7 @@ set -euo pipefail
 repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 source_root="$repo_root/chezmoi"
 chezmoi_bin="${CHEZMOI_BIN:-chezmoi}"
+safe_apply="$repo_root/scripts/chezmoi-safe-apply.sh"
 
 if ! command -v "$chezmoi_bin" >/dev/null 2>&1; then
     echo "chezmoi is required; install it separately or set CHEZMOI_BIN" >&2
@@ -26,13 +27,21 @@ state="$fixture/chezmoi-state.boltdb"
 config="$fixture/chezmoi.toml"
 common=(--source "$source_root" --destination "$HOME" --config "$config" --persistent-state "$state" --no-tty --color=false)
 run_chezmoi() { "$chezmoi_bin" "${common[@]}" "$@"; }
+run_safe_apply() {
+    CHEZMOI_BIN="$chezmoi_bin" \
+    CHEZMOI_SOURCE="$source_root" \
+    CHEZMOI_DESTINATION="$HOME" \
+    CHEZMOI_CONFIG="$config" \
+    CHEZMOI_STATE="$state" \
+    "$safe_apply"
+}
 
 # Preview is required before application and must not mutate the destination.
 run_chezmoi --dry-run --verbose apply >"$fixture/dry-run.log"
 test ! -e "$HOME/.bashrc"
 
 audit_apply() {
-    run_chezmoi --error-on-conflict apply >"$fixture/apply.log"
+    run_safe_apply >"$fixture/apply.log"
     test -f "$HOME/.bashrc"
     test -f "$HOME/.config/powerline/config.json"
     test -x "$HOME/.local/bin/diff-highlight"
@@ -55,27 +64,33 @@ if grep -Eq '^(A|M|D|R|C|\?) ' "$fixture/rerun.log"; then
     exit 1
 fi
 
-# An unmanaged target must be retained when conflicts are configured as errors.
+# An unmanaged target must be rejected before ChezMoi attempts to apply it.
 rm -rf "$HOME" "$state"
 mkdir -p "$HOME"
 printf 'unmanaged target\n' >"$HOME/.bashrc"
 unmanaged_hash="$(sha256sum "$HOME/.bashrc" | awk '{print $1}')"
-if run_chezmoi --error-on-conflict apply >"$fixture/unmanaged-conflict.log" 2>&1; then
-    echo "unmanaged target was unexpectedly accepted" >&2
+if run_safe_apply >"$fixture/unmanaged-conflict.log" 2>&1; then
+    echo "unmanaged target was unexpectedly accepted by the safety wrapper" >&2
     exit 1
 fi
+grep -q 'refusing existing unmanaged ChezMoi target' "$fixture/unmanaged-conflict.log"
 test "$unmanaged_hash" = "$(sha256sum "$HOME/.bashrc" | awk '{print $1}')"
 
-# A target changed after management must also be retained.
+# A target changed after management must reach ChezMoi's conflict detector and
+# remain untouched. It is not treated as an unmanaged first-apply target.
 rm -rf "$HOME" "$state"
 mkdir -p "$HOME"
 audit_apply
 printf '\nexternal change\n' >>"$HOME/.bashrc"
 modified_hash="$(sha256sum "$HOME/.bashrc" | awk '{print $1}')"
-if run_chezmoi --error-on-conflict apply >"$fixture/modified-conflict.log" 2>&1; then
+if run_safe_apply >"$fixture/modified-conflict.log" 2>&1; then
     echo "externally modified target was unexpectedly accepted" >&2
+    exit 1
+fi
+if grep -q 'refusing existing unmanaged ChezMoi target' "$fixture/modified-conflict.log"; then
+    echo "a previously managed target was mistaken for an unmanaged target" >&2
     exit 1
 fi
 test "$modified_hash" = "$(sha256sum "$HOME/.bashrc" | awk '{print $1}')"
 
-printf 'PASS: isolated chezmoi dry-run, apply, conflict, idempotency, and platform checks\n'
+printf 'PASS: isolated chezmoi dry-run, guarded apply, conflict, idempotency, and platform checks\n'

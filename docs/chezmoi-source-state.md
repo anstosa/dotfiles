@@ -18,18 +18,31 @@ it is not an executable ChezMoi action.
 ## Safe preview
 
 Install ChezMoi through your operating system separately. From a clone of this
-repository, initialize the source root and review the planned changes before
-applying anything:
+repository, review the planned changes before applying anything:
 
 ```bash
-chezmoi init --source "$PWD/chezmoi"
-chezmoi apply --dry-run --verbose
+chezmoi --source "$PWD/chezmoi" apply --dry-run --verbose
 ```
 
-Do not use force options during this migration. Applying is a later cutover
-step after the isolated-home safety checks and approval evidence are complete.
-The required evidence and rollback boundary are documented in
-[the migration cutover and rollback guide](migration-cutover-and-rollback.md).
+The only supported apply command for this migration is the guarded wrapper:
+
+```bash
+scripts/chezmoi-safe-apply.sh
+```
+
+It derives managed targets from `chezmoi/` and refuses any existing managed
+target that does not appear in ChezMoi's persistent state. This prevents a
+first apply from silently adopting an existing file, symlink, or managed
+directory. For targets ChezMoi previously wrote, it delegates to
+`chezmoi --error-on-conflict apply`; externally modified targets therefore
+remain unchanged and fail instead of being overwritten. The wrapper accepts no
+arguments and never passes force or interactive override options. Set
+`CHEZMOI_BIN`, `CHEZMOI_SOURCE`, `CHEZMOI_DESTINATION`, `CHEZMOI_CONFIG`, and
+`CHEZMOI_STATE` only for an isolated/recovery environment.
+
+Applying is a later cutover step after the isolated-home safety checks and
+approval evidence are complete. The required evidence and rollback boundary
+are documented in [the migration cutover and rollback guide](migration-cutover-and-rollback.md).
 
 ## Explicit exclusions
 
@@ -53,10 +66,10 @@ CHEZMOI_BIN=chezmoi scripts/test-chezmoi-fixture.sh
 ```
 
 The fixture requires the preview to leave the temporary destination unchanged, tests
-an empty-home apply and rerun, and proves that both unmanaged and externally modified
-`.bashrc` targets remain unchanged when ChezMoi is run noninteractively with conflict
-errors. It also checks the actual platform predicate: i3 is omitted on WSL and
-included on ordinary Linux. Run it on both platforms before cutover.
+an empty-home guarded apply and rerun, and proves that unmanaged `.bashrc` is rejected
+by the wrapper before ChezMoi runs while externally modified `.bashrc` remains unchanged
+through ChezMoi's conflict error. It also checks the actual platform predicate: i3 is
+omitted on WSL and included on ordinary Linux. Run it on both platforms before cutover.
 
 ## Private data and recovery
 
