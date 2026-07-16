@@ -5,13 +5,13 @@
   "entries": [
     {
       "legacy_path": ".bashrc",
-      "chezmoi_source": "chezmoi/dot_bashrc.tmpl",
+      "chezmoi_source": "chezmoi/dot_bashrc",
       "target": "~/.bashrc",
       "platform": "linux-or-wsl",
       "disposition": "migrated",
       "executable": false,
-      "source_sha256": "f4c63cf1df9369c8ff1603b629e8f3deae3f3f84ba9dffffeff906f31b8d2b63",
-      "notes": "Uses the current machine Bash prompt; Powerline and tmuxinator are removed."
+      "source_sha256": "345a3deb318481b7f069552589260c83612cb894e5d29cb209b7f833319f86fe",
+      "notes": "Exact content copy of the current machine Bash configuration after a credential scan."
     },
     {
       "legacy_path": ".gitconfig",
@@ -20,25 +20,8 @@
       "platform": "linux-or-wsl",
       "disposition": "migrated",
       "executable": false,
-      "source_sha256": "7ff8b65600770a7a29d0d53a9970e2952233fd791ae9bff3607d1cc78b349743"
-    },
-    {
-      "legacy_path": ".inputrc",
-      "chezmoi_source": "chezmoi/dot_inputrc",
-      "target": "~/.inputrc",
-      "platform": "linux-or-wsl",
-      "disposition": "migrated",
-      "executable": false,
-      "source_sha256": "e43cf2e0ceff0b2f13b11820151dda4be795243b3315e4443b1be13374de90f9"
-    },
-    {
-      "legacy_path": ".pystartup",
-      "chezmoi_source": "chezmoi/dot_pystartup",
-      "target": "~/.pystartup",
-      "platform": "linux-or-wsl",
-      "disposition": "migrated",
-      "executable": false,
-      "source_sha256": "43054bda83410ac126f3bca43c6b682abab069e0f3bc5c4afa8a4fe3b06bbfa2"
+      "source_sha256": "d353e5be3a94e83fe5a7e953f9098a6da4878b37c75019fef4149d63212f9b30",
+      "notes": "Exact content copy of the current machine Git configuration after a credential scan."
     },
     {
       "legacy_path": ".tmux.conf",
@@ -47,8 +30,8 @@
       "platform": "linux-or-wsl",
       "disposition": "migrated",
       "executable": false,
-      "source_sha256": "f0124448571e26727be735881ab1fee67e33f56efbb3bd9335bb549ffe55091f",
-      "notes": "Uses the current machine status bar; no Powerline source is loaded."
+      "source_sha256": "306a5cd54f2a1f3bf07aac4da1c4b262f11fdff8226155e2b883e4c2fa0ece4d",
+      "notes": "Exact content copy of the current machine tmux configuration after a credential scan."
     },
     {
       "legacy_path": ".config/nvim/",
@@ -58,15 +41,6 @@
       "disposition": "migrated",
       "executable": false,
       "notes": "Imported from the current machine after a credential scan; replaces legacy Vim migration."
-    },
-    {
-      "legacy_path": "cdhist.sh",
-      "chezmoi_source": "chezmoi/dot_local/share/dotfiles/cdhist.sh",
-      "target": "~/.local/share/dotfiles/cdhist.sh",
-      "platform": "linux-or-wsl",
-      "disposition": "migrated",
-      "executable": false,
-      "source_sha256": "1d3d182310e0c7a416fedad588c04d80ad67b88154c1f10c311e7a26c4ae3b89"
     },
     {
       "legacy_path": "current-machine:.local/bin/co",

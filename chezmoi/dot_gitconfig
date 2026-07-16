@@ -1,37 +1,151 @@
-[user]
-    name = Ansel Santosa
-    email = anstosa@users.noreply.github.com
-[color]
-    ui = auto
+[core]
+    editor = vim
+	pager = delta
+    excludesfile = ~/.gitignore
+	untrackedCache = true
+
+[difftool "vscode"]
+    cmd = code --wait --diff $LOCAL $REMOTE
+
+[merge]
+    tool = vscode
+
+[mergetool "vscode"]
+    cmd = code --wait $MERGED
+
+[delta]
+    features = decorations
+	navigate = true
+	side-by-side = false
+
+[delta "interactive"]
+    keep-plus-minus-markers = false
+
+[delta "decorations"]
+    commit-decoration-style = blue ol
+    commit-style = raw
+    file-style = omit
+    hunk-header-decoration-style = blue box
+    hunk-header-file-style = red
+    hunk-header-line-number-style = "#067a00"
+    hunk-header-style = file line-number
+
 [alias]
-    a = add
-    aa = add -A .
-    ad = ls-files --deleted | xargs git rm
-    br = branch
-    c = commit
-    ca = commit --amend
+    # List things
+    tags = tag -l
+    branches = branch -a
+    remotes = remote -v
+
+    # Shorten common commands
     co = checkout
+    s = status
+    br = branch --sort=-committerdate
+    c = commit
+    a = add
+    aa = add --all
     d = diff
     dc = diff --cached
-    dump = cat-file -p
-    ff = merge --ff-only
-    hist = log --pretty=format:\"%C(yellow)%h %C(blue)%ad %C(red)%d %C(reset)%s%d %C(green)[%an]\" --decorate --graph --date=short
-    l = log
-    lv = log --pretty=fuller
-    rv = review -R -y
-    s = status -sb
-    type = cat-file -t
-    week = log --since=1.weeks --author=ansel
-[core]
-    autocrlf = false
-    eol = lf
-    pager = bash -lc 'diff-highlight | strip_diff_leading_symbols | less -F -R -X -x1,5' -
-	editor = vim
+    ca = commit --amend
+    wt = worktree add
+
+    # Delete local branches already merged into current branch
+    cleanup = "!f(){ \
+    base=${1:-main}; \
+    git fetch --prune origin || exit 1; \
+    git checkout \"$base\" || exit 1; \
+    git pull --ff-only || exit 1; \
+    git for-each-ref --format='%(refname:short)' refs/heads | \
+      grep -E -v \"^(${base}|master|develop)$\" | \
+      grep -E -v '^release/' | \
+      while IFS= read -r b; do \
+        git show-ref --verify --quiet \"refs/remotes/origin/$b\" || continue; \
+        if git merge-base --is-ancestor \"$b\" \"$base\"; then \
+          echo \"Deleting (merged) $b\"; \
+          git branch -d \"$b\"; \
+        else \
+          git cherry \"$base\" \"$b\" | grep -q '^+' && continue; \
+          echo \"Deleting (squash-merged) $b\"; \
+          git branch -D \"$b\"; \
+        fi; \
+      done; \
+  }; f"
+
+
+    # Log that shows titles of last 16 commits
+    l = log -16 --color=always --all --topo-order --pretty='%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+
+    # Log that starts a pager with titles of all the commits in your tree
+    ll = log --color=always --all --topo-order --pretty='%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+
+    # Log that shows the last 10 commits as a graph
+    lg = log -10 --color=always --all --graph --topo-order --pretty='%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+
+    # Log that shows all commits as a graph (using a pager)
+    lgl = log --color=always --all --graph --topo-order --pretty='%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+
+    # Show outgoing commits
+    out = log @{u}..
+
+    # Print the title of the current branch; sometimes useful for scripting
+    currentbranch = "!git branch --contains HEAD | grep '*' | tr -s ' ' | cut -d ' ' -f2"
+
+    # Better diffs for prose
+    wdiff = diff --color-words
+
+    # Safer pulls; don't do anything other than a fast forward on merge
+    pull = pull --ff-only
+
+    # Amend last commit without modifying commit message
+    amend = "!git log -n 1 --pretty=tformat:%s%n%n%b | git commit -F - --amend"
+
+    # Create a commit that will be automatically squashed as a fixup when you
+    # run `git rebase --autosquash`
+    fixup = commit --fixup=HEAD
+
+    hist = log --pretty=format:'%C(yellow)[%ad]%C(reset) %C(green)[%h]%C(reset) | %C(red)%s %C(bold red){{%an}}%C(reset) %C(blue)%d%C(reset)' --graph --date=short
+	dpr = "!f() { base=origin/HEAD; if [ $# -gt 0 ] && git rev-parse --verify --quiet \"$1^{commit}\" >/dev/null; then base=$1; shift; fi; mb=$(git merge-base HEAD \"$base\") || exit; git diff \"$@\" \"$mb\" HEAD; }; f"
+	dt = diff -- . :(exclude)**/test_*.py :(exclude)**/*.test.*
+	dct = diff --cached -- . :(exclude)**/test_*.py :(exclude)**/*.test.*
+	detach = !git fetch origin && git checkout --detach origin/main
+
+[user]
+    email = ansel@readysetpotato.com
+    name = Ansel Santosa
+
+[pull]
+    rebase = true
+
+[fetch]
+    prune = true
+
+[diff]
+    tool = vscode
+
 [push]
-    default = upstream
-[branch]
-    autosetuprebase = always
+    default = current
+	autoSetupRemote = true
+
+[filter "lfs"]
+    clean = git-lfs clean -- %f
+    smudge = git-lfs smudge -- %f
+    process = git-lfs filter-process
+    required = true
+
+[url "git@github.com:"]
+    insteadOf = https://github.com/
+
+[advice]
+    skippedCherryPicks = false
+
+[submodule]
+    recurse = false
+
+[include]
+    path = potato/simulation-infra/dotfiles/.gitconfig
+
+[checkout]
+	defaultRemote = origin
 [interactive]
-	diffFilter = diff-highlight
-[log]
-	date = local
+	diffFilter = delta --color-only
+[credential "https://git.heroku.com"]
+	helper = !heroku git:credentials

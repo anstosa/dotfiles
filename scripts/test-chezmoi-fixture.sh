@@ -54,6 +54,9 @@ audit_apply() {
     test ! -e "$HOME/.vim"
     test ! -e "$HOME/.config/powerline"
     test ! -e "$HOME/.local/bin/diff-highlight"
+    test ! -e "$HOME/.inputrc"
+    test ! -e "$HOME/.pystartup"
+    test ! -e "$HOME/.local/share/dotfiles/cdhist.sh"
 }
 
 audit_apply

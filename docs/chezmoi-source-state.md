@@ -6,7 +6,7 @@ rewritten by this change.
 
 ## Supported targets
 
-Shared shell, Git, Neovim, tmux, and helper files target Linux and WSL. The
+Shared shell, Git, Neovim, and tmux files target Linux and WSL. The
 Neovim source was imported from this machine's `~/.config/nvim` after a
 credential scan. It replaces the legacy Vim configuration.
 
@@ -15,11 +15,10 @@ The source also manages the current machine's locally authored executables in
 package entry points, Codex's built-in `.system` skills, and transient `.omx`
 skill state are intentionally excluded. `swap` preserves its owner-only mode.
 
-The Bash template changes only the `cdhist.sh` helper source location to
-`~/.local/share/dotfiles`, where this source state manages it. Its prompt is
-the current machine's Debian-style Bash prompt; it has no Powerline dependency.
-The tmux source retains existing keybindings while using the current machine's
-status-bar presentation.
+The Bash, Git, and tmux source files are exact content copies of the current
+machine after a credential scan. This preserves current shell behavior, Git
+aliases, tmux keybindings, and status presentation rather than retaining the
+legacy repository versions.
 
 ## Safe preview
 
@@ -54,7 +53,8 @@ are documented in [the migration cutover and rollback guide](migration-cutover-a
 
 The source contains no `run_` scripts, hooks, package installation, bootstrap
 commands, or encrypted private content. i3, legacy Vim, tmuxinator, Powerline,
-diff-highlight, Font Awesome, fonts, and fzf are intentionally absent. The
+diff-highlight, Font Awesome, fonts, fzf, inputrc, Python startup, and cdhist
+are intentionally absent. The
 owner explicitly removed the `private` Gitlink without inspection, decryption,
 or migration. The old destructive `install.sh` remains in the legacy tree and
 is not run.

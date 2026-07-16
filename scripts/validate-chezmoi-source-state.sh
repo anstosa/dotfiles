@@ -36,9 +36,8 @@ if find "$source_root" -name private -print -quit | grep -q .; then
     exit 1
 fi
 
-# The rendered Bash source is a template, while the remaining files are managed
-# scripts. Parse every Bash script in the source state without executing it.
-bash -n "$source_root/dot_bashrc.tmpl"
+# Parse managed Bash scripts without executing them.
+bash -n "$source_root/dot_bashrc"
 while IFS= read -r -d '' path; do
     if head -n 1 "$path" | grep -q 'bash'; then
         bash -n "$path"
