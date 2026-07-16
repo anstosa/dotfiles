@@ -57,6 +57,14 @@ Run the static policy check without touching `$HOME`:
 scripts/validate-chezmoi-source-state.sh
 ```
 
+The validator also checks the versioned age policy, including the blocked
+`private` Gitlink. Its companion mutation test proves that changing a migrated
+source artifact is rejected against the manifest's recorded digest:
+
+```bash
+scripts/test-source-manifest-mutation.sh
+```
+
 Run the isolated fixture suite only after installing ChezMoi separately. It creates a
 temporary home, all XDG directories, ChezMoi state, and `TMPDIR`; it never reads or
 writes your actual home directory. Set `CHEZMOI_BIN` to test a non-default binary.

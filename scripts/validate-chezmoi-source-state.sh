@@ -5,10 +5,12 @@ set -euo pipefail
 repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 source_root="$repo_root/chezmoi"
 manifest="$repo_root/migration/chezmoi-manifest.json"
+encrypted_inventory="$repo_root/migration/encrypted-file-inventory.json"
 safe_apply="$repo_root/scripts/chezmoi-safe-apply.sh"
 
 test -d "$source_root"
 test -f "$manifest"
+test -f "$encrypted_inventory"
 test -x "$safe_apply"
 bash -n "$safe_apply"
 
@@ -52,7 +54,25 @@ from pathlib import Path
 root = Path(sys.argv[1])
 source_root = root / "chezmoi"
 manifest = json.loads((root / "migration/chezmoi-manifest.json").read_text())
+encrypted_inventory = json.loads(
+    (root / "migration/encrypted-file-inventory.json").read_text()
+)
 assert manifest["schema_version"] == 1
+assert encrypted_inventory["schema_version"] == 1
+assert encrypted_inventory["encryption"] == "age"
+assert isinstance(encrypted_inventory["approved_entries"], list)
+assert encrypted_inventory["key_recovery_policy"].strip()
+private_gitlink = encrypted_inventory["private_gitlink"]
+assert private_gitlink["disposition"] == "blocked-not-inspected"
+assert private_gitlink["reason"].strip()
+
+for entry in encrypted_inventory["approved_entries"]:
+    assert entry["source"].startswith("chezmoi/"), "encrypted source is outside ChezMoi state"
+    assert entry["source"].split("/")[-1].startswith("encrypted_"), (
+        "approved encrypted source must use ChezMoi encrypted_ attribute"
+    )
+    assert entry["recipient"].startswith("age1"), "invalid age recipient"
+
 entries = manifest["entries"]
 assert any(
     entry["legacy_path"] == "private"
