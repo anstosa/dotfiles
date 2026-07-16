@@ -4,6 +4,15 @@ This guide describes the decision boundary between the preserved legacy
 baseline and a future ChezMoi cutover. It does not authorize a cutover, remove
 legacy files, inspect `private`, or change any source mapping.
 
+Run the non-destructive readiness check before preparing an approval record:
+
+```bash
+scripts/check-cutover-readiness.py
+```
+
+It exits non-zero and lists each missing or stale gate. It never changes the
+repository or a home directory.
+
 ## Current state
 
 The repository is still in the preparation phase. The root-level dotfiles and
