@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "validated_at": "2026-07-16T19:16:12Z",
+  "validated_at": "2026-07-16T19:44:10Z",
   "scope": "Final approved ChezMoi cutover repository state and guarded local apply.",
   "checks": [
     {
@@ -38,6 +38,10 @@
     {
       "command": "chezmoi --source chezmoi --destination \"$HOME\" apply --dry-run --verbose",
       "result": "pass: local state idempotent after guarded apply"
+    },
+    {
+      "command": "./status.sh",
+      "result": "pass: cutover ready and local ChezMoi status clean"
     }
   ]
 }

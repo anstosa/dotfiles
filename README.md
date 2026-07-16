@@ -46,6 +46,12 @@ validated, guarded installation flow:
 
 Do not invoke `chezmoi apply --force` or a direct apply for this repository.
 
+To check the cutover evidence and report local drift without changing anything:
+
+```bash
+./status.sh
+```
+
 ## New machine
 
 Clone a revision that contains the published commits, then run:

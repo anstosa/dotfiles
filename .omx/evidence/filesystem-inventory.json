@@ -19,9 +19,9 @@
       "type": "file",
       "classification": "tracked",
       "disposition": "documentation",
-      "size": 2772,
+      "size": 2878,
       "mode": "0644",
-      "sha256": "d52d65a820ecab0cfa18328f7d5dbf1c11bcd679938f53a6b0264b991cc41fa6"
+      "sha256": "d862908e8da0a73c0dde5143a9e4bbb77eab37c566de30d9f89d9275e9fd43ab"
     },
     {
       "path": "chezmoi",
@@ -1467,9 +1467,9 @@
       "type": "file",
       "classification": "tracked",
       "disposition": "validation-or-bootstrap",
-      "size": 861,
+      "size": 1022,
       "mode": "0755",
-      "sha256": "09996bc6d449b5161f6bcfdb000866ffd85b557122e7b9247a22cc7b5724877a"
+      "sha256": "ae6538b1e644d5533c0138e1f44392a17fdde6635cba564e40aa1a0235f65b60"
     },
     {
       "path": "scripts/test-chezmoi-fixture.sh",
@@ -1499,6 +1499,15 @@
       "sha256": "47873275f866ec2624276625a8288c935105bc4de251460f471f9cc3130634ad"
     },
     {
+      "path": "status.sh",
+      "type": "file",
+      "classification": "tracked",
+      "disposition": "repository-supporting",
+      "size": 1295,
+      "mode": "0755",
+      "sha256": "b12d78a481c0d09cbad309142ee0d57fea63c850a01c3d61c4e66216fca5b5e2"
+    },
+    {
       "path": "update.sh",
       "type": "file",
       "classification": "tracked",
@@ -1509,8 +1518,8 @@
     }
   ],
   "summary": {
-    "entries": 174,
-    "tracked": 111,
+    "entries": 175,
+    "tracked": 112,
     "untracked": 63,
     "ignored": 0
   }
