@@ -1,0 +1,7 @@
+
+# >>> omx-lag-guard >>>
+# OMX lag guard: keep live HUD watch panes and notify fallback watchers disabled.
+export OMX_NOTIFY_FALLBACK=0
+export OMX_DISABLE_HUD=1
+export OMX_STATUS_PANE=0
+# <<< omx-lag-guard <<<

@@ -38,6 +38,11 @@ fi
 
 # Parse managed Bash scripts without executing them.
 bash -n "$source_root/dot_bashrc"
+bash -n "$source_root/dot_bash_aliases"
+bash -n "$source_root/dot_bash_env"
+zsh -n "$source_root/dot_zshenv"
+zsh -n "$source_root/dot_zprofile"
+zsh -n "$source_root/dot_zshrc"
 while IFS= read -r -d '' path; do
     if head -n 1 "$path" | grep -q 'bash'; then
         bash -n "$path"

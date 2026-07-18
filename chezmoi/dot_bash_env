@@ -1,0 +1,25 @@
+# ~/.bash_env: loaded by non-interactive bash shells via BASH_ENV.
+# Keep this side-effect-light so command runners get aliases without prompts.
+shopt -s expand_aliases 2>/dev/null || true
+
+# shared aliases
+if [ -f "$HOME/.bash_aliases" ]; then
+  . "$HOME/.bash_aliases"
+fi
+
+# potato wrapper
+unalias potato >/dev/null 2>&1 || true
+potato() {
+  local potato_script="${POTATO_SCRIPT:-$HOME/deploy/potato.sh}"
+
+  # shell-local cd
+  if [ "${1:-}" = "cd" ]; then
+    shift
+    local target
+    target=$("$potato_script" cd --print "$@") || return $?
+    cd "$target" || return $?
+    return 0
+  fi
+
+  "$potato_script" "$@"
+}

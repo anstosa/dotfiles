@@ -1,0 +1,27 @@
+# ~/.config/lazygit/config.yml
+gui:
+  nerdFontsVersion: "3"
+  showFileIcons: true
+  showCommandLog: false
+  border: single
+
+git:
+  pagers:
+    - colorArg: always
+      pager: delta --dark --paging=never
+
+os:
+  editPreset: vim
+
+keybinding:
+  universal:
+    prevItem: k
+    nextItem: j
+    prevItem-alt: <up>
+    nextItem-alt: <down>
+    prevBlock: h
+    nextBlock: l
+    prevBlock-alt: <left>
+    nextBlock-alt: <right>
+
+confirmOnQuit: true

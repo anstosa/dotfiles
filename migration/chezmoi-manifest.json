@@ -14,6 +14,56 @@
       "notes": "Exact content copy of the current machine Bash configuration after a credential scan."
     },
     {
+      "legacy_path": "current-machine:.bash_aliases",
+      "chezmoi_source": "chezmoi/dot_bash_aliases",
+      "target": "~/.bash_aliases",
+      "platform": "linux-or-wsl",
+      "disposition": "migrated",
+      "executable": false,
+      "source_sha256": "e51342ec54992dd9788d33e70014f778f429dc9f427db9b8edbfbd3d4f10a3d2",
+      "notes": "Exact content copy of the current machine's shared Bash aliases and shell functions after a credential scan; it is sourced by both Bash and Zsh."
+    },
+    {
+      "legacy_path": "current-machine:.bash_env",
+      "chezmoi_source": "chezmoi/dot_bash_env",
+      "target": "~/.bash_env",
+      "platform": "linux-or-wsl",
+      "disposition": "migrated",
+      "executable": false,
+      "source_sha256": "13b68cd7b15a0aef30cd324bbb2fb5dc6123b1e832ea50eccbee48f12a397c1a",
+      "notes": "Non-interactive Bash environment sourced through BASH_ENV."
+    },
+    {
+      "legacy_path": "current-machine:.zshrc",
+      "chezmoi_source": "chezmoi/dot_zshrc",
+      "target": "~/.zshrc",
+      "platform": "linux-or-wsl",
+      "disposition": "migrated",
+      "executable": false,
+      "source_sha256": "f3c2cada148c5853ffc557b18890fafb18071de62d35d5e055b736e7bf87c17e",
+      "notes": "Primary interactive shell configuration."
+    },
+    {
+      "legacy_path": "current-machine:.zprofile",
+      "chezmoi_source": "chezmoi/dot_zprofile",
+      "target": "~/.zprofile",
+      "platform": "linux-or-wsl",
+      "disposition": "migrated",
+      "executable": false,
+      "source_sha256": "5b0f407301d221e33033911044840d59c12528db87df576f32c9efe8eb2eecfb",
+      "notes": "Zsh login-shell environment configuration."
+    },
+    {
+      "legacy_path": "current-machine:.zshenv",
+      "chezmoi_source": "chezmoi/dot_zshenv",
+      "target": "~/.zshenv",
+      "platform": "linux-or-wsl",
+      "disposition": "migrated",
+      "executable": false,
+      "source_sha256": "f741f4068e3ee676789c31fd324e27ddda940af71d6037b9b8e4c15d42a7a884",
+      "notes": "Zsh environment flags for OMX integration."
+    },
+    {
       "legacy_path": ".gitconfig",
       "chezmoi_source": "chezmoi/dot_gitconfig",
       "target": "~/.gitconfig",
@@ -22,6 +72,16 @@
       "executable": false,
       "source_sha256": "d353e5be3a94e83fe5a7e953f9098a6da4878b37c75019fef4149d63212f9b30",
       "notes": "Exact content copy of the current machine Git configuration after a credential scan."
+    },
+    {
+      "legacy_path": "current-machine:.gitignore",
+      "chezmoi_source": "chezmoi/dot_gitignore",
+      "target": "~/.gitignore",
+      "platform": "linux-or-wsl",
+      "disposition": "migrated",
+      "executable": false,
+      "source_sha256": "5746be532c102b6c1b00afa1467e66c31d4a7eacac25076d216d729274d6a66e",
+      "notes": "Global Git excludes file referenced by ~/.gitconfig."
     },
     {
       "legacy_path": ".tmux.conf",
@@ -43,6 +103,36 @@
       "notes": "Imported from the current machine after a credential scan; replaces legacy Vim migration."
     },
     {
+      "legacy_path": "current-machine:.config/atuin/config.toml",
+      "chezmoi_source": "chezmoi/dot_config/atuin/private_config.toml",
+      "target": "~/.config/atuin/config.toml",
+      "platform": "linux-or-wsl",
+      "disposition": "migrated",
+      "executable": false,
+      "source_sha256": "bf08510110228e816fc063643b8ad0a8f0e2a53e8a79d4e1cc6a71c93e4befed",
+      "notes": "Atuin preferences only; stored with ChezMoi private permissions because the local file is owner-readable."
+    },
+    {
+      "legacy_path": "current-machine:.config/lazygit/config.yml",
+      "chezmoi_source": "chezmoi/dot_config/lazygit/config.yml",
+      "target": "~/.config/lazygit/config.yml",
+      "platform": "linux-or-wsl",
+      "disposition": "migrated",
+      "executable": false,
+      "source_sha256": "5b7244e77ca218628444753fc1c824d112229e1cccb4904c60c582b6bd5a1b9f",
+      "notes": "Lazygit interaction and pager preferences."
+    },
+    {
+      "legacy_path": "current-machine:.config/btop/btop.conf",
+      "chezmoi_source": "chezmoi/dot_config/btop/btop.conf",
+      "target": "~/.config/btop/btop.conf",
+      "platform": "linux-or-wsl",
+      "disposition": "migrated",
+      "executable": false,
+      "source_sha256": "6b475e0423140ba0a044001d34b563355b8e60624aade1314e3d19fb53c4d6f7",
+      "notes": "btop display preferences."
+    },
+    {
       "legacy_path": "current-machine:.local/bin/co",
       "chezmoi_source": "chezmoi/dot_local/bin/executable_co",
       "target": "~/.local/bin/co",
@@ -51,6 +141,46 @@
       "executable": true,
       "source_sha256": "bdc86a8388d29287bcf57fc91f493c6ec66832af3dc35caf511342c101fd4b19",
       "notes": "Imported from the current machine after a credential scan."
+    },
+    {
+      "legacy_path": "current-machine:address",
+      "chezmoi_source": "chezmoi/executable_address",
+      "target": "~/address",
+      "platform": "linux-or-wsl",
+      "disposition": "migrated",
+      "executable": true,
+      "source_sha256": "041fd97a101156d5970c6f81d80a5cb82cb2ac12c7cdfa0a2be8c49e7e99fd32",
+      "notes": "Codex PR-address workflow launcher retained at its alias-referenced path."
+    },
+    {
+      "legacy_path": "current-machine:cifix",
+      "chezmoi_source": "chezmoi/executable_cifix",
+      "target": "~/cifix",
+      "platform": "linux-or-wsl",
+      "disposition": "migrated",
+      "executable": true,
+      "source_sha256": "b361712e19a3223a7046dbadf3c9ec5b9d6ae6bc543e1988d6247d51a8f274b7",
+      "notes": "Codex PR-CI workflow launcher retained at its alias-referenced path."
+    },
+    {
+      "legacy_path": "current-machine:potato-env.sh",
+      "chezmoi_source": "chezmoi/executable_potato-env.sh",
+      "target": "~/potato-env.sh",
+      "platform": "linux-or-wsl",
+      "disposition": "migrated",
+      "executable": true,
+      "source_sha256": "e204f7e3e0a8199bbcfa58dd9949c9e436c17a5f445420c1a3fb5dbd7a51cd58",
+      "notes": "Tmux worktree-session launcher retained at its alias-referenced path."
+    },
+    {
+      "legacy_path": "current-machine:potato-worktree.sh",
+      "chezmoi_source": "chezmoi/executable_potato-worktree.sh",
+      "target": "~/potato-worktree.sh",
+      "platform": "linux-or-wsl",
+      "disposition": "migrated",
+      "executable": true,
+      "source_sha256": "59cefa2952688d2e7456902316205be5ef6020f0e8a1fc529507034d8b423d0d",
+      "notes": "Simulation-infra worktree helper."
     },
     {
       "legacy_path": "current-machine:.local/bin/codex",

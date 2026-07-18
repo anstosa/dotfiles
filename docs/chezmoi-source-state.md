@@ -6,17 +6,20 @@ rewritten by this change.
 
 ## Supported targets
 
-Shared shell, Git, Neovim, and tmux files target Linux and WSL. The
-Neovim source was imported from this machine's `~/.config/nvim` after a
-credential scan. It replaces the legacy Vim configuration.
+Shared Bash and Zsh shell files, Git, Neovim, tmux, Atuin, lazygit, and btop
+files target Linux and WSL. The Neovim source was imported from this machine's
+`~/.config/nvim` after a credential scan. It replaces the legacy Vim
+configuration.
 
 The source also manages the current machine's locally authored executables in
-`~/.local/bin` and user-installed Codex skills in `~/.codex/skills`. Generated
-package entry points, Codex's built-in `.system` skills, and transient `.omx`
-skill state are intentionally excluded. `swap` preserves its owner-only mode.
+`~/.local/bin`, root-level workflow launchers used by the shell aliases, and
+user-installed Codex skills in `~/.codex/skills`. Generated package entry
+points, Codex's built-in `.system` skills, and transient `.omx` skill state
+are intentionally excluded. `swap` preserves its owner-only mode.
 
-The Bash, Git, and tmux source files are exact content copies of the current
-machine after a credential scan. This preserves current shell behavior, Git
+The Bash, shared Bash aliases, Git, and tmux source files are exact content
+copies of the current machine after a credential scan. The shared aliases are
+sourced by both Bash and Zsh. This preserves current shell behavior, Git
 aliases, tmux keybindings, and status presentation rather than retaining the
 legacy repository versions.
 

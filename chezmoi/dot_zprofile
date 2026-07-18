@@ -1,0 +1,15 @@
+# ~/.zprofile — login-shell setup for zsh
+export OMX_STATUS_PANE="0"
+
+export HOMEBREW_PREFIX="/home/linuxbrew/.linuxbrew"
+if [[ -x "$HOMEBREW_PREFIX/bin/brew" ]]; then
+  eval "$("$HOMEBREW_PREFIX/bin/brew" shellenv)"
+fi
+
+# Preserve familiar per-user binary paths for login shells.
+[[ -d "$HOME/bin" ]] && path=("$HOME/bin" $path)
+[[ -d "$HOME/.local/bin" ]] && path=("$HOME/.local/bin" $path)
+export PATH
+
+[[ -f "$HOME/.atuin/bin/env" ]] && source "$HOME/.atuin/bin/env"
+export PATH="/home/linuxbrew/.linuxbrew/opt/libpq/bin:$PATH"

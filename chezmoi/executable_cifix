@@ -1,0 +1,90 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+usage() {
+  cat >&2 <<'USAGE'
+Usage: cifix [pr-url|branch-name]
+
+Launches the codex alias with the $pr-ci-fix skill.
+- No argument: runs `$pr-ci-fix` on the current branch.
+- PR URL: checks out the PR with `gh pr checkout <url>` and runs `$pr-ci-fix <url>`.
+- Branch: switches to the local branch or origin/<branch> and runs `$pr-ci-fix`.
+
+Refuses to switch branches if the current worktree has uncommitted changes.
+USAGE
+}
+
+if [[ $# -gt 1 ]]; then
+  usage
+  exit 2
+fi
+
+target=${1:-}
+
+repo_root=$(git rev-parse --show-toplevel 2>/dev/null) || {
+  echo "error: not inside a git repository" >&2
+  exit 1
+}
+cd "$repo_root"
+
+user_shell=${SHELL:-/bin/bash}
+if [[ ! -x "$user_shell" ]]; then
+  echo "error: user shell is not executable: $user_shell" >&2
+  exit 1
+fi
+
+if ! "$user_shell" -ic 'type codex >/dev/null 2>&1'; then
+  echo "error: codex command or alias not found in interactive shell: $user_shell" >&2
+  exit 1
+fi
+
+is_github_pr_url() {
+  [[ $1 =~ ^https://github\.com/[^/]+/[^/]+/pull/[0-9]+([/?#].*)?$ ]]
+}
+
+if [[ -z "$target" ]]; then
+  codex_prompt='$pr-ci-fix'
+else
+  if [[ -n $(git status --porcelain=v1 --untracked-files=normal) ]]; then
+    echo "error: worktree has uncommitted changes; refusing to switch branches" >&2
+    git status --short --branch >&2
+    exit 1
+  fi
+
+  if is_github_pr_url "$target"; then
+    if ! command -v gh >/dev/null 2>&1; then
+      echo "error: gh CLI is required to check out PR URLs" >&2
+      exit 1
+    fi
+
+    gh pr checkout "$target"
+    codex_prompt='$pr-ci-fix '
+    codex_prompt+="$target"
+  else
+    if ! git check-ref-format --branch "$target" >/dev/null 2>&1; then
+      echo "error: invalid branch name or unsupported PR URL: $target" >&2
+      exit 2
+    fi
+
+    if ! git remote get-url origin >/dev/null 2>&1; then
+      echo "error: git remote 'origin' is not configured" >&2
+      exit 1
+    fi
+
+    git fetch origin
+
+    if git show-ref --verify --quiet "refs/heads/$target"; then
+      git switch "$target"
+    elif git show-ref --verify --quiet "refs/remotes/origin/$target"; then
+      git switch --track -c "$target" "origin/$target"
+    else
+      echo "error: branch not found locally or on origin: $target" >&2
+      exit 1
+    fi
+
+    codex_prompt='$pr-ci-fix'
+  fi
+fi
+
+# Run through the user's interactive shell so their codex alias/function is used.
+exec "$user_shell" -ic 'codex "$@"' cifix "$codex_prompt"

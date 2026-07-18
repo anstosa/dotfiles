@@ -1,0 +1,263 @@
+alias master='ssh admin@192.168.11.10'
+#alias server='ssh admin@192.168.11.12'
+#alias server='ssh admin@192.168.222.211'
+alias server='ssh admin@office.santosa.family'
+alias lychee='ssh lychee'
+alias raspberry='ssh raspberry'
+
+alias website='cd ~/potato-website'
+alias zero='__potato_enter_worktree "$HOME/cora" "Cora"'
+alias cora='__potato_enter_worktree "$HOME/cora" "Cora"'
+alias one='__potato_enter_worktree "$HOME/owen" "Owen"'
+alias owen='__potato_enter_worktree "$HOME/owen" "Owen"'
+alias two='__potato_enter_worktree "$HOME/dave" "Dave"'
+alias dave='__potato_enter_worktree "$HOME/dave" "Dave"'
+alias three='__potato_enter_worktree "$HOME/eric" "Eric"'
+alias eric='__potato_enter_worktree "$HOME/eric" "Eric"'
+alias four='__potato_enter_readonly_worktree "$HOME/alex" "Alex"'
+
+# replace stale alias
+unalias alex 2>/dev/null || true
+
+# launch alex codex
+function alex {
+  local codex_launcher="$HOME/.local/bin/codex-with-worktree-greeting"
+  local initial_prompt="$*"
+
+  __potato_enter_readonly_worktree "$HOME/alex" "Alex" || return
+
+  # forward prompt
+  if [ "$#" -gt 0 ]; then
+    "$codex_launcher" "$initial_prompt"
+  else
+    "$codex_launcher"
+  fi
+}
+alias work='~/potato-env.sh'
+
+# refresh detached head
+__potato_refresh_detached_worktree() {
+  local worktree_dir="$1"
+
+  git -C "$worktree_dir" fetch origin &&
+    git -C "$worktree_dir" checkout --detach origin/main
+}
+
+# enter named worktree
+__potato_enter_worktree() {
+  local worktree_dir="$1"
+  local worktree_name="$2"
+  local update_status=0
+
+  # require worktree
+  if [ ! -f "$worktree_dir/.git" ] && [ ! -d "$worktree_dir/.git" ]; then
+    printf '%s\n' "$worktree_name: missing worktree at $worktree_dir" >&2
+    return 1
+  fi
+
+  __potato_refresh_detached_worktree "$worktree_dir"
+  update_status=$?
+
+  # stop on refresh failure
+  if [ "$update_status" -ne 0 ]; then
+    return "$update_status"
+  fi
+
+  cd "$worktree_dir" || return
+  printf '%s\n' "$worktree_name worktree refreshed at detached origin/main."
+}
+
+# mark alex writable
+__potato_alex_writable() {
+  chmod -R u+w "$HOME/alex" 2>/dev/null || true
+}
+
+# mark alex read-only
+__potato_alex_readonly() {
+  chmod -R a-w "$HOME/alex" 2>/dev/null || true
+}
+
+# enter read-only worktree
+__potato_enter_readonly_worktree() {
+  local worktree_dir="$1"
+  local worktree_name="$2"
+  local update_status=0
+
+  # require worktree
+  if [ ! -f "$worktree_dir/.git" ] && [ ! -d "$worktree_dir/.git" ]; then
+    printf '%s\n' "$worktree_name: missing worktree at $worktree_dir" >&2
+    return 1
+  fi
+
+  flock "$HOME/.alex-refresh.lock" sh -c '
+    worktree_dir="$1"
+    chmod -R u+w "$worktree_dir" 2>/dev/null || true
+    git -C "$worktree_dir" fetch origin &&
+      git -C "$worktree_dir" checkout --detach origin/main
+    update_status=$?
+    chmod -R a-w "$worktree_dir" 2>/dev/null || true
+    exit "$update_status"
+  ' sh "$worktree_dir"
+  update_status=$?
+
+  # stop on refresh failure
+  if [ "$update_status" -ne 0 ]; then
+    return "$update_status"
+  fi
+
+  cd "$worktree_dir" || return
+  printf '%s\n' "$worktree_name read-only worktree refreshed at detached origin/main."
+}
+
+alias htop='btop'
+alias vim='nvim'
+
+alias detach='git detach && clear'
+alias codex='/home/ubuntu/.local/bin/codex-with-worktree-greeting'
+alias resume='codex resume --last'
+
+# Start a fresh branch from origin/main and launch Codex.
+alias new='/home/ubuntu/.local/bin/new'
+
+# Switch to a PR/branch and launch Codex with the $address skill.
+alias address='/home/ubuntu/address'
+
+# Switch to a PR/branch and launch Codex with the $ci-and-fix skill.
+alias cifix='/home/ubuntu/cifix'
+
+# update local package managers
+update() {
+  # update apt
+  if command -v apt >/dev/null 2>&1; then
+    printf '%s\n' '==> apt: update package lists'
+    sudo apt update &&
+      printf '%s\n' '==> apt: repair broken packages' &&
+      sudo apt -f install -y &&
+      printf '%s\n' '==> apt: check upgradable packages' &&
+      apt list --upgradable &&
+      printf '%s\n' '==> apt: full-upgrade packages' &&
+      sudo apt full-upgrade -y &&
+      printf '%s\n' '==> apt: autoremove stale packages' &&
+      sudo apt autoremove -y &&
+      printf '%s\n' '==> apt: autoclean package cache' &&
+      sudo apt autoclean -y
+  else
+    printf '%s\n' '==> apt: skipped, command not found'
+  fi
+
+  # update brew
+  if command -v brew >/dev/null 2>&1; then
+    printf '%s\n' '==> brew: update formulae'
+    brew update &&
+      printf '%s\n' '==> brew: check outdated packages' &&
+      brew outdated &&
+      printf '%s\n' '==> brew: upgrade packages' &&
+      brew upgrade &&
+      printf '%s\n' '==> brew: cleanup old versions' &&
+      brew cleanup
+  else
+    printf '%s\n' '==> brew: skipped, command not found'
+  fi
+
+  # update node lts
+  if command -v n >/dev/null 2>&1; then
+    printf '%s\n' '==> n: install latest Node LTS'
+    n lts
+  else
+    printf '%s\n' '==> n: skipped, command not found'
+  fi
+
+  # update npm globals
+  if command -v npm >/dev/null 2>&1; then
+    printf '%s\n' '==> npm: check global packages'
+    npm outdated -g --depth=0 || true
+    printf '%s\n' '==> npm: update global packages'
+    npm update -g
+  else
+    printf '%s\n' '==> npm: skipped, command not found'
+  fi
+}
+
+# open neovim in guided review-cockpit mode. pass an optional base ref, e.g. `review origin/develop`
+review() {
+  # validate argument count
+  if [ "$#" -gt 1 ]; then
+    printf '%s\n' 'usage: review [base-ref]' >&2
+    return 2
+  fi
+
+  # require git context
+  if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+    printf '%s\n' 'review: not inside a git repository' >&2
+    return 1
+  fi
+
+  local review_cockpit_script
+  local review_cockpit_artifact
+  local review_cockpit_base
+  review_cockpit_script="$HOME/.codex/skills/review-cockpit/scripts/generate_review_artifact.py"
+  printf '%s\n' 'review: checking review cockpit generator'
+
+  # require artifact generator
+  if [ ! -x "$review_cockpit_script" ]; then
+    printf '%s\n' "review: missing artifact generator: $review_cockpit_script" >&2
+    return 1
+  fi
+
+  # Resolve the open PR target when no base was supplied. Prefer the local
+  # remote-tracking ref so Git can calculate the real PR merge base offline.
+  if [ "$#" -eq 1 ]; then
+    review_cockpit_base="$1"
+  else
+    local review_pr_base
+    review_pr_base=$(command gh pr view --json baseRefName --jq .baseRefName 2>/dev/null)
+    if [ -n "$review_pr_base" ] && git rev-parse --verify --quiet "origin/$review_pr_base" >/dev/null; then
+      review_cockpit_base="origin/$review_pr_base"
+    elif [ -n "$review_pr_base" ] && git rev-parse --verify --quiet "$review_pr_base" >/dev/null; then
+      review_cockpit_base="$review_pr_base"
+    fi
+  fi
+  printf '%s\n' 'review: generating structured data from committed, staged, unstaged, and untracked changes'
+  if [ -n "$review_cockpit_base" ]; then
+    printf '%s\n' "review: using PR/base ref $review_cockpit_base"
+    review_cockpit_artifact=$(command python3 "$review_cockpit_script" --base "$review_cockpit_base" --print-json) || return $?
+  else
+    printf '%s\n' 'review: using default base ref'
+    review_cockpit_artifact=$(command python3 "$review_cockpit_script" --print-json) || return $?
+  fi
+  printf '%s\n' "review: structured data ready at $review_cockpit_artifact"
+  printf '%s\n' 'review: opening nvim review guide'
+  REVIEW_COCKPIT_BASE="$review_cockpit_base" REVIEW_COCKPIT_ARTIFACT="$review_cockpit_artifact" command nvim -c ReviewCockpit
+}
+
+# open neovim in raw branch-review mode. pass an optional base ref, e.g. `review-raw origin/develop`
+review-raw() {
+  # validate argument count
+  if [ "$#" -gt 1 ]; then
+    printf '%s\n' 'usage: review-raw [base-ref]' >&2
+    return 2
+  fi
+
+  # require git context
+  if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+    printf '%s\n' 'review-raw: not inside a git repository' >&2
+    return 1
+  fi
+
+  local review_cockpit_base
+
+  # launch raw diffview
+  if [ "$#" -eq 1 ]; then
+    review_cockpit_base="$1"
+  else
+    # use default base
+    review_cockpit_base=
+  fi
+  REVIEW_COCKPIT_BASE="$review_cockpit_base" command nvim -c ReviewBranch
+}
+
+# codex account switcher
+alias swap="$HOME/.local/bin/swap"
+
+# Checkout with branch-diff maintenance
+alias co="$HOME/.local/bin/co"
