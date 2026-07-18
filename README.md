@@ -1,6 +1,6 @@
 # Ansel's dotfiles
 
-This repository uses a ChezMoi-managed source state for Linux and WSL.
+This repository uses a ChezMoi-managed source state for macOS, Linux, and WSL.
 
 ## Current migration status
 
@@ -66,6 +66,10 @@ ChezMoi through Homebrew. It then performs source validation, an isolated
 fixture test, and a dry-run before the guarded apply. Package installation is
 therefore explicit to `install.sh`/`update.sh`; ordinary ChezMoi applies and
 the guarded apply wrapper never install packages.
+
+On macOS, both Apple Silicon (`/opt/homebrew`) and Intel (`/usr/local`)
+Homebrew installations are detected, including a freshly bootstrapped install
+that is not yet present in the invoking shell's `PATH`.
 
 The guarded command adopts an existing target only when it is byte-identical to
 the source; it refuses every differing target. On a machine that already has

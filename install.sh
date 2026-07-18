@@ -17,6 +17,8 @@ find_brew() {
 
     local candidate
     for candidate in \
+        /opt/homebrew/bin/brew \
+        /usr/local/bin/brew \
         /home/linuxbrew/.linuxbrew/bin/brew \
         "$HOME/.linuxbrew/bin/brew"; do
         if [[ -x "$candidate" ]]; then
@@ -27,9 +29,10 @@ find_brew() {
     return 1
 }
 
-if [[ "$(uname -s)" != "Linux" ]]; then
-    die "only Linux and WSL are supported"
-fi
+case "$(uname -s)" in
+    Darwin|Linux) ;;
+    *) die "only macOS, Linux, and WSL are supported" ;;
+esac
 
 brew_bin="$(find_brew || true)"
 if [[ -z "$brew_bin" ]]; then
